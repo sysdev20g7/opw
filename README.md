@@ -8,7 +8,7 @@ A game created in collaboration between students at ÅIS and NTNU Ålesund.
 ### Unity3d
 **Unity 2019.2.19f1 as development version**
 
-### Importing Unity for Git plugin
+#### Importing Unity for Git plugin
 1. Dowmload the Unity for Git *.unitypackage* somewhere on your computer
 1. Add a new empty project in Unity
 1. Using **[Assets] -> [Import package..]** then select your package
@@ -24,16 +24,22 @@ A game created in collaboration between students at ÅIS and NTNU Ålesund.
 1. Select the folder where you cloned your git Repo 
 1. Check that Git for Unity is working
 1. You're now ready
+1. Use Git flow for development!
 
-#### Official Github for Unity notes
-*GitHub for Unity does not have the functionality to clone projects (yet!).*
-1. Clone the repository (either through command line or with GitHub Desktop https://desktop.github.com/).
-2. Open the project in Unity.
-3. Install GitHub for Unity if it is not already installed.
-4. The GitHub plugin should load with all functionality enabled.
+## Git
+### Git Flow Settings
+`Set this in your git client (like Gitkraken)`
+```
+How to name your supporting branch prefixes?
+Feature branches? [feature/]
+Bugfix branches? [bugfix/]
+Release branches? [release/]
+Hotfix branches? [hotfix/]
+Support branches? [support/]
+Version tag prefix? []
+```
 
-
-## File locking with git-lfs
+### File locking with git-lfs
 [https://confluence.atlassian.com/bitbucketserver/working-with-git-lfs-files-970595880.html#WorkingwithGitLFSFiles-LockingandunlockingGitLFSfilesLockingandunlockingGitLFSfiles](https://confluence.atlassian.com/bitbucketserver/working-with-git-lfs-files-970595880.html#WorkingwithGitLFSFiles-LockingandunlockingGitLFSfilesLockingandunlockingGitLFSfiles)
 ### How to lock manually
 If unity is not picking up changes, you can lock a file with
