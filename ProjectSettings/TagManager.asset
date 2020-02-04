@@ -44,6 +44,3 @@ TagManager:
   - name: Ground
     uniqueID: 73816371
     locked: 0
-  - name: Layout
-    uniqueID: 4142681085
-    locked: 0
