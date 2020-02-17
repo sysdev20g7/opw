@@ -11,24 +11,24 @@ using UnityEngine;
 public class DayController : MonoBehaviour
 {
     private List<DayListener> dayListeners;
-    [SerializedField] private const float DayCycleLengthInSeconds = 600.0f;
-    [SerializedField] private DayCycle dayCycle;
+    [SerializeField] private const float DayCycleLengthInSeconds = 600.0f;
+    [SerializeField] private DayCycle dayCycle;
 
     // Start is called before the first frame update
     void Start() {
         //InvokeRepating invokes a method first after 0 seconds, then every X seconds.
         dayListeners = new List<DayListener>();
-        dayCycle = dayCycle.DayTime;
+        dayCycle = DayCycle.DayTime;
         InvokeRepeating("changeCycle", 0.0f, DayCycleLengthInSeconds);
     }
 
     //
     private void changeCycle() {
-        if (dayCycle == dayCycle.DayTime) {
-            dayCycle = dayCycle.NightTime;
+        if (dayCycle == DayCycle.DayTime) {
+            dayCycle = DayCycle.NightTime;
         }
         else {
-            dayCycle = dayCycle.DayTime;
+            dayCycle = DayCycle.DayTime;
         }
         onCycleChange();
     }
@@ -43,11 +43,11 @@ public class DayController : MonoBehaviour
     }
 
     //Adds day listeners.
-    public bool addListener(DayListner dayListner) {
-        if (dayListner == null) { 
+    public bool addListener(DayListener dayListener) {
+        if (dayListener == null) { 
             return false;
         }
-        dayListners.add(dayListner);
+        dayListeners.Add(dayListener);
         
         return true;
     }
