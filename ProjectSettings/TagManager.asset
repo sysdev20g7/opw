@@ -47,6 +47,9 @@ TagManager:
   - name: Ground2
     uniqueID: 3468878117
     locked: 0
+  - name: Ground3
+    uniqueID: 2732094125
+    locked: 0
   - name: Walls
     uniqueID: 2870784839
     locked: 0
@@ -55,6 +58,9 @@ TagManager:
     locked: 0
   - name: Layout
     uniqueID: 1632794305
+    locked: 0
+  - name: Trees2
+    uniqueID: 1592468995
     locked: 0
   - name: Trees
     uniqueID: 2395427301
