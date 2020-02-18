@@ -7,11 +7,16 @@ public class FollowBehaviour : StateMachineBehaviour
     private Transform playerPos;
     public float speed;
     public float range;
+    
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-        playerPos = GameObject.FindGameObjectWithTag("Player").transform;    
+
+        playerPos = GameObject.FindGameObjectWithTag("Player").transform;
+
     }
+
+
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
