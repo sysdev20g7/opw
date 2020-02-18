@@ -7,10 +7,12 @@ public class IdleBehaviour : StateMachineBehaviour {
     private MoveSpots patrol;
     public float speed;
     private int randomSpot;
+    private Transform player;
+    public float range;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         patrol = GameObject.FindGameObjectWithTag("PatrolSpots").GetComponent<MoveSpots>();
         randomSpot = Random.Range(0, patrol.movespots.Length);
     }
@@ -22,6 +24,10 @@ public class IdleBehaviour : StateMachineBehaviour {
         }
         else {
             randomSpot = Random.Range(0, patrol.movespots.Length);
+        }
+
+        if (Vector2.Distance(player.position, animator.transform.position) <= range) {
+            animator.SetBool("isFollowing", true);
         }
 
         if (Input.GetKeyDown(KeyCode.Space)) {

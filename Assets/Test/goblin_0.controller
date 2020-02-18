@@ -62,7 +62,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8568b83802f9deb4fa026ea6cae554e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 5
+  range: 5
 --- !u!1102 &-6636059536110301021
 AnimatorState:
   serializedVersion: 5
@@ -131,7 +132,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f51a1f0b226d35a409e9aba2f3144eab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 5
+  range: 5
 --- !u!91 &9100000
 AnimatorController:
   m_ObjectHideFlags: 0
@@ -217,3 +219,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  range: 0
