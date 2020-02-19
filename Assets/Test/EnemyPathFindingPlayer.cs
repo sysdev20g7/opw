@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
-public class EnemyPathfindingWaypoint : MonoBehaviour
+public class EnemyPathFindingPlayer : MonoBehaviour
 {
     private MoveSpots patrol;
+    public Transform target;
     public float speed;
-    private int randomSpot;
 
     public float nextWaypointDistance = 3f;
 
     Path path;
     int currentWaypoint = 0;
     bool reachedEndOfPath = false;
-    bool needNewSpot = false;
 
     Seeker seeker;
     Rigidbody2D rb;
@@ -24,8 +23,6 @@ public class EnemyPathfindingWaypoint : MonoBehaviour
     {
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
-        patrol = GameObject.FindObjectOfType<MoveSpots>();
-        randomSpot = Random.Range(0, patrol.movespots.Length);
         InvokeRepeating("UpdatePath", 0f, .5f);
         
     }
@@ -34,9 +31,11 @@ public class EnemyPathfindingWaypoint : MonoBehaviour
         Start();
     }
 
+
+
     void UpdatePath() {
         if (seeker.IsDone()) {
-            seeker.StartPath(rb.position, patrol.movespots[randomSpot].position, OnPathComplete);
+            seeker.StartPath(rb.position, target.position, OnPathComplete);
         }
     }
 
@@ -55,7 +54,6 @@ public class EnemyPathfindingWaypoint : MonoBehaviour
 
             if (currentWaypoint >= path.vectorPath.Count) {
                 reachedEndOfPath = true;
-                needNewSpot = true;
                 return;
             }
             else {
@@ -74,10 +72,6 @@ public class EnemyPathfindingWaypoint : MonoBehaviour
             if (distance < nextWaypointDistance) {
                 currentWaypoint++;
             }
-
-            if (needNewSpot) {
-                needNewSpot = false;
-                randomSpot = Random.Range(0, patrol.movespots.Length);
-            }
+        
     }
 }

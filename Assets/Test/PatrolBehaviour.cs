@@ -1,30 +1,33 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pathfinding;
 
-public class FollowBehaviour : StateMachineBehaviour
-{
-    private Transform playerPos;
+public class PatrolBehaviour : StateMachineBehaviour {
+
+    private Transform player;
     public float range;
-    
+
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-
-        playerPos = GameObject.FindGameObjectWithTag("Player").transform;
-        animator.GetComponent<EnemyPathFindingPlayer>().DoSomething();
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        animator.GetComponent<EnemyPathfindingWaypoint>().DoSomething();
     }
-
 
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-        //animator.transform.position = Vector2.MoveTowards(animator.transform.position, playerPos.position, speed * Time.deltaTime);
-
-        if (Vector2.Distance(playerPos.position, animator.transform.position) > range) {
-            animator.SetBool("isFollowing", false);
+        //If the player is within the range of the enemy, then change behaviour
+        if (Vector2.Distance(player.position, animator.transform.position) <= range) {
+            animator.SetBool("isFollowing", true);
+            
         }
 
+        //JUST FOR TESTING
+        //if (Input.GetKeyDown(KeyCode.Space)) {
+        //    animator.SetBool("isFollowing", true);
+        //}
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
