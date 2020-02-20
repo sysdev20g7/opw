@@ -8,7 +8,7 @@ using UnityEngine.UI;
    When using this script, ensure that it's executed after any publishers,
    in the Script Execution Order.
 */
-public class CycleIndicatorDisplay : MonoBehaviour, DayListener {
+public class DayCycleIndicatorDisplay : MonoBehaviour, DayListener {
     public DayController dayController;
     public Image Image;
     private DayCycle dayCycle;
