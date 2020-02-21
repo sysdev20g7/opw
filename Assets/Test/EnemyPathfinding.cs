@@ -28,7 +28,7 @@ public class EnemyPathfinding : MonoBehaviour {
     void Start() {
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
-        patrol = GameObject.FindObjectOfType<MoveSpots>();
+        patrol = FindObjectOfType<MoveSpots>();
         randomSpot = Random.Range(0, patrol.movespots.Length);
         if (isChasing) {
             speed = chaseSpeed;
@@ -70,6 +70,7 @@ public class EnemyPathfinding : MonoBehaviour {
             reachedEndOfPath = true;
             if (!isChasing) {
                 needNewSpot = true;
+                currentWaypoint = 0;
             }
             return;
         }
