@@ -64,8 +64,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2572365745140355499, guid: 6e80483ff48003b4a98d2fcbb817fc56,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: 23c5e7fe07d147a4a9df566f04618282, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -87,12 +86,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69516005a6f6ef444843077ebd2bc7e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dayController: {fileID: 0}
+  dayController: {fileID: 6854863914504423089, guid: ec5055b1a4a1a884bb2382f2a2791b24,
+    type: 3}
   Image: {fileID: 3973700454896530729}
-  spriteNight: {fileID: 2572365745140355499, guid: 6e80483ff48003b4a98d2fcbb817fc56,
-    type: 3}
-  spriteDay: {fileID: -722931915620850620, guid: 6e80483ff48003b4a98d2fcbb817fc56,
-    type: 3}
+  spriteNight: {fileID: 21300000, guid: 23c5e7fe07d147a4a9df566f04618282, type: 3}
+  spriteDay: {fileID: 21300000, guid: bc13d7f28ba67274083c47f3a6bd25ea, type: 3}
 --- !u!1 &3973700456107633453
 GameObject:
   m_ObjectHideFlags: 0
