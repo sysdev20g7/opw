@@ -25,4 +25,4 @@ public void Test(BookCategory cat) {
     SD20G07-28 Ground` *subtask* will have branchname **feature/28-ground**
 
 
-*If you have any other suggestions, please add them to this document and commit in* ***develop*** *-branch.*
+*If you have any other suggestions, please add them to this document and commit in* ***master*** *-branch.*
