@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
+/*
+ * Script for enemy pathfinding
+ * Calculates a path either to a random spot in the scene
+ * or towards the player if they are in range.
+ */
 public class EnemyPathfinding : MonoBehaviour {
 
     private MoveSpots patrol;
@@ -12,12 +17,11 @@ public class EnemyPathfinding : MonoBehaviour {
     public float chaseSpeed = 1000f;
 
 
-    public float nextWaypointDistance = 3f;
+    public float nextWaypointDistance = 0.3f;
 
     Path path;
     int currentWaypoint = 0;
     bool reachedEndOfPath = false;
-    bool needNewSpot = false;
     bool isChasing = false;
     float speed;
 
@@ -28,8 +32,8 @@ public class EnemyPathfinding : MonoBehaviour {
     void Start() {
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
-        patrol = FindObjectOfType<MoveSpots>();
-        randomSpot = Random.Range(0, patrol.movespots.Length);
+        patrol = FindObjectOfType<MoveSpots>(); //find the possible spots to move to
+        randomSpot = Random.Range(0, patrol.movespots.Length); //choose a random spot
         if (isChasing) {
             speed = chaseSpeed;
         }
@@ -39,16 +43,25 @@ public class EnemyPathfinding : MonoBehaviour {
         InvokeRepeating("UpdatePath", 0f, .5f);
     }
 
+    /*
+     * Public method that is need so the animator state has 
+     * some method to call in this script
+     */
     public void DoSomething(bool b) {
         isChasing = b;
-
         Start();
     }
 
+    /* 
+     * If the previous path has finished calculating,
+     * then calculate a new path
+     */
     void UpdatePath() {
+        //Calculate path to random spot
         if (seeker.IsDone() && !isChasing) {
             seeker.StartPath(rb.position, patrol.movespots[randomSpot].position, OnPathComplete);
         }
+        //Calculate path to player
         else if (seeker.IsDone() && isChasing) {
             seeker.StartPath(rb.position, target.position, OnPathComplete);
         }
@@ -69,7 +82,7 @@ public class EnemyPathfinding : MonoBehaviour {
         if (currentWaypoint >= path.vectorPath.Count) {
             reachedEndOfPath = true;
             if (!isChasing) {
-                needNewSpot = true;
+                newRandomSpot();
                 currentWaypoint = 0;
             }
             return;
@@ -94,9 +107,10 @@ public class EnemyPathfinding : MonoBehaviour {
             currentWaypoint++;
         }
 
-        if (needNewSpot) {
-            needNewSpot = false;
-            randomSpot = Random.Range(0, patrol.movespots.Length);
-        }
+    }
+
+    //Get a new random spot to move towards
+    void newRandomSpot() {
+        randomSpot = Random.Range(0, patrol.movespots.Length);
     }
 }
