@@ -15,4 +15,3 @@ public class SceneManager : MonoBehaviour {
 }
 
 
-public void LoadNewGame
