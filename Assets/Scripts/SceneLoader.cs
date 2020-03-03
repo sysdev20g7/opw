@@ -78,9 +78,10 @@ public class SceneLoader : MonoBehaviour {
     /* This function  switches the scene. It runs twice to do the switch
      * First it checks that requested scene is valid, if true then:
      * 1. Trigger - switch state to animation BlackFade(End) fading to black
-     * 2. Kills the scene and sleep for one secound 
-     * 3. Call LoadScene to once again switch to the same scene
-     * 4. Trigger switch state to animation BlackFade(Begin) fade to transparent
+     * 2. Break execution and sleep for one secound 
+     * 3. Call SceneManager.LoadScene to switch scene(destroy current, create new)
+     * 4. Run itself again
+     * 5. Trigger switch state to animation BlackFade(Begin) fade to transparent
      * 5. The scene is now visible
      * If scene is not valid, the SceneManager will not load the scene.
      */
