@@ -13,13 +13,29 @@ public class SceneLoader : MonoBehaviour {
     public static int MAX_NUM_SCENES = 2; // Equals the number of valid scenes;
                                           // see File -> Build settings in Unity...
     private static bool DEBUG_SCENEMGMT = false;
-    private int currentSceneIndex;
-    private int requestedSceneIndex;
+    private static int START_SCENE = 0;
+    private bool _initalized= false;
+    private int _currentSceneIndex;
+    private int _requestedSceneIndex;
+    private float[] _currentPosition; 
 
-    void start() {
-        if (DEBUG_SCENEMGMT) PrintDebug("Started SceneManager;index=" + currentSceneIndex);
-        currentSceneIndex = SceneManager.GetActiveScene().buildIndex; //Set initial index of current scene
-        if (DEBUG_SCENEMGMT) PrintDebug("Updated to currentScene;index=" + currentSceneIndex);
+    void Awake() {
+        if (this._initalized == false) {
+            PrintDebug("Initializing SceneManager");
+            this._initalized = true;
+            this._currentSceneIndex = SceneManager.GetActiveScene().buildIndex; //Set initial index of current scene
+            if (DEBUG_SCENEMGMT) PrintDebug("Started SceneManager;index="
+                                            + this._currentSceneIndex);
+            if (this._requestedSceneIndex != this._currentSceneIndex) {
+                this._requestedSceneIndex = START_SCENE;
+                if (DEBUG_SCENEMGMT) PrintDebug("Updated to currentScene;index=" + this._currentSceneIndex);
+                StartCoroutine(LoadScene(this._requestedSceneIndex));
+                this._currentSceneIndex = this._requestedSceneIndex;
+            }
+
+        }
+        if (DEBUG_SCENEMGMT) PrintDebug("Woke up SceneManager");
+        
     }
 
     void Update() {
@@ -41,23 +57,24 @@ public class SceneLoader : MonoBehaviour {
      */
     public void LoadNextScene(bool next) {
         PrintDebug("LoadNextScene:" + next);
-        currentSceneIndex = SceneManager.GetActiveScene().buildIndex; //Updates the scene index to current scene
+         // Updates scene index to current scene before invoking switch
+        this._currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         if (next) {
-            requestedSceneIndex = currentSceneIndex + 1;
+            this._requestedSceneIndex = this._currentSceneIndex + 1;
             if (DEBUG_SCENEMGMT)
                 PrintDebug("Coroutine Start" + "CURR:" 
-                                             + currentSceneIndex + ";NEXT:"
-                                             + requestedSceneIndex);
-            StartCoroutine(LoadScene(requestedSceneIndex));
+                                             + this._currentSceneIndex + ";NEXT:"
+                                             + this._requestedSceneIndex);
+            StartCoroutine(LoadScene(this._requestedSceneIndex));
             if (DEBUG_SCENEMGMT) PrintDebug("Coroutine End" + "CURR:"
-                                                            + currentSceneIndex);
+                                                            + this._currentSceneIndex);
         }
         else {
-            requestedSceneIndex = currentSceneIndex - 1;
+            this._requestedSceneIndex = this._currentSceneIndex - 1;
             if (DEBUG_SCENEMGMT)
-                PrintDebug("Coroutine Start" + "CURR:" + currentSceneIndex + ";NEXT:" + requestedSceneIndex);
-            StartCoroutine(LoadScene(requestedSceneIndex));
-            if (DEBUG_SCENEMGMT) PrintDebug("Coroutine End" + "CURR:" + currentSceneIndex);
+                PrintDebug("Coroutine Start" + "CURR:" + this._currentSceneIndex + ";NEXT:" + this._requestedSceneIndex);
+            StartCoroutine(LoadScene(this._requestedSceneIndex));
+            if (DEBUG_SCENEMGMT) PrintDebug("Coroutine End" + "CURR:" + this._currentSceneIndex);
         }
     }
 
@@ -74,15 +91,15 @@ public class SceneLoader : MonoBehaviour {
      index value. If the index value is not valid, the SceneManager will not load the scene.*/
     IEnumerator LoadScene(int sceneIndex) {
         if (sceneIndex <= MAX_NUM_SCENES && sceneIndex > -1) {
-            Debug.Log("Switched from scene " + currentSceneIndex + " ("
-                      + SceneManager.GetSceneByBuildIndex(currentSceneIndex).name
+            Debug.Log("Switched from scene " + this._currentSceneIndex + " ("
+                      + SceneManager.GetSceneByBuildIndex(this._currentSceneIndex).name
                       + ")");
 
             animation.SetTrigger("Begin");
             yield return new WaitForSeconds(1);
             SceneManager.LoadScene(sceneIndex);
 
-            //currentSceneIndex = sceneIndex;
+            //this._currentSceneIndex = sceneIndex;
             Debug.Log("Switched to scene " + sceneIndex + " ("
                       + SceneManager.GetSceneByBuildIndex(sceneIndex).name + ")");
         }
@@ -95,6 +112,6 @@ public class SceneLoader : MonoBehaviour {
          * in a subroutine. As CurrentScene can not be updated from here, it must be
          * updated from the method that requests the scene transition.. See line 44 for an example
          */
-        //if (DEBUG_SCENEMGMT) PrintDebug("ENUM-RETURN-CURRENTINDEX:" + currentSceneIndex);
+        //if (DEBUG_SCENEMGMT) PrintDebug("ENUM-RETURN-CURRENTINDEX:" + this._currentSceneIndex);
     }
 }
