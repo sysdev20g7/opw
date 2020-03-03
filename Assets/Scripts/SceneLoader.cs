@@ -1,9 +1,17 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
+/*
+ *  The SceneLoader loads a new scene after requested to switch scene.
+ * Usage: 1. Check that MAX_NUM_SCENES corresponds to # of scenes in the
+ *           File -> Build Settings
+ *        2. Add the SceneLoader -prefab to each scene that needs switching
+ *        3. Check that Player Pos and Camera Pos is set properly on each scene
+ *
+ *  PS: The SceneLoader together with other Unity-objects will be destroyed
+ *      between loading scenes. 
+ */
 public class SceneLoader : MonoBehaviour {
     public Animator animation;
 
@@ -13,46 +21,26 @@ public class SceneLoader : MonoBehaviour {
     public static int MAX_NUM_SCENES = 2; // Equals the number of valid scenes;
                                           // see File -> Build settings in Unity...
     private static bool DEBUG_SCENEMGMT = false;
-    private static int START_SCENE = 0;
-    private bool _initalized= false;
     private int _currentSceneIndex;
     private int _requestedSceneIndex;
-    private float[] _currentPosition; 
-
-    void Awake() {
-        if (this._initalized == false) {
-            PrintDebug("Initializing SceneManager");
-            this._initalized = true;
-            this._currentSceneIndex = SceneManager.GetActiveScene().buildIndex; //Set initial index of current scene
-            if (DEBUG_SCENEMGMT) PrintDebug("Started SceneManager;index="
-                                            + this._currentSceneIndex);
-            if (this._requestedSceneIndex != this._currentSceneIndex) {
-                this._requestedSceneIndex = START_SCENE;
-                if (DEBUG_SCENEMGMT) PrintDebug("Updated to currentScene;index=" + this._currentSceneIndex);
-                StartCoroutine(LoadScene(this._requestedSceneIndex));
-                this._currentSceneIndex = this._requestedSceneIndex;
-            }
-
-        }
-        if (DEBUG_SCENEMGMT) PrintDebug("Woke up SceneManager");
-        
-    }
 
     void Update() {
         if (Input.GetMouseButtonDown(0)) {
-            PrintDebug("LeftClick");
+            if (DEBUG_SCENEMGMT) PrintDebug("LeftClick");
+            // Write data before switching scene
             LoadNextScene(true);
         }
         else if (Input.GetMouseButtonDown(1)) {
-            PrintDebug("RightClick");
+            // Write data before switching scene
+            if (DEBUG_SCENEMGMT) PrintDebug("RightClick");
             LoadNextScene(false);
         }
     }
 
     /*
      * The LoadNextScene loads the next or prevous scene, seen from the index of the current scene.
-     * It's important to note that the currentSceneIndex is updated before switching
-     * The build index order can be set under tile File -> Build Settings... menu
+     * It's important to note that the currentSceneIndex is updated before switching,
+     * becuase the SceneManager instance dies when switcing scene.
      * @next true == loads the next scene / false == loads the prev scene
      */
     public void LoadNextScene(bool next) {
@@ -87,19 +75,26 @@ public class SceneLoader : MonoBehaviour {
         Debug.Log("DEBUG-SCENEMGT:" + msg);
     }
 
-    /* This function loads a requested scene, as long as the scene requested has a valid
-     index value. If the index value is not valid, the SceneManager will not load the scene.*/
+    /* This function  switches the scene. It runs twice to do the switch
+     * First it checks that requested scene is valid, if true then:
+     * 1. Trigger - switch state to animation BlackFade(End) fading to black
+     * 2. Kills the scene and sleep for one secound 
+     * 3. Call LoadScene to once again switch to the same scene
+     * 4. Trigger switch state to animation BlackFade(Begin) fade to transparent
+     * 5. The scene is now visible
+     * If scene is not valid, the SceneManager will not load the scene.
+     */
     IEnumerator LoadScene(int sceneIndex) {
         if (sceneIndex <= MAX_NUM_SCENES && sceneIndex > -1) {
+            Debug.Log("BØØ!");
             Debug.Log("Switched from scene " + this._currentSceneIndex + " ("
                       + SceneManager.GetSceneByBuildIndex(this._currentSceneIndex).name
                       + ")");
 
             animation.SetTrigger("Begin");
-            yield return new WaitForSeconds(1);
-            SceneManager.LoadScene(sceneIndex);
+            yield return new WaitForSeconds(1);    // Break and sleep 1 sec
+            SceneManager.LoadScene(sceneIndex);    // Run again to fade out 
 
-            //this._currentSceneIndex = sceneIndex;
             Debug.Log("Switched to scene " + sceneIndex + " ("
                       + SceneManager.GetSceneByBuildIndex(sceneIndex).name + ")");
         }
@@ -107,11 +102,5 @@ public class SceneLoader : MonoBehaviour {
             PrintDebug("ENUM-INVALID-INDEX: The scene \"" + sceneIndex
                                                           + "\" requested is out of bounds. ");
         }
-
-        /* This print will veryfy that Unity does not respect writing to global variables
-         * in a subroutine. As CurrentScene can not be updated from here, it must be
-         * updated from the method that requests the scene transition.. See line 44 for an example
-         */
-        //if (DEBUG_SCENEMGMT) PrintDebug("ENUM-RETURN-CURRENTINDEX:" + this._currentSceneIndex);
     }
 }
