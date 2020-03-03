@@ -34,7 +34,8 @@ public class SceneLoader : MonoBehaviour {
     }
 
     /*
-     * The LoadNextScene loads the next or prevous scene, seen from the  index of the current scene.
+     * The LoadNextScene loads the next or prevous scene, seen from the index of the current scene.
+     * It's important to note that the currentSceneIndex is updated before switching
      * The build index order can be set under tile File -> Build Settings... menu
      * @next true == loads the next scene / false == loads the prev scene
      */
@@ -72,7 +73,6 @@ public class SceneLoader : MonoBehaviour {
     /* This function loads a requested scene, as long as the scene requested has a valid
      index value. If the index value is not valid, the SceneManager will not load the scene.*/
     IEnumerator LoadScene(int sceneIndex) {
-        if (DEBUG_SCENEMGMT) PrintDebug("ENUM-SCENEINDEX:" + sceneIndex);
         if (sceneIndex <= MAX_NUM_SCENES && sceneIndex > -1) {
             Debug.Log("Switched from scene " + currentSceneIndex + " ("
                       + SceneManager.GetSceneByBuildIndex(currentSceneIndex).name
@@ -82,19 +82,19 @@ public class SceneLoader : MonoBehaviour {
             yield return new WaitForSeconds(1);
             SceneManager.LoadScene(sceneIndex);
 
+            //currentSceneIndex = sceneIndex;
             Debug.Log("Switched to scene " + sceneIndex + " ("
                       + SceneManager.GetSceneByBuildIndex(sceneIndex).name + ")");
-
-            if (DEBUG_SCENEMGMT)
-                PrintDebug("ENUM-LOADED:" + sceneIndex
-                                          + "CURRENTSCENE IS:"
-                                          + currentSceneIndex);
         }
         else {
             PrintDebug("ENUM-INVALID-INDEX: The scene \"" + sceneIndex
                                                           + "\" requested is out of bounds. ");
         }
 
-        if (DEBUG_SCENEMGMT) PrintDebug("ENUM-RETURN-CURRENTINDEX:" + currentSceneIndex);
+        /* This print will veryfy that Unity does not respect writing to global variables
+         * in a subroutine. As CurrentScene can not be updated from here, it must be
+         * updated from the method that requests the scene transition.. See line 44 for an example
+         */
+        //if (DEBUG_SCENEMGMT) PrintDebug("ENUM-RETURN-CURRENTINDEX:" + currentSceneIndex);
     }
 }
