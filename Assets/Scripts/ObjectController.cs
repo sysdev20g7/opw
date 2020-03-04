@@ -4,6 +4,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+/*
+ *  The object controller is persistant (runs during the entire game) and
+ *  interact with different objects when needed, as e.g. handeling player
+ *  position between scene switching.
+ *
+ *  TO TEST:
+ *     1. Add ObjectController prefab to first scene in game
+ *     2. Set ObjectController GameObject with GameController tag in meta
+ *     3. Set Player in scene with Player-tag in meta (do this for each scene)
+ *
+ *     Writing and recalling player pos works (per 04/03-20 ) but the Camera
+ *     won't follow along to the next new position. 
+ */
 public class ObjectController : MonoBehaviour {
 
     private static bool DEBUG = true;
