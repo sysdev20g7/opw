@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,6 +14,7 @@ using UnityEngine.SceneManagement;
  *      between loading scenes. 
  */
 public class SceneLoader : MonoBehaviour {
+    public ObjectController objectcontroller;
     public Animator animation;
 
     public float animationDuration = 1f;
@@ -35,6 +37,15 @@ public class SceneLoader : MonoBehaviour {
             if (DEBUG_SCENEMGMT) PrintDebug("RightClick");
             LoadNextScene(false);
         }
+    }
+
+    void Awake() {
+       objectcontroller.GetPlayerPos() 
+    }
+    void OnDestroy() {
+        // save player pos on scene destroy
+        objectcontroller.WriteSavedPlayerPos(this._currentSceneIndex); 
+        
     }
 
     /*
@@ -87,11 +98,11 @@ public class SceneLoader : MonoBehaviour {
      */
     IEnumerator LoadScene(int sceneIndex) {
         if (sceneIndex <= MAX_NUM_SCENES && sceneIndex > -1) {
-            Debug.Log("BØØ!");
             Debug.Log("Switched from scene " + this._currentSceneIndex + " ("
                       + SceneManager.GetSceneByBuildIndex(this._currentSceneIndex).name
                       + ")");
 
+            
             animation.SetTrigger("Begin");
             yield return new WaitForSeconds(1);    // Break and sleep 1 sec
             SceneManager.LoadScene(sceneIndex);    // Run again to fade out 
