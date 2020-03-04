@@ -23,6 +23,7 @@ public class SceneLoader : MonoBehaviour {
     public static int MAX_NUM_SCENES = 2; // Equals the number of valid scenes;
                                           // see File -> Build settings in Unity...
     private static bool DEBUG_SCENEMGMT = false;
+    private bool firstScene = true;
     private int _currentSceneIndex;
     private int _requestedSceneIndex;
 
@@ -39,12 +40,20 @@ public class SceneLoader : MonoBehaviour {
         }
     }
 
-    void Awake() {
-       objectcontroller.GetPlayerPos() 
+    void Start() {
+        // Updates scene index to current scene before invoking switch
+       this._currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        // Load last saved player pos for this scene
+       objectcontroller.LoadSavedPlayerPos(this._currentSceneIndex);
     }
+
+    void Awake() {
+        objectcontroller = GameObject.FindWithTag("GameController").GetComponent<ObjectController>();
+    }
+
     void OnDestroy() {
-        // save player pos on scene destroy
-        objectcontroller.WriteSavedPlayerPos(this._currentSceneIndex); 
+        // save current player pos on scene destroy for current scene
+        //objectcontroller.WriteSavedPlayerPos(this._currentSceneIndex); 
         
     }
 
@@ -56,8 +65,6 @@ public class SceneLoader : MonoBehaviour {
      */
     public void LoadNextScene(bool next) {
         PrintDebug("LoadNextScene:" + next);
-         // Updates scene index to current scene before invoking switch
-        this._currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         if (next) {
             this._requestedSceneIndex = this._currentSceneIndex + 1;
             if (DEBUG_SCENEMGMT)
@@ -104,6 +111,7 @@ public class SceneLoader : MonoBehaviour {
 
             
             animation.SetTrigger("Begin");
+            objectcontroller.WriteSavedPlayerPos(this._currentSceneIndex); 
             yield return new WaitForSeconds(1);    // Break and sleep 1 sec
             SceneManager.LoadScene(sceneIndex);    // Run again to fade out 
 

@@ -12,7 +12,7 @@ public class ObjectController : MonoBehaviour {
     // Start is called before the first frame update
     void Start()
     {
-        _scenePlayerPos = new Dictionary<int, Vector3>();
+        this._scenePlayerPos = new Dictionary<int, Vector3>();
     }
 
     // Update is called once per frame
@@ -25,32 +25,33 @@ public class ObjectController : MonoBehaviour {
     void Awake() {
         DontDestroyOnLoad(this.gameObject);
     }
-
-
+    
     public void WriteSavedPlayerPos(int scene) {
-        GameObject g = GameObject.Find("Player");
+        GameObject g = GameObject.FindWithTag("Player");
         if (g is null ) {
             // object was not found and doesn't exist
             if (DEBUG) Debug.Log("Unable to save object, Player not found");
         } else {
             // object exists, we read position and add to dir
             if (DEBUG) Debug.Log("Saved player coordinates");
-           _scenePlayerPos.Add(scene,g.transform.position);
-           
+          this._scenePlayerPos.Add(scene,g.transform.position);
         }
     }
 
-    public Vector3 LoadSavedPlayerPos(int scene) {
+    public void LoadSavedPlayerPos(int scene) {
         Vector3 result;
-        try {
-            _scenePlayerPos.TryGetValue(scene,out result);
+        if (this._scenePlayerPos.Count == 0) { 
+            if (DEBUG) Debug.Log("No player coordinates stored");
+        } else {
+            if (this._scenePlayerPos.TryGetValue(scene, out result)) {
+                if (DEBUG) Debug.Log("Found player coordinates");
+                GameObject g = GameObject.Find("Player");
+                // set player pos to last stored pos and rotation to "no rotation"
+                g.transform.SetPositionAndRotation(result,Quaternion.identity );
+            } else {
+                if (DEBUG) Debug.Log("Unable to find player coordinates");
+            }
         }
-        catch (Exception e) {
-            if (DEBUG) Debug.Log("Unable to find player coordinates");
-            //Console.WriteLine(e);
-            throw;
-        }
-        if (DEBUG) Debug.Log("Player coordinates loaded:" + result.ToString());
-        return result;
+        
     }
 }
