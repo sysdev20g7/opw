@@ -32,9 +32,11 @@ public class ObjectController : MonoBehaviour {
             // object was not found and doesn't exist
             if (DEBUG) Debug.Log("Unable to save object, Player not found");
         } else {
-            // object exists, we read position and add to dir
-            if (DEBUG) Debug.Log("Saved player coordinates");
-          this._scenePlayerPos.Add(scene,g.transform.position);
+            // object was found
+            Vector3 pos = g.transform.position;
+            this._scenePlayerPos[scene] = pos;
+            if (DEBUG) Debug.Log("Saved player coordinates at "
+                                 + pos.ToString() + " for scene " + scene);
         }
     }
 
@@ -44,7 +46,8 @@ public class ObjectController : MonoBehaviour {
             if (DEBUG) Debug.Log("No player coordinates stored");
         } else {
             if (this._scenePlayerPos.TryGetValue(scene, out result)) {
-                if (DEBUG) Debug.Log("Found player coordinates");
+                if (DEBUG) Debug.Log("Found coordinates for scene "
+                                    + scene + " at " + result.ToString());
                 GameObject g = GameObject.Find("Player");
                 // set player pos to last stored pos and rotation to "no rotation"
                 g.transform.SetPositionAndRotation(result,Quaternion.identity );
