@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using Object = System.Object;
@@ -17,6 +18,9 @@ using Object = System.Object;
  *     2. Set ObjectController GameObject with GameController tag in meta
  *     3. Set Player in scene with Player-tag in meta (do this for each scene)
  *
+ *     4. Set prefix names for sprites to use when spawning npc
+ *     5. Set
+ *
  *     Writing and recalling player pos works (per 04/03-20 ) but the Camera
  *     won't follow along to the next new position. 
  */
@@ -27,12 +31,12 @@ public class ObjectController : MonoBehaviour {
     private static bool _DEBUG = true;
     private static int _npcType; // 1 == police, 2 == zombie
     private static string _SPRITE_PREFIX_POLICE = "police";
-    private static string _SPRITE_PREFIX_ZOMBIE = "zombie";
+    private static string _SPRITE_PREFIX_ZOMBIE = "goblin";
     private static string _NPC_ENEMY_TAG = "TestGoblinTag";
     private Dictionary<int, Vector3> _scenePlayerPos;
     private Dictionary<int, Vector3> _npcForrestPos;
     private Dictionary<int, Vector3> _npcSecretBasePos;
-    private Dictionary<int, Dictionary<int, Vector3>> _sceneEnemies;
+    private Dictionary<int, Dictionary<int, Tuple<int,Vector3>>> _sceneEnemies;
     
     // Start is called before the first frame update
     void Start()
@@ -40,7 +44,7 @@ public class ObjectController : MonoBehaviour {
         // Create new dict to store player positions
         this._scenePlayerPos = new Dictionary<int, Vector3>();
         //Create nested dict for scene, <Dict:npcType, pos>
-        this._sceneEnemies = new Dictionary<int, Dictionary<int,Vector3>>();
+        this._sceneEnemies = new Dictionary<int, Dictionary<int,Tuple<int,Vector3>>>();
         // Load prefabs to be used for spawns in game
         this.prefabZombie = (GameObject)Resources.Load("Assets/Prefabs/Goblin.prefab");
         this.prefabPolice = (GameObject)Resources.Load("Assets/Prefabs/Police.prefab");
@@ -103,22 +107,45 @@ public class ObjectController : MonoBehaviour {
      */
     public void WriteEnemyPosInScene(int scene) {
         Array enemiesInScene = GameObject.FindGameObjectsWithTag(_NPC_ENEMY_TAG);
-        Dictionary<int,Vector3> currentSceneDir = new Dictionary<int, Vector3>();
+        //Dictionary<int,Vector3> currentSceneDir = new Dictionary<int, Vector3>();
+        Dictionary<int,Tuple<int,Vector3>> currentSceneDir = new Dictionary<int, Tuple<int, Vector3>>();
+        int index = 0;
         foreach (GameObject enemy in enemiesInScene) {
+            Debug.Log("Harvesting object " + enemy.name + " from scene " + scene);
+            bool validObject = false;
+            index++;
             var enemySpriteName = enemy.GetComponent<SpriteRenderer>().sprite.name;
             // Identify what type of npc, and save pos to correct dict
             if (enemySpriteName.StartsWith(_SPRITE_PREFIX_POLICE)) {
                 _npcType = 1;
-                Vector3 pos = enemy.transform.position;
-                currentSceneDir.Add(_npcType,pos);
+                validObject = true;
             }
             
-            if(enemySpriteName.StartsWith(_SPRITE_PREFIX_ZOMBIE)) {
+            else if(enemySpriteName.StartsWith(_SPRITE_PREFIX_ZOMBIE)) {
                 _npcType = 2;
-                Vector3 pos = enemy.transform.position;
-                currentSceneDir.Add(_npcType,pos);
+                validObject = true;
             }
-            
+
+            // If valid enemy store in dict and remove from scene
+            if (validObject) {
+                Tuple<int, Vector3> parameter 
+                    = new Tuple<int, Vector3>(_npcType,enemy.transform.position);
+                //currentSceneDir.Add(parameter);
+                currentSceneDir[index] = parameter;
+                Destroy(enemy);
+                Debug.Log("Stored NPC slot " + index
+                            + "; TYPE=" + parameter.Item1 + "Coordinates "
+                            + parameter.Item2.ToString());
+                
+            }
+            else {
+                Debug.Log("No valid NPCs to store for scene " + scene);
+            }
+
+            if (enemiesInScene.Length == 0) {
+                Debug.Log("NPC enemies array is also empty in scene" + scene);
+            }
+
         } 
         this._sceneEnemies[scene] = currentSceneDir; //Overwrite old data
     }
@@ -126,24 +153,40 @@ public class ObjectController : MonoBehaviour {
     
     public void LoadEnemyPosInScene(int scene) {
         // Open nested working dict for current scene
-        Dictionary<int,Vector3> currentSceneDir = new Dictionary<int, Vector3>();
-        if (this._sceneEnemies.TryGetValue(scene, out currentSceneDir)) {
-            if (currentSceneDir is null) {
-                if (_DEBUG) Debug.Log("No NPC values stored in this dict");
-            } else {
-                // Get all stored enemies and spawn them with prefab on saved pos
-                foreach (var enemies in currentSceneDir) {
-                    Debug.Log("Found NPC; TYPE=" + enemies.Key + "Coordinates "
-                              + enemies.Value.ToString());
-                    if (enemies.Key == 1) Instantiate(prefabPolice, enemies.Value, Quaternion.identity);
-                    if (enemies.Key == 2) Instantiate(prefabZombie, enemies.Value, Quaternion.identity);
+        Dictionary<int,Tuple<int,Vector3>> currentSceneDir
+            = new Dictionary<int, Tuple<int, Vector3>>();
+        if (this._sceneEnemies is null ) {
+            
+        } else {
+            
+            if (this._sceneEnemies.TryGetValue(scene, out currentSceneDir)) {
+                if (currentSceneDir is null) {
+                    if (_DEBUG) Debug.Log("No NPC values stored in this dict");
+                } else {
+                    // For each stored enemy spawn with prefab on saved pos
+                    foreach (var enemy in currentSceneDir) {
+                        if (_DEBUG) Debug.Log("Loading + " + currentSceneDir.Count 
+                            + " entries stored in this dict");
+                        Vector3 result = enemy.Value.Item2;
+                        int enemyType = enemy.Value.Item1;
+                        if (enemyType == 1) {
+                            Instantiate(prefabPolice, result, Quaternion.identity);
+                        }
+                        else if (enemyType == 2) {
+                            Instantiate(prefabZombie, result, Quaternion.identity);
+                        }
+                        Debug.Log("Loaded NPC slot " + enemy.Key.ToString()
+                                + "; TYPE=" + enemy.Value.Item1 + "Coordinates "
+                                + enemy.Value.Item2.ToString());
+                        //Remove entry after spawning
+                        currentSceneDir.Remove(enemy.Key);
+                    }
                 }
             }
+            else {
+                    if (_DEBUG) Debug.Log("This scene " + scene + " does not have"
+                                          + " any NPC coordinates associated with it");
+            }
         }
-        else {
-                if (_DEBUG) Debug.Log("This scene" + scene + "does not have"
-                                      + " any NPC coordinates associated with it");
-        }
-        //currentSceneDir = this._sceneEnemies[scene];
     }
 }

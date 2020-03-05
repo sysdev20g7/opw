@@ -116,9 +116,9 @@ public class SceneLoader : MonoBehaviour {
 
             
             animation.SetTrigger("Begin");
+            yield return new WaitForSeconds(1);    // Break and sleep 1 sec
             objectcontroller.WriteSavedPlayerPos(this._currentSceneIndex); 
             objectcontroller.WriteEnemyPosInScene(this._currentSceneIndex);
-            yield return new WaitForSeconds(1);    // Break and sleep 1 sec
             SceneManager.LoadScene(sceneIndex);    // Run again to fade out 
 
             Debug.Log("Switched to scene " + sceneIndex + " ("
