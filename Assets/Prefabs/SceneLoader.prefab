@@ -163,6 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6727f1d2773602e4780378d0ce393c3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectcontroller: {fileID: 0}
   animation: {fileID: 7539511269043505523}
   animationDuration: 1
 --- !u!1 &7539511270000795865
