@@ -44,11 +44,15 @@ public class SceneLoader : MonoBehaviour {
         // Updates scene index to current scene before invoking switch
        this._currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         // Load last saved player pos for this scene
-       objectcontroller.LoadSavedPlayerPos(this._currentSceneIndex);
+        objectcontroller = GameObject.FindWithTag("GameController").GetComponent<ObjectController>();
+        if (objectcontroller == null) {
+            
+        } else {
+            objectcontroller.LoadSavedPlayerPos(this._currentSceneIndex);
+        }
     }
 
     void Awake() {
-        objectcontroller = GameObject.FindWithTag("GameController").GetComponent<ObjectController>();
     }
 
     void OnDestroy() {

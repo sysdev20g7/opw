@@ -21,11 +21,17 @@ public class ObjectController : MonoBehaviour {
 
     private static bool DEBUG = true;
     private Dictionary<int, Vector3> _scenePlayerPos;
+    private Dictionary<int, Vector3> _npcForrestPos;
+    private Dictionary<int, Vector3> _npcSecretBasePos;
     
     // Start is called before the first frame update
     void Start()
     {
+        // Create new dict to store player positions
         this._scenePlayerPos = new Dictionary<int, Vector3>();
+        //Create dict for NPC last character positions 
+        this._npcForrestPos = new Dictionary<int, Vector3>();
+        this._npcSecretBasePos = new Dictionary<int, Vector3>();
     }
 
     // Update is called once per frame
@@ -36,9 +42,14 @@ public class ObjectController : MonoBehaviour {
 
 
     void Awake() {
+        // Keep this instance alive for the rest of the game
         DontDestroyOnLoad(this.gameObject);
     }
     
+    /*
+     *  Save current player position to for a specified scene
+     *  @param int scene -- the scene number to store the coordinates in
+     */
     public void WriteSavedPlayerPos(int scene) {
         GameObject g = GameObject.FindWithTag("Player");
         if (g is null ) {
@@ -53,9 +64,13 @@ public class ObjectController : MonoBehaviour {
         }
     }
 
+    /*
+     *  This function loads the saved position for the player in a specified scene
+     * @param int scene -- the scene to load the position for
+     */
     public void LoadSavedPlayerPos(int scene) {
         Vector3 result;
-        if (this._scenePlayerPos.Count == 0) { 
+        if (_scenePlayerPos is null) { 
             if (DEBUG) Debug.Log("No player coordinates stored");
         } else {
             if (this._scenePlayerPos.TryGetValue(scene, out result)) {
