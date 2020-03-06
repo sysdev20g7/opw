@@ -128,6 +128,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7539511269685842720, guid: 831b8eb22395a8c49a4d5acaf4b3296f,
+        type: 3}
+      propertyPath: objectcontroller
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7539511269685842722, guid: 831b8eb22395a8c49a4d5acaf4b3296f,
         type: 3}
       propertyPath: m_Name
@@ -2657,6 +2662,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4211760955267643728, guid: 8a52ace2f7404a98eab7aa7aba1d5912,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1562873171
+      objectReference: {fileID: 0}
+    - target: {fileID: 4211760955267643728, guid: 8a52ace2f7404a98eab7aa7aba1d5912,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4211760955267643729, guid: 8a52ace2f7404a98eab7aa7aba1d5912,
         type: 3}
       propertyPath: m_Name
@@ -8530,7 +8545,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 960743915826516832, guid: 2e81c29220deaf74db2467b9df6f89cf, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2e81c29220deaf74db2467b9df6f89cf, type: 3}
 --- !u!1001 &2131220415
 PrefabInstance:
@@ -8601,6 +8617,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
+    - {fileID: 960743915826516832, guid: 2e81c29220deaf74db2467b9df6f89cf, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2e81c29220deaf74db2467b9df6f89cf, type: 3}
 --- !u!1001 &2877648254741439378
 PrefabInstance:
@@ -8669,5 +8686,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: ObjectController
       objectReference: {fileID: 0}
+    - target: {fileID: 2877648255263807719, guid: c76fbe03992359095bbb8566f9b91b81,
+        type: 3}
+      propertyPath: prefabZombie
+      value: 
+      objectReference: {fileID: 960743915826516838, guid: 723289af3f816c74b933582258f7c576,
+        type: 3}
+    - target: {fileID: 2877648255263807719, guid: c76fbe03992359095bbb8566f9b91b81,
+        type: 3}
+      propertyPath: prefabPolice
+      value: 
+      objectReference: {fileID: 4257174066241572845, guid: 4a4f6194b3dfddb28a477578b32236d7,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c76fbe03992359095bbb8566f9b91b81, type: 3}

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 960743915826516845}
   - component: {fileID: 960743915826516834}
   - component: {fileID: 960743915826516835}
-  - component: {fileID: 960743915826516832}
   - component: {fileID: 960743915826516833}
   m_Layer: 0
   m_Name: Goblin
@@ -71,7 +70,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1823105919
-  m_SortingLayer: 9
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 2572365745140355499, guid: 6e80483ff48003b4a98d2fcbb817fc56,
     type: 3}
@@ -106,20 +105,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &960743915826516832
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 960743915826516838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20a5739642fbf254999ea18699ebaf0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 5
-  rb: {fileID: 960743915826516835}
 --- !u!61 &960743915826516833
 BoxCollider2D:
   m_ObjectHideFlags: 0

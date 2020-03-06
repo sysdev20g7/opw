@@ -14,7 +14,7 @@ using UnityEngine.SceneManagement;
  *      between loading scenes. 
  */
 public class SceneLoader : MonoBehaviour {
-    public ObjectController objectcontroller;
+    private ObjectController objectcontroller;
     public Animator animation;
 
     public float animationDuration = 1f;

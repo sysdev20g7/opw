@@ -32,7 +32,7 @@ public class ObjectController : MonoBehaviour {
     private static int _npcType; // 1 == police, 2 == zombie
     private static string _SPRITE_PREFIX_POLICE = "police";
     private static string _SPRITE_PREFIX_ZOMBIE = "goblin";
-    private static string _NPC_ENEMY_TAG = "TestGoblinTag";
+    private static string _NPC_ENEMY_TAG = "Enemy";
     private Dictionary<int, Vector3> _scenePlayerPos;
     private Dictionary<int, Vector3> _npcForrestPos;
     private Dictionary<int, Vector3> _npcSecretBasePos;
@@ -46,8 +46,8 @@ public class ObjectController : MonoBehaviour {
         //Create nested dict for scene, <Dict:npcType, pos>
         this._sceneEnemies = new Dictionary<int, Dictionary<int,Tuple<int,Vector3>>>();
         // Load prefabs to be used for spawns in game
-        this.prefabZombie = (GameObject)Resources.Load("Assets/Prefabs/Goblin.prefab");
-        this.prefabPolice = (GameObject)Resources.Load("Assets/Prefabs/Police.prefab");
+        //this.prefabZombie = (GameObject)Resources.Load("Assets/Prefabs/Goblin.prefab");
+        //this.prefabPolice = (GameObject)Resources.Load("Assets/Prefabs/Police.prefab");
     }
 
     // Update is called once per frame
