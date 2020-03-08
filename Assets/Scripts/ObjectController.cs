@@ -8,22 +8,21 @@ using UnityEngine.UI;
 using UnityEngine.UIElements;
 using Object = System.Object;
 
-/*
- *  The object controller is persistant (runs during the entire game) and
- *  interact with different objects when needed, as e.g. handeling player
- *  position between scene switching.
- *
- *  TO TEST:
- *     1. Add ObjectController prefab to first scene in game
- *     2. Set ObjectController GameObject with GameController tag in meta
- *     3. Set Player in scene with Player-tag in meta (do this for each scene)
- *
- *     4. Set prefix names for sprites to use when spawning npc
- *     5. Set
- *
- *     Writing and recalling player pos works (per 04/03-20 ) but the Camera
- *     won't follow along to the next new position. 
- */
+/// <summary>
+///  The object controller is persistant (runs during the entire game) and
+///  interact with different objects when needed, as e.g. handeling player 
+///  position between scene switching.
+///
+/// TO TEST:
+/// 1. Add ObjectController prefab to first scene in game
+/// 2. Set ObjectController GameObject with GameController tag in meta
+/// 3. Set Player in scene with Player-tag in meta (do this for each scene)
+///
+/// 4. Set prefix names for sprites to use when spawning npc
+/// 5. Set enemy tag (used to select enemy game objects when storing data)
+/// 6. Check that also the SceneLoader is added to each scene
+/// Writing and recalling player pos works (per 04/03-20 ) 
+/// </summary>
 public class ObjectController : MonoBehaviour {
 
     public GameObject prefabZombie;
@@ -46,6 +45,7 @@ public class ObjectController : MonoBehaviour {
         //Create nested dict for scene, <Dict:npcType, pos>
         this._sceneEnemies = new Dictionary<int, Dictionary<int,Tuple<int,Vector3>>>();
         // Load prefabs to be used for spawns in game
+        // The prefabs is set in the Unity Editor, therefore lines below are disabled
         //this.prefabZombie = (GameObject)Resources.Load("Assets/Prefabs/Goblin.prefab");
         //this.prefabPolice = (GameObject)Resources.Load("Assets/Prefabs/Police.prefab");
     }
@@ -66,6 +66,11 @@ public class ObjectController : MonoBehaviour {
      *  Save current player position to for a specified scene
      *  @param int scene -- the scene number to store the coordinates in
      */
+    /// <summary>
+    /// Save current player position (xzy coord) in running scene to a
+    /// specified save slot.
+    /// </summary>
+    /// <param name="scene">Save slot to write to, normally this is the running scene</param>
     public void WriteSavedPlayerPos(int scene) {
         GameObject g = GameObject.FindWithTag("Player");
         if (g is null ) {
@@ -80,10 +85,13 @@ public class ObjectController : MonoBehaviour {
         }
     }
 
-    /*
-     *  This function loads the saved position for the player in a specified scene
-     * @param int scene -- the scene to load the position for
-     */
+    
+    
+    
+    /// <summary>
+    /// This function loads the saved position for the player in a specified scene
+    /// </summary>
+    /// <param name="scene">The selected scene index to load from</param>
     public void LoadSavedPlayerPos(int scene) {
         Vector3 result;
         if (_scenePlayerPos is null) { 
@@ -102,9 +110,12 @@ public class ObjectController : MonoBehaviour {
     }
 
     
-    /*
-     *  
-     */
+    /// <summary>
+    /// Save all NPCs for the current runniing scene into a specified slot;
+    /// coordinates and NPC type is saved 
+    /// </summary>
+    /// <param name="scene">The slot number to write to
+    /// (normally the current scene index)</param>
     public void WriteEnemyPosInScene(int scene) {
         Array enemiesInScene = GameObject.FindGameObjectsWithTag(_NPC_ENEMY_TAG);
         //Dictionary<int,Vector3> currentSceneDir = new Dictionary<int, Vector3>();
@@ -151,8 +162,15 @@ public class ObjectController : MonoBehaviour {
     }
 
     
+    
+    /// <summary>
+    /// This function loads all saved NPC's for the specified scene
+    /// and then spawns them
+    /// </summary>
+    /// <param name="scene">The scene to load NPC information from</param>
     public void LoadEnemyPosInScene(int scene) {
         // Open nested working dict for current scene
+        //FIXME this should be implememnted with less nesting
         Dictionary<int,Tuple<int,Vector3>> currentSceneDir
             = new Dictionary<int, Tuple<int, Vector3>>();
         if (this._sceneEnemies is null ) {
