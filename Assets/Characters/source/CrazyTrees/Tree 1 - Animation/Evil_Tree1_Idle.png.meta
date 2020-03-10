@@ -1,0 +1,421 @@
+fileFormatVersion: 2
+guid: f9e1a8a7c08b0e04bb3ee2289a272947
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6285344834380256332
+    second: Evil_Tree1_Idle_0
+  - first:
+      213: -31966547258026379
+    second: Evil_Tree1_Idle_1
+  - first:
+      213: -3375669688704755450
+    second: Evil_Tree1_Idle_2
+  - first:
+      213: -87472245322762185
+    second: Evil_Tree1_Idle_3
+  - first:
+      213: 5920647148494761513
+    second: Evil_Tree1_Idle_4
+  - first:
+      213: 5987416080456090725
+    second: Evil_Tree1_Idle_5
+  - first:
+      213: -8327500574028805940
+    second: Evil_Tree1_Idle_6
+  - first:
+      213: -2944986396340057674
+    second: Evil_Tree1_Idle_7
+  - first:
+      213: -1894878834217087697
+    second: Evil_Tree1_Idle_8
+  - first:
+      213: 7483483075839017343
+    second: Evil_Tree1_Idle_9
+  - first:
+      213: -3747196078520058957
+    second: Evil_Tree1_Idle_10
+  - first:
+      213: 4118776741666878545
+    second: Evil_Tree1_Idle_11
+  - first:
+      213: 3254164843189422877
+    second: Evil_Tree1_Idle_12
+  - first:
+      213: 7808831233147855941
+    second: Evil_Tree1_Idle_13
+  - first:
+      213: -7197755453695514880
+    second: Evil_Tree1_Idle_14
+  - first:
+      213: -7238585980733131278
+    second: Evil_Tree1_Idle_15
+  - first:
+      213: -8830026261993162107
+    second: Evil_Tree1_Idle_16
+  - first:
+      213: 7910723186732832755
+    second: Evil_Tree1_Idle_17
+  - first:
+      213: 3413109810861813396
+    second: Evil_Tree1_Idle_18
+  - first:
+      213: -4855761998139213849
+    second: Evil_Tree1_Idle_19
+  - first:
+      213: -1792488912422154014
+    second: Evil_Tree1_Idle_20
+  - first:
+      213: -1563293468181698704
+    second: Evil_Tree1_Idle_21
+  - first:
+      213: -1693496055063016196
+    second: Evil_Tree1_Idle_22
+  - first:
+      213: 5414348026466340941
+    second: Evil_Tree1_Idle_23
+  - first:
+      213: -8249462163672024189
+    second: Evil_Tree1_Idle_24
+  - first:
+      213: 5308940742738000236
+    second: Evil_Tree1_Idle_25
+  - first:
+      213: -4181194958908713828
+    second: Evil_Tree1_Idle_26
+  - first:
+      213: 1148108413050344595
+    second: Evil_Tree1_Idle_27
+  - first:
+      213: -5998282301784574639
+    second: Evil_Tree1_Idle_28
+  - first:
+      213: -2535214910786671417
+    second: Evil_Tree1_Idle_29
+  - first:
+      213: -1773032795590160572
+    second: Evil_Tree1_Idle_30
+  - first:
+      213: 3962447635473086726
+    second: Evil_Tree1_Idle_31
+  - first:
+      213: -2651800510031747691
+    second: Evil_Tree1_Idle_32
+  - first:
+      213: -8656085342714957787
+    second: Evil_Tree1_Idle_33
+  - first:
+      213: -3444381911659277775
+    second: Evil_Tree1_Idle_34
+  - first:
+      213: -916527487646673609
+    second: Evil_Tree1_Idle_35
+  - first:
+      213: 6290095926683046210
+    second: Evil_Tree1_Idle_36
+  - first:
+      213: -2688926534419904066
+    second: Evil_Tree1_Idle_37
+  - first:
+      213: 7196708527959274901
+    second: Evil_Tree1_Idle_38
+  - first:
+      213: -267874234203954143
+    second: Evil_Tree1_Idle_39
+  - first:
+      213: 7664174883633375428
+    second: Evil_Tree1_Idle_40
+  - first:
+      213: 3782540087632678372
+    second: Evil_Tree1_Idle_41
+  - first:
+      213: 3719465773397894524
+    second: Evil_Tree1_Idle_42
+  - first:
+      213: -325861483094025711
+    second: Evil_Tree1_Idle_43
+  - first:
+      213: -6710847763737027469
+    second: Evil_Tree1_Idle_44
+  - first:
+      213: -1566415401623034653
+    second: Evil_Tree1_Idle_45
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 25
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Evil_Tree1_Idle_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 977
+        width: 179
+        height: 103
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4bbadef9c28f5c8a0800000000000000
+      internalID: -6285344834380256332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Evil_Tree1_Idle_1
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 977
+        width: 179
+        height: 103
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5765df9389e6e8ff0800000000000000
+      internalID: -31966547258026379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Evil_Tree1_Idle_2
+      rect:
+        serializedVersion: 2
+        x: 358
+        y: 977
+        width: 179
+        height: 103
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60913bd9d463721d0800000000000000
+      internalID: -3375669688704755450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Evil_Tree1_Idle_3
+      rect:
+        serializedVersion: 2
+        x: 537
+        y: 977
+        width: 179
+        height: 103
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 738b4d1d47c39cef0800000000000000
+      internalID: -87472245322762185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Evil_Tree1_Idle_4
+      rect:
+        serializedVersion: 2
+        x: 716
+        y: 977
+        width: 179
+        height: 103
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92ea57e663d5a2250800000000000000
+      internalID: 5920647148494761513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Evil_Tree1_Idle_5
+      rect:
+        serializedVersion: 2
+        x: 895
+        y: 977
+        width: 179
+        height: 103
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5640c06d333971350800000000000000
+      internalID: 5987416080456090725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Evil_Tree1_Idle_6
+      rect:
+        serializedVersion: 2
+        x: 1074
+        y: 977
+        width: 179
+        height: 103
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc8c6225956ce6c80800000000000000
+      internalID: -8327500574028805940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Evil_Tree1_Idle_7
+      rect:
+        serializedVersion: 2
+        x: 1253
+        y: 977
+        width: 179
+        height: 103
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b90bc9c97e4127d0800000000000000
+      internalID: -2944986396340057674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
