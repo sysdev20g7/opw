@@ -118,6 +118,7 @@ public class ObjectController : MonoBehaviour {
             NPC npc = new NPC(enemy,scene);
             // If valid enemy store in dict and remove from scene
             if (npc.valid) {
+                _enemyObjects.Add(npc);
                 Destroy(enemy);
                 Debug.Log("Stored " + npc.getTypeString
                             + " to list for scene " + npc.GetScene() 
@@ -126,12 +127,12 @@ public class ObjectController : MonoBehaviour {
             else {
                 Debug.Log("No valid NPCs to store for scene " + scene);
             }
-
-            if (enemiesInScene.Length == 0) {
-                Debug.Log("NPC enemies array is also empty in scene" + scene);
-            }
-
         } 
+        if (enemiesInScene.Length == 0) {
+            Debug.Log("NPC enemies array is also empty in scene" + scene);
+        }
+        Debug.Log("Total count of stored NPCs: " + _enemyObjects.Count.ToString());
+
     }
 
     
