@@ -30,8 +30,8 @@ public class ObjectController : MonoBehaviour {
     public GameObject prefabPolice;
     private static bool _DEBUG = true;
     private static string _NPC_ENEMY_TAG = "Enemy";
-    private Dictionary<int, Vector3> _scenePlayerPos;
-    private List<NPC> _enemyObjects = new List<NPC>(); //List over  Enemy NPCs in-game
+    [SerializeField] private Dictionary<int, Vector3> _scenePlayerPos;
+    [SerializeField] private List<NPC> _enemyObjects = new List<NPC>(); //List over  Enemy NPCs in-game
     private GameData _runningGame = new GameData();
     
     // Start is called before the first frame update
@@ -46,7 +46,19 @@ public class ObjectController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        if ( (Input.GetKeyDown(KeyCode.F9)) || 
+             (((Input.GetKeyDown(KeyCode.LeftControl)) && (Input.GetKeyDown(KeyCode.S))))
+        ) {
+            if (_DEBUG) Debug.Log("Catched Ctrl+S");
+            SaveGame();
+        }
         
+        if ( (Input.GetKeyDown(KeyCode.F10)) || 
+             ((Input.GetKeyDown(KeyCode.LeftControl)) && (Input.GetKeyDown(KeyCode.O)))
+        ) {
+            if (_DEBUG) Debug.Log("Catched Ctrl+O");
+            LoadGame();
+        }
     }
 
 
@@ -183,21 +195,27 @@ public class ObjectController : MonoBehaviour {
         }
     }
 
-    public void SaveGame() {
-       SaveGame defaultSave = new SaveGame();
-       defaultSave.WriteToSave(_enemyObjects);
-       defaultSave.WriteToSave(_scenePlayerPos);
+    private void SaveGame() {
+        if (_DEBUG) Debug.Log("Saving game to default slot");
+       GameData toBeSaved = new GameData();
+       toBeSaved.savedEnemyList = _enemyObjects;
+       toBeSaved.savedPlayerPosition = _scenePlayerPos;
+       
+       SaveGame defaultSave = new SaveGame(toBeSaved);
        defaultSave.SaveToFile();
     }
 
-    public void LoadGame() {
-        
+    private void LoadGame() {
+        if (_DEBUG) Debug.Log("Loaded game from default slot");
         SaveGame defaultLoadSlot = new SaveGame(); 
         GameData loaded = defaultLoadSlot.LoadFromFile();
+        if (_DEBUG) {
+           Debug.Log("Save created on " + loaded.TimeCreated.ToString()); 
+        }
         
         // populate player and npcs from save
-        this._enemyObjects = loaded.ReadNPCList();
-        this._scenePlayerPos = loaded.LoadSavedPlayerPositions();
+        this._enemyObjects = loaded.savedEnemyList;
+        this._scenePlayerPos = loaded.savedPlayerPosition;
     }
     
 }
