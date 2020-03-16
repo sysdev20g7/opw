@@ -3,33 +3,38 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 [System.Serializable]
-public static class GameData {
-    private static int _playerHealth;
-    private static int[] _currentPlayerItems;
+public class GameData {
+    private List<NPC> _savedEnemyList = new List<NPC>();
+    private Dictionary<int, Vector3> _savedPlayerPosition = new Dictionary<int, Vector3>();
+    private DateTime _timeCreated;
+    private bool _dataSaved;
 
-    /*
-     *  This function stores the player health to a static variable
-     * @param health - the health value
-     */
-    public static int PlayerHealth {
-        get {
-            return _playerHealth;
-        }
-        set {
-            _playerHealth = value;
-        }
+    public int playerHealth;
+    public int[] currentPlayerItems;
+
+    public GameData() {
+        this._timeCreated = DateTime.Now;
+        this._dataSaved = false;
     }
-   
-    
-    /*
-     *  This function writes the current player items to a static array
-     *  @ param itemArray -- an array of items to store
-     */
-    public static void SetCurrentPlayerItems(int[] itemArray) {
-        _currentPlayerItems = itemArray;
+
+    public void WriteNPCList(List<NPC> npcList) {
+        this._savedEnemyList = npcList;
+        
     }
+
+    public List<NPC> ReadNPCList() {
+        return this._savedEnemyList;
+    }
+
+    public void WriteSavedPlayerPositions(Dictionary<int, Vector3> dictionary) {
+        this._savedPlayerPosition = dictionary;
+    }
+    public Dictionary<int, Vector3> LoadSavedPlayerPositions() {
+        return this._savedPlayerPosition;
+    }
+
 }
-
 

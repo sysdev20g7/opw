@@ -2,7 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class SaveGame
-{
+public class SaveGame {
+    private GameData data;
+    private static string SAVE_PATH;
+
+
+    public void Save() {
+        
+    }
+
 }
+
+
+

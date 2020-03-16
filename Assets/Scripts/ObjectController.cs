@@ -31,8 +31,6 @@ public class ObjectController : MonoBehaviour {
     private static bool _DEBUG = true;
     private static string _NPC_ENEMY_TAG = "Enemy";
     private Dictionary<int, Vector3> _scenePlayerPos;
-    private Dictionary<int, Vector3> _npcForrestPos;
-    private Dictionary<int, Vector3> _npcSecretBasePos;
     private List<NPC> _enemyObjects = new List<NPC>(); //List over  Enemy NPCs in-game
     
     // Start is called before the first frame update
@@ -183,4 +181,5 @@ public class ObjectController : MonoBehaviour {
             }
         }
     }
+    
 }
