@@ -7,33 +7,35 @@ using Object = UnityEngine.Object;
 
 [System.Serializable]
 public class GameData {
-    private List<NPC> _savedEnemyList = new List<NPC>();
-    private Dictionary<int, Vector3> _savedPlayerPosition = new Dictionary<int, Vector3>();
-    private DateTime _timeCreated;
-    private bool _dataSaved;
+    [SerializeField] private List<NPC> savedEnemyList = new List<NPC>();
+    [SerializeField] private Dictionary<int, Vector3> savedPlayerPosition 
+        = new Dictionary<int, Vector3>();
+    [SerializeField] private DateTime timeCreated;
+    [SerializeField] private bool dataSaved;
 
     public int playerHealth;
     public int[] currentPlayerItems;
 
     public GameData() {
-        this._timeCreated = DateTime.Now;
-        this._dataSaved = false;
+        this.dataSaved = false;
     }
 
     public void WriteNPCList(List<NPC> npcList) {
-        this._savedEnemyList = npcList;
+        this.savedEnemyList = npcList;
+        dataSaved = true;
         
     }
 
     public List<NPC> ReadNPCList() {
-        return this._savedEnemyList;
+        return this.savedEnemyList;
     }
 
     public void WriteSavedPlayerPositions(Dictionary<int, Vector3> dictionary) {
-        this._savedPlayerPosition = dictionary;
+        this.savedPlayerPosition = dictionary;
+        dataSaved = true;
     }
     public Dictionary<int, Vector3> LoadSavedPlayerPositions() {
-        return this._savedPlayerPosition;
+        return this.savedPlayerPosition;
     }
 
 }

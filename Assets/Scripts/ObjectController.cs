@@ -32,6 +32,7 @@ public class ObjectController : MonoBehaviour {
     private static string _NPC_ENEMY_TAG = "Enemy";
     private Dictionary<int, Vector3> _scenePlayerPos;
     private List<NPC> _enemyObjects = new List<NPC>(); //List over  Enemy NPCs in-game
+    private GameData _runningGame = new GameData();
     
     // Start is called before the first frame update
     void Start()
@@ -180,6 +181,23 @@ public class ObjectController : MonoBehaviour {
                 }
             }
         }
+    }
+
+    public void SaveGame() {
+       SaveGame defaultSave = new SaveGame();
+       defaultSave.WriteToSave(_enemyObjects);
+       defaultSave.WriteToSave(_scenePlayerPos);
+       defaultSave.SaveToFile();
+    }
+
+    public void LoadGame() {
+        
+        SaveGame defaultLoadSlot = new SaveGame(); 
+        GameData loaded = defaultLoadSlot.LoadFromFile();
+        
+        // populate player and npcs from save
+        this._enemyObjects = loaded.ReadNPCList();
+        this._scenePlayerPos = loaded.LoadSavedPlayerPositions();
     }
     
 }
