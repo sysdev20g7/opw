@@ -36,6 +36,7 @@ public class SaveGame {
             FileStream fsRead = File.Open(Application.persistentDataPath
                                           + SAVE_PATH, FileMode.Open);
             _data = (GameData) binaryFormatter.Deserialize(fsRead);
+            fsRead.Close();
         }
         else {
             _data = null;
