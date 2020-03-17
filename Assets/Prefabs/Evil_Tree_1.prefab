@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8332750069339337191}
   - component: {fileID: 8332750069339337189}
   - component: {fileID: 207544457}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Evil_Tree_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
