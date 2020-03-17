@@ -19,11 +19,13 @@ public class ZombieSpawner : MonoBehaviour
     }
 
     IEnumerator EnemySpawn() {
-        while (enemyCount < maxEnemies) {
-            randomSpot = Random.Range(0, spawnPoints.movespots.Length);
-            Instantiate(enemy, spawnPoints.movespots[randomSpot].position, Quaternion.identity);
-            yield return new WaitForSeconds(0.1f);
-            enemyCount += 1;
+        if (FindObjectsOfType<NPC>().Length < maxEnemies) {
+            while (enemyCount < maxEnemies) {
+                randomSpot = Random.Range(0, spawnPoints.movespots.Length);
+                Instantiate(enemy, spawnPoints.movespots[randomSpot].position, Quaternion.identity);
+                yield return new WaitForSeconds(0.1f);
+                enemyCount += 1;
+            }
         }
     }
 }
