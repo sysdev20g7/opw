@@ -46,17 +46,17 @@ public class ObjectController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if ( (Input.GetKeyDown(KeyCode.F9)) || 
-             (((Input.GetKeyDown(KeyCode.LeftControl)) && (Input.GetKeyDown(KeyCode.S))))
+        if ( (Input.GetKeyDown(KeyCode.F11)) || 
+             (((Input.GetKeyDown(KeyCode.AltGr)) && (Input.GetKeyDown(KeyCode.S))))
         ) {
-            if (_DEBUG) Debug.Log("Catched Ctrl+S");
+            if (_DEBUG) Debug.Log("Catched Save Keypress");
             SaveGame();
         }
         
-        if ( (Input.GetKeyDown(KeyCode.F10)) || 
-             ((Input.GetKeyDown(KeyCode.LeftControl)) && (Input.GetKeyDown(KeyCode.O)))
+        if ( (Input.GetKeyDown(KeyCode.F12)) || 
+             ((Input.GetKeyDown(KeyCode.AltGr)) && (Input.GetKeyDown(KeyCode.O)))
         ) {
-            if (_DEBUG) Debug.Log("Catched Ctrl+O");
+            if (_DEBUG) Debug.Log("Catched Load Keypress");
             LoadGame();
         }
     }
@@ -202,13 +202,15 @@ public class ObjectController : MonoBehaviour {
        toBeSaved.savedPlayerPosition = _scenePlayerPos;
        
        SaveGame defaultSave = new SaveGame(toBeSaved);
-       defaultSave.SaveToFile();
+       if (!(defaultSave.SaveToFile(2, true))) {
+           if (_DEBUG) Debug.Log("Saved game went wrong");
+       }
     }
 
     private void LoadGame() {
         if (_DEBUG) Debug.Log("Loaded game from default slot");
         SaveGame defaultLoadSlot = new SaveGame(); 
-        GameData loaded = defaultLoadSlot.LoadFromFile();
+        GameData loaded = defaultLoadSlot.LoadFromFile(2);
         if (_DEBUG) {
            Debug.Log("Save created on " + loaded.TimeCreated.ToString()); 
         }

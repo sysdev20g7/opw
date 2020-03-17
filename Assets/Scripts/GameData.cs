@@ -6,13 +6,16 @@ using UnityEngine;
 using Object = UnityEngine.Object;
 
 [System.Serializable]
+
+///
+/// This class holds game data to be used for serilazation ( such as saving/loading)
+/// 
 public class GameData {
+    [SerializeField] private DateTime _timeCreated;
     public List<NPC> savedEnemyList = new List<NPC>();
 
     public Dictionary<int, Vector3> savedPlayerPosition
         = new Dictionary<int, Vector3>();
-    [SerializeField]
-    private DateTime _timeCreated;
 
     public int playerHealth;
     public int[] currentPlayerItems;
