@@ -9,8 +9,8 @@ public class SaveGame {
     public static bool DEBUG = true;
     private GameData _data;
     private static string SAVE_PATH = "/gamedata";
-    private string jsonFile;
-    private string binaryFile;
+    private string jsonFile = Application.dataPath + SAVE_PATH + ".json";
+    private string binaryFile =  Application.dataPath + SAVE_PATH + ".save";
     private static int JSON = 1;
     private static int BINARY = 2;
 
@@ -27,23 +27,22 @@ public class SaveGame {
     /// <param name="save"></param>
     public SaveGame(GameData save) {
         this._data = save;
-        this.jsonFile = Application.dataPath + SAVE_PATH + ".json";
-        this.binaryFile = Application.dataPath + SAVE_PATH + ".save";
     }
 
     private bool SaveToJsonFile() {
+        if (DEBUG) Debug.Log("==== Writing JSON to file : " + jsonFile);
         bool success = true;
         this._data.timeCreated = DateTime.Now;
         string json = JsonUtility.ToJson(_data);
-        if (DEBUG) Debug.Log("Generated json: " + json);
+        if (DEBUG) Debug.Log("Prepared JSON before save: " + json);
         try {
             // Write new file & owerwrite if already exsisiting
             File.WriteAllText(jsonFile, json);
-            if (DEBUG) Debug.Log("Created new json to : " + jsonFile );
+            if (DEBUG) Debug.Log("Wrote JSON data to : " + jsonFile );
         }
         catch (Exception e) {
             success = false;
-            Debug.Log("Unable to write JSON to file: " + e);
+            Debug.Log("Error: Fault occured: " + e);
             //throw;
         }
 
@@ -51,24 +50,27 @@ public class SaveGame {
     }
 
     private bool LoadFromJsonFile() {
+        if (DEBUG) Debug.Log("==== LOAD JSON from file : " + jsonFile);
         bool ok = false;
         if (File.Exists(jsonFile)) {
+            if (DEBUG) Debug.Log("Found file at: " + jsonFile);
             try {
                 string jsonText = File.ReadAllText(jsonFile);
-                if (DEBUG) Debug.Log("LoadJson: Parsed json: " + jsonText);
+                if (DEBUG) Debug.Log("Parsing JSON to GameObject: " + jsonText);
                 this._data = JsonUtility.FromJson<GameData>(jsonText);
                 // Log last time accessed to game save file
                 this._data.timeAccessed = DateTime.Now;
                 File.WriteAllText(jsonFile, jsonText);
+                if (DEBUG) Debug.Log("Updated accessed timestamp: " + this._data.timeAccessed);
                 ok = true;
             }
             catch (Exception e) {
-                if (DEBUG) Debug.Log("LoadJson: Exception: " + e);
+                if (DEBUG) Debug.Log("ERROR: General exception: " + e);
                 //throw;
             }
         }
         else {
-            if (DEBUG) Debug.Log("LoadJson: Unable to read path at " + jsonFile);
+            if (DEBUG) Debug.Log("Unable to find file at " + jsonFile);
         }
         return ok;
     }

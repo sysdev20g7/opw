@@ -208,13 +208,13 @@ public class ObjectController : MonoBehaviour {
     }
 
     private void LoadGame() {
-        if (_DEBUG) Debug.Log("Loaded game from default slot");
+        if (_DEBUG) Debug.Log("Loaded saved game");
         SaveGame defaultLoadSlot = new SaveGame(); 
         GameData loaded = defaultLoadSlot.LoadFromFile(1);
         if (_DEBUG) {
             Debug.Log("Loaded GameSave from JSON \n"
                       + "Time created: " + loaded.timeCreated + "\n"
-                      + "Last accessed " + loaded.timeAccessed + "\n"
+                      + "Last accessed " + loaded.getTimeAccessed() + "\n"
                       );
         }
         
