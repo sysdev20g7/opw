@@ -10,7 +10,7 @@ public class NPC {
     private float _zPosition = 0; // Game is in 2D, z axis usually not used
     private static int POLICE = 1;
     private static int ZOMBIE = 2;
-    [SerializeField] private int _npcType { get; }  // 1 == police, 2 == zombie
+    [SerializeField] private int _npcType;  // 1 == police, 2 == zombie
     [SerializeField] private Vector2 xyPosition;
     [SerializeField] private int sceneIndex;
     public bool valid { get; }
