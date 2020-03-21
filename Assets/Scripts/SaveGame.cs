@@ -8,7 +8,7 @@ using UnityEngine;
 public class SaveGame {
     public static bool DEBUG = true;
     private GameData _data;
-    private static string SAVE_PATH = "gamedata";
+    private static string SAVE_PATH = "/gamedata";
     private string jsonFile;
     private string binaryFile;
     private static int JSON = 1;
@@ -31,36 +31,20 @@ public class SaveGame {
         this.binaryFile = Application.dataPath + SAVE_PATH + ".save";
     }
 
-    private bool SaveToJsonFile(bool overwrite) {
+    private bool SaveToJsonFile() {
         bool success = true;
+        this._data.timeCreated = DateTime.Now;
         string json = JsonUtility.ToJson(_data);
         if (DEBUG) Debug.Log("Generated json: " + json);
         try {
-            if (File.Exists(jsonFile)) {
-                if (overwrite) { 
-                    // Delete existing & overwrite
-                    if (DEBUG) Debug.Log("Deleting existing json");
-                    File.Delete(jsonFile);
-                    File.Create(jsonFile);
-                    File.WriteAllText(jsonFile, json);
-                    if (DEBUG) Debug.Log("Saved json to: " + jsonFile);
-                }
-                else {
-                    // Do nothing as overwrite is false
-                    if (DEBUG) Debug.Log("File exist: " + jsonFile + "not overwriting");
-                }
-            }
-            else {
-                // Write new file
-                File.Create(jsonFile);
-                File.WriteAllText(jsonFile, json);
-                if (DEBUG) Debug.Log("Created new json to : " + jsonFile );
-            }
+            // Write new file & owerwrite if already exsisiting
+            File.WriteAllText(jsonFile, json);
+            if (DEBUG) Debug.Log("Created new json to : " + jsonFile );
         }
         catch (Exception e) {
             success = false;
             Debug.Log("Unable to write JSON to file: " + e);
-            throw;
+            //throw;
         }
 
         return success;
@@ -71,13 +55,20 @@ public class SaveGame {
         if (File.Exists(jsonFile)) {
             try {
                 string jsonText = File.ReadAllText(jsonFile);
+                if (DEBUG) Debug.Log("LoadJson: Parsed json: " + jsonText);
                 this._data = JsonUtility.FromJson<GameData>(jsonText);
+                // Log last time accessed to game save file
+                this._data.timeAccessed = DateTime.Now;
+                File.WriteAllText(jsonFile, jsonText);
                 ok = true;
             }
             catch (Exception e) {
-                Debug.Log(e);
-                throw;
+                if (DEBUG) Debug.Log("LoadJson: Exception: " + e);
+                //throw;
             }
+        }
+        else {
+            if (DEBUG) Debug.Log("LoadJson: Unable to read path at " + jsonFile);
         }
         return ok;
     }
@@ -122,14 +113,14 @@ public class SaveGame {
         return readOk;
     }
 
-    public bool SaveToFile(int type, bool overwrite) {
+    public bool SaveToFile(int type) {
         bool savedOk = false;
         if (DEBUG) Debug.Log("SaveToFile invoked");
         if (type == BINARY) {
             savedOk = SaveToBinaryFile();
         } 
         else if (type == JSON) {
-            savedOk = SaveToJsonFile(overwrite);
+            savedOk = SaveToJsonFile();
         }else {
             savedOk = false;
         }
