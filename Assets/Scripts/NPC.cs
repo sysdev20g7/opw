@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+[System.Serializable]
 public class NPC {
     private float _zPosition = 0; // Game is in 2D, z axis usually not used
     private static int POLICE = 1;
