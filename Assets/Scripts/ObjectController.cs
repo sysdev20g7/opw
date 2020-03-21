@@ -202,7 +202,7 @@ public class ObjectController : MonoBehaviour {
        toBeSaved.savedPlayerPosition = _scenePlayerPos;
        
        SaveGame defaultSave = new SaveGame(toBeSaved);
-       if (!(defaultSave.SaveToFile(2, true))) {
+       if (!(defaultSave.SaveToFile(1, true))) {
            if (_DEBUG) Debug.Log("Saved game went wrong");
        }
     }
@@ -210,9 +210,9 @@ public class ObjectController : MonoBehaviour {
     private void LoadGame() {
         if (_DEBUG) Debug.Log("Loaded game from default slot");
         SaveGame defaultLoadSlot = new SaveGame(); 
-        GameData loaded = defaultLoadSlot.LoadFromFile(2);
+        GameData loaded = defaultLoadSlot.LoadFromFile(1);
         if (_DEBUG) {
-           Debug.Log("Save created on " + loaded.TimeCreated.ToString()); 
+           Debug.Log("Loaded save created on " + loaded.TimeCreated.ToString()); 
         }
         
         // populate player and npcs from save

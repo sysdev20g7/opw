@@ -8,8 +8,9 @@ using UnityEngine;
 public class SaveGame {
     public static bool DEBUG = true;
     private GameData _data;
-    private static string SAVE_PATH = "game.save";
-    private static string jsonFile = Application.persistentDataPath + SAVE_PATH + ".json";
+    private static string SAVE_PATH = "gamedata";
+    private string jsonFile;
+    private string binaryFile;
     private static int JSON = 1;
     private static int BINARY = 2;
 
@@ -26,11 +27,14 @@ public class SaveGame {
     /// <param name="save"></param>
     public SaveGame(GameData save) {
         this._data = save;
+        this.jsonFile = Application.dataPath + SAVE_PATH + ".json";
+        this.binaryFile = Application.dataPath + SAVE_PATH + ".save";
     }
 
     private bool SaveToJsonFile(bool overwrite) {
         bool success = true;
         string json = JsonUtility.ToJson(_data);
+        if (DEBUG) Debug.Log("Generated json: " + json);
         try {
             if (File.Exists(jsonFile)) {
                 if (overwrite) { 
@@ -55,7 +59,7 @@ public class SaveGame {
         }
         catch (Exception e) {
             success = false;
-            Console.WriteLine("Unable to write JSON to file: " + e);
+            Debug.Log("Unable to write JSON to file: " + e);
             throw;
         }
 
@@ -71,7 +75,7 @@ public class SaveGame {
                 ok = true;
             }
             catch (Exception e) {
-                Console.WriteLine(e);
+                Debug.Log(e);
                 throw;
             }
         }
@@ -79,21 +83,20 @@ public class SaveGame {
     }
     private bool SaveToBinaryFile() {
         bool writeOk = true;
-        string saveBinPath = Application.persistentDataPath + SAVE_PATH;
         BinaryFormatter binaryFormatter = new BinaryFormatter();
         try {
-            FileStream fsWrite = File.Create(saveBinPath);
+            FileStream fsWrite = File.Create(binaryFile);
             binaryFormatter.Serialize(fsWrite, _data);
             fsWrite.Close();
-            if (DEBUG) Debug.Log("Saved bin to: " + saveBinPath);
+            if (DEBUG) Debug.Log("Saved bin to: " + binaryFile);
         }
         catch (IOException io) {
-           Console.WriteLine("Unable to save - I/O-error: " + io); 
+           Debug.Log("Unable to save binary - I/O-error: " + io); 
         }
         catch (Exception e) {
-            Console.WriteLine("General execption: " + e);
+            Debug.Log("Unable to save binary, because: " + e);
             writeOk = false;
-            //throw;
+            throw;
         }
 
         return writeOk;
@@ -101,17 +104,17 @@ public class SaveGame {
 
     private bool LoadFromBinaryFile() {
         bool readOk = true;
-        if (File.Exists(Application.persistentDataPath + SAVE_PATH)) {
+        if (File.Exists(binaryFile)) {
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             try {
-                FileStream fsRead = File.Open(Application.persistentDataPath
-                                          + SAVE_PATH, FileMode.Open);
+                FileStream fsRead = File.Open(binaryFile, FileMode.Open);
                 this._data = (GameData) binaryFormatter.Deserialize(fsRead);
                 fsRead.Close();
             if (DEBUG) Debug.Log("Loaded binary save");
+            if (DEBUG) Debug.Log("Loaded bin from: " + binaryFile);
             }
             catch (Exception e) {
-                Console.WriteLine(e);
+                Debug.Log(e);
                 readOk = false;
                 //throw;
             }
@@ -120,16 +123,18 @@ public class SaveGame {
     }
 
     public bool SaveToFile(int type, bool overwrite) {
+        bool savedOk = false;
         if (DEBUG) Debug.Log("SaveToFile invoked");
         if (type == BINARY) {
-            return SaveToBinaryFile();
+            savedOk = SaveToBinaryFile();
         } 
         else if (type == JSON) {
-            return SaveToJsonFile(overwrite);
+            savedOk = SaveToJsonFile(overwrite);
+        }else {
+            savedOk = false;
         }
-        else {
-            return false;
-        }
+
+        return savedOk;
     }
 
     public GameData LoadFromFile(int type) {

@@ -12,7 +12,7 @@ using Object = UnityEngine.Object;
 /// 
 public class GameData {
     [SerializeField] private DateTime _timeCreated;
-    public List<NPC> savedEnemyList = new List<NPC>();
+    [SerializeField] public List<NPC> savedEnemyList = new List<NPC>();
 
     public Dictionary<int, Vector3> savedPlayerPosition
         = new Dictionary<int, Vector3>();
