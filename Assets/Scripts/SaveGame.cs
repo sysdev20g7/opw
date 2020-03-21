@@ -32,8 +32,8 @@ public class SaveGame {
     private bool SaveToJsonFile() {
         if (DEBUG) Debug.Log("==== Writing JSON to file : " + jsonFile);
         bool success = true;
-        this._data.timeCreated = DateTime.Now;
-        string json = JsonUtility.ToJson(_data);
+        this._data.timeCreated = DateTime.Now.ToString();
+        string json = JsonUtility.ToJson(this._data);
         if (DEBUG) Debug.Log("Prepared JSON before save: " + json);
         try {
             // Write new file & owerwrite if already exsisiting
@@ -59,7 +59,8 @@ public class SaveGame {
                 if (DEBUG) Debug.Log("Parsing JSON to GameObject: " + jsonText);
                 this._data = JsonUtility.FromJson<GameData>(jsonText);
                 // Log last time accessed to game save file
-                this._data.timeAccessed = DateTime.Now;
+                this._data.timeAccessed = DateTime.Now.ToString();
+                jsonText = JsonUtility.ToJson(this._data);
                 File.WriteAllText(jsonFile, jsonText);
                 if (DEBUG) Debug.Log("Updated accessed timestamp: " + this._data.timeAccessed);
                 ok = true;
@@ -79,6 +80,7 @@ public class SaveGame {
         BinaryFormatter binaryFormatter = new BinaryFormatter();
         try {
             FileStream fsWrite = File.Create(binaryFile);
+            this._data.timeCreated = DateTime.Now.ToString();
             binaryFormatter.Serialize(fsWrite, _data);
             fsWrite.Close();
             if (DEBUG) Debug.Log("Saved bin to: " + binaryFile);
@@ -103,8 +105,12 @@ public class SaveGame {
                 FileStream fsRead = File.Open(binaryFile, FileMode.Open);
                 this._data = (GameData) binaryFormatter.Deserialize(fsRead);
                 fsRead.Close();
-            if (DEBUG) Debug.Log("Loaded binary save");
-            if (DEBUG) Debug.Log("Loaded bin from: " + binaryFile);
+                if (DEBUG) Debug.Log("Loaded binary save");
+                if (DEBUG) Debug.Log("Loaded bin from: " + binaryFile);
+                this._data.timeAccessed = DateTime.Now.ToString();
+                if (DEBUG) Debug.Log("Updated save with access time");
+                binaryFormatter.Serialize(fsRead, _data);
+                fsRead.Close();
             }
             catch (Exception e) {
                 Debug.Log(e);

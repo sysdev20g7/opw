@@ -212,10 +212,9 @@ public class ObjectController : MonoBehaviour {
         SaveGame defaultLoadSlot = new SaveGame(); 
         GameData loaded = defaultLoadSlot.LoadFromFile(1);
         if (_DEBUG) {
-            Debug.Log("Loaded GameSave from JSON \n"
-                      + "Time created: " + loaded.timeCreated + "\n"
-                      + "Last accessed " + loaded.getTimeAccessed() + "\n"
-                      );
+            Debug.Log("Loaded GameSave from JSON");
+            Debug.Log("Time created: " + loaded.timeCreated);
+            Debug.Log("Last accessed: " + loaded.timeAccessed);
         }
         
         // populate player and npcs from save

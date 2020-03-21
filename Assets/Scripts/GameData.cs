@@ -11,8 +11,8 @@ using Object = UnityEngine.Object;
 /// This class holds game data to be used for serilazation ( such as saving/loading)
 /// 
 public class GameData {
-     public DateTime? timeCreated;
-     public DateTime? timeAccessed = null;
+     public string timeCreated;
+     public string timeAccessed;
      public List<NPC> savedEnemyList = new List<NPC>();
      public Dictionary<int, Vector3> savedPlayerPosition
         = new Dictionary<int, Vector3>();
@@ -21,18 +21,8 @@ public class GameData {
     public int[] currentPlayerItems;
 
     public GameData() {
-        this.timeAccessed = null;
-        this.timeCreated = null;
-    }
-
-
-    public String getTimeAccessed() {
-        if (this.timeAccessed is null) {
-            return "Never";
-        }
-        else {
-            return timeAccessed.ToString();
-        }
+        this.timeAccessed = "";
+        this.timeCreated = "";
     }
 }
 
