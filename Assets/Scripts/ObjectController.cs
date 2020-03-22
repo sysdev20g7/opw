@@ -132,8 +132,11 @@ public class ObjectController : MonoBehaviour {
         SceneLoader loader = FindSceneLoaderInScene();
         this._scenePlayerPos[loaded.playerScene] = loaded.GetPlayerPosition();
         Debug.Log("Loading from save into scene " + loaded.playerScene);
-        LoadSavedPlayerPos(loaded.playerScene);
         loader.LoadSpecifedScene(loaded.playerScene); // Load scene
+        //Load PlayerPos (this is not automatically done if target Scene is current Scene
+        // because the SceneLoader instance already exist and what that is in start()
+        // is not executed.
+        LoadSavedPlayerPos(loaded.playerScene); 
     }
     
     //--------------TO BE REMOVED IF NOT NEEDED --------------//
