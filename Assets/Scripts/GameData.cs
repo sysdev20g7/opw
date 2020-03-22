@@ -11,6 +11,7 @@ using Object = UnityEngine.Object;
 /// This class holds game data to be used for serilazation ( such as saving/loading)
 /// 
 public class GameData {
+     public static float playerPosZ = 0;
      public string timeCreated;
      public string timeAccessed;
      public string jsonSavedEnemies;
@@ -20,10 +21,11 @@ public class GameData {
      public int playerHealth;
      public int[] currentPlayerItems;
      
+     
      // The datatypes below are not support with seriliazation in json
      // (Unity's JsonUtility)
      public List<NPC> savedEnemyList = new List<NPC>();
-     public Dictionary<int, Vector3> savedPlayerPosition
+     public Dictionary<int, Vector3> savedPlayerPositionList    //TO BE REMOVED
         = new Dictionary<int, Vector3>();
 
 
@@ -31,20 +33,28 @@ public class GameData {
         this.timeAccessed = "";
         this.timeCreated = "";
     }
-    public void WriteToSave(Vector3 playerPos) { 
+    public void WriteToSave(Vector3 playerPos, int scene) { 
         this.playerPosX = playerPos.x;
         this.playerPosY = playerPos.y;
         Vector3 camPos = Camera.main.transform.position;
         this.cameraPosX = camPos.x;
         this.cameraPosY = camPos.y;
         this.cameraPosZ = camPos.z;
+        this.playerScene = scene;
     }
     
+
+    public Vector3 GetPlayerPosition() {
+        return new Vector3(playerPosX,playerPosY,playerPosZ);
+    }
+    
+    
+    // TO BE REMOVED -------- BELOW 
     public void WriteToSave(Dictionary<int, Vector3> playerPos) {
         if (playerPos is null) {
             Debug.Log("WARN: Save; player pos dict empty, ignoring..");
         } else {
-            this.savedPlayerPosition = playerPos;
+            this.savedPlayerPositionList = playerPos;
         }
     }
     
@@ -60,5 +70,6 @@ public class GameData {
             this.savedEnemyList = npcList;
         }
     }
+    // TO BE REMOVED -------- END 
 }
 

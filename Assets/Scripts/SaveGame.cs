@@ -142,12 +142,12 @@ public class SaveGame {
         GameData data = new GameData();
         if (type == BINARY) {
             if (LoadFromBinaryFile()) {
-                this._data = data;
+                data = this._data;
             }
         } 
         else if (type == JSON) {
             if (LoadFromJsonFile()) {
-                this._data = data;
+                data = this._data;
             }
         }
 
