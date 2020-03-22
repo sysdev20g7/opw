@@ -200,6 +200,8 @@ public class ObjectController : MonoBehaviour {
        GameData toBeSaved = new GameData();
        toBeSaved.savedEnemyList = _enemyObjects;
        toBeSaved.savedPlayerPosition = _scenePlayerPos;
+       toBeSaved.jsonSavedEnemies = convertNpcListToJson(_enemyObjects);
+       if (_DEBUG) Debug.Log("asdasdasd:" + toBeSaved.jsonSavedEnemies);
        
        SaveGame defaultSave = new SaveGame(toBeSaved);
        if (!(defaultSave.SaveToFile(1))) {
@@ -222,4 +224,21 @@ public class ObjectController : MonoBehaviour {
         this._scenePlayerPos = loaded.savedPlayerPosition;
     }
     
+    private string convertNpcListToJson(List<NPC> source) {
+        string json = "";
+
+        for (int i = source.Count - 1; i >= 0; i--) {
+            NPC npc = source[i];
+            string enemyType = npc.getTypeString;
+            json += JsonUtility.ToJson(source);
+            Debug.Log("Appended json:" + json);
+        }
+
+        return json;
+    }
+
+    private List<NPC> convertJsonToNpc(string json) {
+        List<NPC> npcObjects = JsonUtility.FromJson<List<NPC>>(json);
+        return npcObjects;
+    }
 }

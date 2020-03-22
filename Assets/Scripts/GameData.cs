@@ -13,6 +13,7 @@ using Object = UnityEngine.Object;
 public class GameData {
      public string timeCreated;
      public string timeAccessed;
+     public string jsonSavedEnemies;
      public List<NPC> savedEnemyList = new List<NPC>();
      public Dictionary<int, Vector3> savedPlayerPosition
         = new Dictionary<int, Vector3>();
