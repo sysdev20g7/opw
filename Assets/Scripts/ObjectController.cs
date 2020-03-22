@@ -77,17 +77,24 @@ public class ObjectController : MonoBehaviour {
     /// </summary>
     /// <param name="scene">Save slot to write to, normally this is the running scene</param>
     public void WriteSavedPlayerPos(int scene) {
-        GameObject g = GameObject.FindWithTag("Player");
-        if (g is null ) {
+        this._scenePlayerPos[scene] = FindPlayerPositionFromTag("Player");
+        if (_DEBUG) Debug.Log("Saved player coordinates at "
+                             + this._scenePlayerPos[scene].ToString() + " for scene " + scene);
+    }
+
+    private Vector3 FindPlayerPositionFromTag(string tag) {
+        GameObject g = GameObject.FindWithTag(tag);
+        Vector3 playerPos;
+        if (g is null) {
             // object was not found and doesn't exist
             if (_DEBUG) Debug.Log("Unable to save object, Player not found");
+            playerPos = new Vector3(0,0,0);
         } else {
-            // object was found
-            Vector3 pos = g.transform.position;
-            this._scenePlayerPos[scene] = pos;
-            if (_DEBUG) Debug.Log("Saved player coordinates at "
-                                 + pos.ToString() + " for scene " + scene);
+          // found object
+          playerPos = g.transform.position;
         }
+
+        return playerPos;
     }
 
     
@@ -195,13 +202,17 @@ public class ObjectController : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    ///  This methods saves the game
+    /// </summary>
     private void SaveGame() {
         if (_DEBUG) Debug.Log("Saving");
        GameData toBeSaved = new GameData();
-       toBeSaved.savedEnemyList = _enemyObjects;
-       toBeSaved.savedPlayerPosition = _scenePlayerPos;
-       toBeSaved.jsonSavedEnemies = convertNpcListToJson(_enemyObjects);
-       if (_DEBUG) Debug.Log("asdasdasd:" + toBeSaved.jsonSavedEnemies);
+       //toBeSaved.savedEnemyList = _enemyObjects;
+       //toBeSaved.savedPlayerPosition = _scenePlayerPos;
+       //toBeSaved.jsonSavedEnemies = convertNpcListToJson(_enemyObjects);
+       toBeSaved.WriteToSave(this.FindPlayerPositionFromTag("Player"));
+       if (_DEBUG) Debug.Log("Converted NPC-list into JSON:" + toBeSaved.jsonSavedEnemies);
        
        SaveGame defaultSave = new SaveGame(toBeSaved);
        if (!(defaultSave.SaveToFile(1))) {
@@ -209,6 +220,9 @@ public class ObjectController : MonoBehaviour {
        }
     }
 
+    /// <summary>
+    /// This method loads data from a save into the game (into this instance) 
+    /// </summary>
     private void LoadGame() {
         if (_DEBUG) Debug.Log("Loaded saved game");
         SaveGame defaultLoadSlot = new SaveGame(); 
@@ -224,6 +238,12 @@ public class ObjectController : MonoBehaviour {
         this._scenePlayerPos = loaded.savedPlayerPosition;
     }
     
+    /// <summary>
+    ///  This function converts a List<NPC> with multiple NPCs
+    ///  into a json-string
+    /// </summary>
+    /// <param name="source"></param>
+    /// <returns>json string</returns>
     private string convertNpcListToJson(List<NPC> source) {
         string json = "";
 
@@ -236,9 +256,14 @@ public class ObjectController : MonoBehaviour {
 
         return json;
     }
-
-    private List<NPC> convertJsonToNpc(string json) {
-        List<NPC> npcObjects = JsonUtility.FromJson<List<NPC>>(json);
-        return npcObjects;
+    
+    /// <summary>
+    /// This method will convert a json string to a NPC list (might not be needed)
+    /// </summary>
+    /// <param name="json"></param>
+    /// <returns>returns a game object filled with data</returns>
+    private GameData convertJsonToNpcList(string json) {
+        GameData gdFromJson = JsonUtility.FromJson<GameData>(json);
+        return gdFromJson;
     }
 }

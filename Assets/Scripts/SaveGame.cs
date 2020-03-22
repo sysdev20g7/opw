@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class SaveGame {
     public static bool DEBUG = true;
@@ -151,23 +153,6 @@ public class SaveGame {
 
         return data;
     }
-    public void WriteToSave(Dictionary<int, Vector3> playerPos) {
-        if (playerPos is null) {
-            Debug.Log("WARN: Save; player pos dict empty, ignoring..");
-        } else {
-            _data.savedPlayerPosition = playerPos;
-        }
-    }
-
-    public void WriteToSave(List<NPC> npcList) {
-        if ((npcList is null) || (npcList.Count == 0)) {
-            Debug.Log("WARN: Save; NPC list empty, ignoring..");
-        } else {
-            _data.savedEnemyList = npcList;
-        }
-    }
-
-
     
     
 }
