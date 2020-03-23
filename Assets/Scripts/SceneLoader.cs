@@ -57,11 +57,16 @@ public class SceneLoader : MonoBehaviour {
     }
 
     void OnDestroy() {
-        // save current player pos on scene destroy for current scene
-        //objectcontroller.WriteSavedPlayerPos(this._currentSceneIndex); 
         
     }
 
+    /// <summary>
+    /// Returns the current scene as an int
+    /// </summary>
+    /// <returns>current scene index</returns>
+    public int GetCurrentScene() {
+       return SceneManager.GetActiveScene().buildIndex;
+    }
     /*
      * The LoadNextScene loads the next or prevous scene, seen from the index of the current scene.
      * It's important to note that the currentSceneIndex is updated before switching,
@@ -76,7 +81,7 @@ public class SceneLoader : MonoBehaviour {
                 PrintDebug("Coroutine Start" + "CURR:" 
                                              + this._currentSceneIndex + ";NEXT:"
                                              + this._requestedSceneIndex);
-            StartCoroutine(LoadScene(this._requestedSceneIndex));
+            StartCoroutine(LoadScene(this._requestedSceneIndex,true));
             if (DEBUG_SCENEMGMT) PrintDebug("Coroutine End" + "CURR:"
                                                             + this._currentSceneIndex);
         }
@@ -84,9 +89,18 @@ public class SceneLoader : MonoBehaviour {
             this._requestedSceneIndex = this._currentSceneIndex - 1;
             if (DEBUG_SCENEMGMT)
                 PrintDebug("Coroutine Start" + "CURR:" + this._currentSceneIndex + ";NEXT:" + this._requestedSceneIndex);
-            StartCoroutine(LoadScene(this._requestedSceneIndex));
+            StartCoroutine(LoadScene(this._requestedSceneIndex,true));
             if (DEBUG_SCENEMGMT) PrintDebug("Coroutine End" + "CURR:" + this._currentSceneIndex);
         }
+    }
+
+    /// <summary>
+    ///  This function starts transition animation and loads
+    ///  the selected scene
+    /// </summary>
+    /// <param name="scene">Scene index to load</param>
+    public void LoadSpecifedScene(int scene) {
+        StartCoroutine(LoadScene(scene,false));
     }
 
     /*
@@ -108,7 +122,7 @@ public class SceneLoader : MonoBehaviour {
      * 5. The scene is now visible
      * If scene is not valid, the SceneManager will not load the scene.
      */
-    IEnumerator LoadScene(int sceneIndex) {
+    IEnumerator LoadScene(int sceneIndex,bool savePositions) {
         if (sceneIndex <= MAX_NUM_SCENES && sceneIndex > -1) {
             Debug.Log("Switched from scene " + this._currentSceneIndex + " ("
                       + SceneManager.GetSceneByBuildIndex(this._currentSceneIndex).name
@@ -117,8 +131,10 @@ public class SceneLoader : MonoBehaviour {
             
             animation.SetTrigger("Begin");
             yield return new WaitForSeconds(1);    // Break and sleep 1 sec
+            if (savePositions) {
             objectcontroller.WriteSavedPlayerPos(this._currentSceneIndex); 
             objectcontroller.WriteEnemyPosInScene(this._currentSceneIndex);
+            }
             SceneManager.LoadScene(sceneIndex);    // Run again to fade out 
 
             Debug.Log("Switched to scene " + sceneIndex + " ("

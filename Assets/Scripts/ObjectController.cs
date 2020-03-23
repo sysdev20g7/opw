@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -28,32 +29,36 @@ public class ObjectController : MonoBehaviour {
     public GameObject prefabZombie;
     public GameObject prefabPolice;
     private static bool _DEBUG = true;
-    private static int _npcType; // 1 == police, 2 == zombie
-    private static string _SPRITE_PREFIX_POLICE = "police";
-    private static string _SPRITE_PREFIX_ZOMBIE = "goblin";
     private static string _NPC_ENEMY_TAG = "Enemy";
-    private Dictionary<int, Vector3> _scenePlayerPos;
-    private Dictionary<int, Vector3> _npcForrestPos;
-    private Dictionary<int, Vector3> _npcSecretBasePos;
-    private Dictionary<int, Dictionary<int, Tuple<int,Vector3>>> _sceneEnemies;
+    [SerializeField] private Dictionary<int, Vector3> _scenePlayerPos;
+    [SerializeField] private List<NPC> _enemyObjects = new List<NPC>(); //List over  Enemy NPCs in-game
+    private GameData _runningGame = new GameData();
     
     // Start is called before the first frame update
     void Start()
     {
-        // Create new dict to store player positions
+        // Create list to hold enemy and npc objects during game
         this._scenePlayerPos = new Dictionary<int, Vector3>();
-        //Create nested dict for scene, <Dict:npcType, pos>
-        this._sceneEnemies = new Dictionary<int, Dictionary<int,Tuple<int,Vector3>>>();
+        this._enemyObjects = new List<NPC>();
         // Load prefabs to be used for spawns in game
-        // The prefabs is set in the Unity Editor, therefore lines below are disabled
-        //this.prefabZombie = (GameObject)Resources.Load("Assets/Prefabs/Goblin.prefab");
-        //this.prefabPolice = (GameObject)Resources.Load("Assets/Prefabs/Police.prefab");
     }
 
     // Update is called once per frame
     void Update()
     {
+        if ( (Input.GetKeyDown(KeyCode.F11)) || 
+             (((Input.GetKeyDown(KeyCode.AltGr)) && (Input.GetKeyDown(KeyCode.S))))
+        ) {
+            if (_DEBUG) Debug.Log("Catched Save Keypress");
+            SaveGame();
+        }
         
+        if ( (Input.GetKeyDown(KeyCode.F12)) || 
+             ((Input.GetKeyDown(KeyCode.AltGr)) && (Input.GetKeyDown(KeyCode.O)))
+        ) {
+            if (_DEBUG) Debug.Log("Catched Load Keypress");
+            LoadGame();
+        }
     }
 
 
@@ -62,31 +67,121 @@ public class ObjectController : MonoBehaviour {
         DontDestroyOnLoad(this.gameObject);
     }
     
-    /*
-     *  Save current player position to for a specified scene
-     *  @param int scene -- the scene number to store the coordinates in
-     */
+    /// <summary>
+    ///  This function returns a Vector3 postion object
+    ///  for a GameObject in scene with specified tag name
+    /// </summary>
+    /// <param name="tag"> the tag name</param>
+    /// <returns></returns>
+    private Vector3 FindPlayerPositionFromTag(string tag) {
+        GameObject g = GameObject.FindWithTag(tag);
+        Vector3 playerPos;
+        if (g is null) {
+            // object was not found and doesn't exist
+            if (_DEBUG) Debug.Log("Unable to save object, Player not found");
+            playerPos = new Vector3(0,0,0);
+        } else {
+          // found object
+          playerPos = g.transform.position;
+        }
+
+        return playerPos;
+    }
+    
+    /// <summary>
+    ///  Finds the SceneLoader object in the current running Scene
+    /// </summary>
+    /// <returns></returns>
+    private SceneLoader FindSceneLoaderInScene() {
+        GameObject loader = GameObject.Find("SceneLoader");
+        return loader.GetComponent<SceneLoader>();
+    }
+    /// <summary>
+    ///  This methods saves the game
+    /// </summary>
+    private void SaveGame() {
+        if (_DEBUG) Debug.Log("Saving");
+       GameData toBeSaved = new GameData();
+       int currentScene = FindSceneLoaderInScene().GetCurrentScene();
+       //toBeSaved.savedEnemyList = _enemyObjects;
+       //toBeSaved.savedPlayerPosition = _scenePlayerPos;
+       //toBeSaved.jsonSavedEnemies = convertNpcListToJson(_enemyObjects);
+       toBeSaved.WriteToSave(this.FindPlayerPositionFromTag("Player"),currentScene);
+       if (_DEBUG) Debug.Log("Converted NPC-list into JSON:" + toBeSaved.jsonSavedEnemies);
+       
+       SaveGame defaultSave = new SaveGame(toBeSaved);
+       if (!(defaultSave.SaveToFile(1))) {
+           if (_DEBUG) Debug.Log("Saved game went wrong");
+       }
+    }
+
+    /// <summary>
+    /// This method loads data from a save into the game (into this instance) 
+    /// </summary>
+    private void LoadGame() {
+        if (_DEBUG) Debug.Log("Loaded saved game");
+        SaveGame defaultLoadSlot = new SaveGame(); 
+        GameData loaded = defaultLoadSlot.LoadFromFile(1);
+        if (_DEBUG) {
+            Debug.Log("Loaded GameSave from JSON");
+            Debug.Log("Time created: " + loaded.timeCreated);
+            Debug.Log("Last accessed: " + loaded.timeAccessed);
+        }
+        
+        //Find sceneloader in scene and set required values before loading
+        SceneLoader loader = FindSceneLoaderInScene();
+        this._scenePlayerPos[loaded.playerScene] = loaded.GetPlayerPosition();
+        Debug.Log("Loading from save into scene " + loaded.playerScene);
+        loader.LoadSpecifedScene(loaded.playerScene); // Load scene
+        //Load PlayerPos (this is not automatically done if target Scene is current Scene
+        // because the SceneLoader instance already exist and what that is in start()
+        // is not executed.
+        LoadSavedPlayerPos(loaded.playerScene); 
+    }
+    
+    //--------------TO BE REMOVED IF NOT NEEDED --------------//
+    // Start
+    
+    /// <summary>
+    ///  This function converts a List<NPC> with multiple NPCs
+    ///  into a json-string
+    /// </summary>
+    /// <param name="source"></param>
+    /// <returns>json string</returns>
+    private string convertNpcListToJson(List<NPC> source) {
+        string json = "";
+
+        for (int i = source.Count - 1; i >= 0; i--) {
+            NPC npc = source[i];
+            string enemyType = npc.getTypeString;
+            json += JsonUtility.ToJson(source);
+            Debug.Log("Appended json:" + json);
+        }
+
+        return json;
+    }
+    //END-----------TO BE REMOVED IF NOT NEEDED --------------//
+    
+    /// <summary>
+    /// This method will convert a json string to a NPC list (might not be needed)
+    /// </summary>
+    /// <param name="json"></param>
+    /// <returns>returns a game object filled with data</returns>
+    private GameData convertJsonToNpcList(string json) {
+        GameData gdFromJson = JsonUtility.FromJson<GameData>(json);
+        return gdFromJson;
+    }
+
     /// <summary>
     /// Save current player position (xzy coord) in running scene to a
     /// specified save slot.
     /// </summary>
     /// <param name="scene">Save slot to write to, normally this is the running scene</param>
     public void WriteSavedPlayerPos(int scene) {
-        GameObject g = GameObject.FindWithTag("Player");
-        if (g is null ) {
-            // object was not found and doesn't exist
-            if (_DEBUG) Debug.Log("Unable to save object, Player not found");
-        } else {
-            // object was found
-            Vector3 pos = g.transform.position;
-            this._scenePlayerPos[scene] = pos;
-            if (_DEBUG) Debug.Log("Saved player coordinates at "
-                                 + pos.ToString() + " for scene " + scene);
-        }
+        this._scenePlayerPos[scene] = FindPlayerPositionFromTag("Player");
+        if (_DEBUG) Debug.Log("Saved player coordinates at "
+                             + this._scenePlayerPos[scene].ToString() + " for scene " + scene);
     }
-
-    
-    
     
     /// <summary>
     /// This function loads the saved position for the player in a specified scene
@@ -119,46 +214,26 @@ public class ObjectController : MonoBehaviour {
     public void WriteEnemyPosInScene(int scene) {
         Array enemiesInScene = GameObject.FindGameObjectsWithTag(_NPC_ENEMY_TAG);
         //Dictionary<int,Vector3> currentSceneDir = new Dictionary<int, Vector3>();
-        Dictionary<int,Tuple<int,Vector3>> currentSceneDir = new Dictionary<int, Tuple<int, Vector3>>();
-        int index = 0;
         foreach (GameObject enemy in enemiesInScene) {
             Debug.Log("Harvesting object " + enemy.name + " from scene " + scene);
-            bool validObject = false;
-            index++;
-            var enemySpriteName = enemy.GetComponent<SpriteRenderer>().sprite.name;
-            // Identify what type of npc, and save pos to correct dict
-            if (enemySpriteName.StartsWith(_SPRITE_PREFIX_POLICE)) {
-                _npcType = 1;
-                validObject = true;
-            }
-            
-            else if(enemySpriteName.StartsWith(_SPRITE_PREFIX_ZOMBIE)) {
-                _npcType = 2;
-                validObject = true;
-            }
-
+            NPC npc = new NPC(enemy,scene);
             // If valid enemy store in dict and remove from scene
-            if (validObject) {
-                Tuple<int, Vector3> parameter 
-                    = new Tuple<int, Vector3>(_npcType,enemy.transform.position);
-                //currentSceneDir.Add(parameter);
-                currentSceneDir[index] = parameter;
+            if (npc.valid) {
+                _enemyObjects.Add(npc);
                 Destroy(enemy);
-                Debug.Log("Stored NPC slot " + index
-                            + "; TYPE=" + parameter.Item1 + "Coordinates "
-                            + parameter.Item2.ToString());
-                
+                Debug.Log("Stored " + npc.getTypeString
+                            + " to list for scene " + npc.GetScene() 
+                            + " " + npc.Position3Axis.ToString());
             }
             else {
                 Debug.Log("No valid NPCs to store for scene " + scene);
             }
-
-            if (enemiesInScene.Length == 0) {
-                Debug.Log("NPC enemies array is also empty in scene" + scene);
-            }
-
         } 
-        this._sceneEnemies[scene] = currentSceneDir; //Overwrite old data
+        if (enemiesInScene.Length == 0) {
+            Debug.Log("NPC enemies array is also empty in scene" + scene);
+        }
+        Debug.Log("Total count of stored NPCs: " + _enemyObjects.Count.ToString());
+
     }
 
     
@@ -169,41 +244,43 @@ public class ObjectController : MonoBehaviour {
     /// </summary>
     /// <param name="scene">The scene to load NPC information from</param>
     public void LoadEnemyPosInScene(int scene) {
-        // Open nested working dict for current scene
-        //FIXME this should be implememnted with less nesting
-        Dictionary<int,Tuple<int,Vector3>> currentSceneDir
-            = new Dictionary<int, Tuple<int, Vector3>>();
-        if (this._sceneEnemies is null ) {
-            
+        if (this._enemyObjects.Count.Equals(0))  {
+                    if (_DEBUG) Debug.Log("The ememyObject list is empty");
         } else {
-            
-            if (this._sceneEnemies.TryGetValue(scene, out currentSceneDir)) {
-                if (currentSceneDir is null) {
-                    if (_DEBUG) Debug.Log("No NPC values stored in this dict");
-                } else {
-                    // For each stored enemy spawn with prefab on saved pos
-                    foreach (var enemy in currentSceneDir) {
-                        if (_DEBUG) Debug.Log("Loading + " + currentSceneDir.Count 
-                            + " entries stored in this dict");
-                        Vector3 result = enemy.Value.Item2;
-                        int enemyType = enemy.Value.Item1;
-                        if (enemyType == 1) {
-                            Instantiate(prefabPolice, result, Quaternion.identity);
+            List<GameObject> spawned = new List<GameObject>();
+            for (int i = _enemyObjects.Count - 1; i >= 0; i--) {
+                NPC npc = _enemyObjects[i];
+                string enemyType = npc.getTypeString;
+                if (npc.GetScene().Equals(scene)) {
+                    Vector3 newpos = npc.Position3Axis;
+                    switch (enemyType) {
+                        case "Zombie" :
+                            spawned.Add(Instantiate(prefabZombie, newpos, Quaternion.identity));
+                            break;
+                        
+                        case "Police" :
+                            spawned.Add(Instantiate(prefabPolice, newpos, Quaternion.identity));
+                            break;
+                        default:
+                            Debug.Log(
+                                "Found enemies, but none had a valid sprite");
+                            break;
+                    }
+                    // Remove spawned entities to avoid future duplicates
+                    if (_DEBUG) Debug.Log(" Loaded, removing " + npc.getTypeString
+                                          + "from the list.");
+                    _enemyObjects.Remove(npc);
+
+                    if (spawned.Count.Equals(0)) {
+                        Debug.Log("No NPCs were spawned to this scene.");
+                    }
+                    else {
+                        foreach (var gb in spawned) {
+                            Debug.Log("Spawned " + gb.name + "at "
+                                      + gb.transform.position.ToString());
                         }
-                        else if (enemyType == 2) {
-                            Instantiate(prefabZombie, result, Quaternion.identity);
-                        }
-                        Debug.Log("Loaded NPC slot " + enemy.Key.ToString()
-                                + "; TYPE=" + enemy.Value.Item1 + "Coordinates "
-                                + enemy.Value.Item2.ToString());
-                        //Remove entry after spawning
-                        currentSceneDir.Remove(enemy.Key);
                     }
                 }
-            }
-            else {
-                    if (_DEBUG) Debug.Log("This scene " + scene + " does not have"
-                                          + " any NPC coordinates associated with it");
             }
         }
     }
