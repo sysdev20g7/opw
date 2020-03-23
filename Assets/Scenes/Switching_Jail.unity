@@ -206,6 +206,7 @@ GameObject:
   - component: {fileID: 829137287}
   - component: {fileID: 829137289}
   - component: {fileID: 829137288}
+  - component: {fileID: 829137290}
   m_Layer: 0
   m_Name: Walls
   m_TagString: Untagged
@@ -2558,6 +2559,22 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!19719996 &829137290
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 829137286}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0.00001
 --- !u!1 &840886618
 GameObject:
   m_ObjectHideFlags: 0
@@ -2665,12 +2682,12 @@ PrefabInstance:
     - target: {fileID: 4211760955267643728, guid: 8a52ace2f7404a98eab7aa7aba1d5912,
         type: 3}
       propertyPath: m_SortingLayerID
-      value: -1562873171
+      value: 1135715219
       objectReference: {fileID: 0}
     - target: {fileID: 4211760955267643728, guid: 8a52ace2f7404a98eab7aa7aba1d5912,
         type: 3}
       propertyPath: m_SortingLayer
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4211760955267643729, guid: 8a52ace2f7404a98eab7aa7aba1d5912,
         type: 3}
@@ -7702,6 +7719,7 @@ GameObject:
   - component: {fileID: 2107748120}
   - component: {fileID: 2107748122}
   - component: {fileID: 2107748121}
+  - component: {fileID: 2107748123}
   m_Layer: 0
   m_Name: Objects
   m_TagString: Untagged
@@ -8478,6 +8496,22 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!19719996 &2107748123
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107748119}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0.00001
 --- !u!1001 &2108624762
 PrefabInstance:
   m_ObjectHideFlags: 0
