@@ -12,7 +12,7 @@ public class EnemyPathfinding : MonoBehaviour {
 
     private MoveSpots patrol;
     private int randomSpot;
-    public Transform target;
+    private Transform target;
     public float patrolSpeed = 600f;
     public float chaseSpeed = 1000f;
 
@@ -32,6 +32,7 @@ public class EnemyPathfinding : MonoBehaviour {
     void Start() {
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
+        target = GameObject.FindGameObjectWithTag("Player").transform;
         patrol = FindObjectOfType<MoveSpots>(); //find the possible spots to move to
         randomSpot = Random.Range(0, patrol.movespots.Length); //choose a random spot
         if (isChasing) {
