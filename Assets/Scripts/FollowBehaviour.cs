@@ -21,6 +21,34 @@ public class FollowBehaviour : StateMachineBehaviour
         if (Vector2.Distance(playerPos.position, animator.transform.position) > range) {
             animator.SetBool("isFollowing", false);
         }
+
+        if (animator.GetComponent<Rigidbody2D>().velocity.x >= 0.01f) {
+            animator.SetBool("isRight", false);
+            animator.SetBool("isLeft", true);
+            animator.SetBool("isUp", false);
+            animator.SetBool("isDown", false);
+        }
+
+        if (animator.GetComponent<Rigidbody2D>().velocity.x >= -0.01f) {
+            animator.SetBool("isRight", true);
+            animator.SetBool("isLeft", false);
+            animator.SetBool("isUp", false);
+            animator.SetBool("isDown", false);
+        }
+
+        if (animator.GetComponent<Rigidbody2D>().velocity.y >= 0.01f) {
+            animator.SetBool("isRight", false);
+            animator.SetBool("isLeft", false);
+            animator.SetBool("isUp", true);
+            animator.SetBool("isDown", false);
+        }
+
+        if (animator.GetComponent<Rigidbody2D>().velocity.y >= -0.01f) {
+            animator.SetBool("isRight", false);
+            animator.SetBool("isLeft", false);
+            animator.SetBool("isUp", false);
+            animator.SetBool("isDown", true);
+        }
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
