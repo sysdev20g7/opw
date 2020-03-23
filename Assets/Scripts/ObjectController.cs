@@ -95,7 +95,7 @@ public class ObjectController : MonoBehaviour {
     /// <summary>
     ///  This methods saves the game
     /// </summary>
-    private void SaveGame() {
+    public void SaveGame() {
         if (_DEBUG) Debug.Log("Saving");
        GameData toBeSaved = new GameData();
        int currentScene = this._helper.FindSceneLoaderInScene().GetCurrentScene();
@@ -114,7 +114,7 @@ public class ObjectController : MonoBehaviour {
     /// <summary>
     /// This method loads data from a save into the game (into this instance) 
     /// </summary>
-    private void LoadGame() {
+    public void LoadGame() {
         if (_DEBUG) Debug.Log("Loaded saved game");
         SaveGame defaultLoadSlot = new SaveGame(); 
         GameData loaded = defaultLoadSlot.LoadFromFile(1);
