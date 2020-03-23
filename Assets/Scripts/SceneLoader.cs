@@ -94,6 +94,11 @@ public class SceneLoader : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    ///  This function starts transition animation and loads
+    ///  the selected scene
+    /// </summary>
+    /// <param name="scene">Scene index to load</param>
     public void LoadSpecifedScene(int scene) {
         StartCoroutine(LoadScene(scene,false));
     }

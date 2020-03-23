@@ -26,13 +26,19 @@ public class GameData {
      // (Unity's JsonUtility)
      public List<NPC> savedEnemyList = new List<NPC>();
      public Dictionary<int, Vector3> savedPlayerPositionList    //TO BE REMOVED
-        = new Dictionary<int, Vector3>();
+        = new Dictionary<int, Vector3>(); // TO BE REMOVED IF NOT NEEDED
 
 
     public GameData() {
         this.timeAccessed = "";
         this.timeCreated = "";
     }
+    /// <summary>
+    ///  This function writes the player position and scene
+    ///  into the save object
+    /// </summary>
+    /// <param name="playerPos"> Vector3 from player pos</param>
+    /// <param name="scene">Scene index</param>
     public void WriteToSave(Vector3 playerPos, int scene) { 
         this.playerPosX = playerPos.x;
         this.playerPosY = playerPos.y;
@@ -44,6 +50,10 @@ public class GameData {
     }
     
 
+    /// <summary>
+    ///  Returns the players position
+    /// </summary>
+    /// <returns>Vector3 to hold position</returns>
     public Vector3 GetPlayerPosition() {
         return new Vector3(playerPosX,playerPosY,playerPosZ);
     }

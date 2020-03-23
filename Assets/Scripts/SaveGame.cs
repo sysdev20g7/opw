@@ -7,6 +7,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
+/// <summary>
+///  This class contains methods to perform save/load to files,
+///  either binary or json.
+/// </summary>
 public class SaveGame {
     public static bool DEBUG = true;
     private GameData _data;
@@ -31,6 +35,10 @@ public class SaveGame {
         this._data = save;
     }
 
+    /// <summary>
+    ///  Write a save to a json file
+    /// </summary>
+    /// <returns>boolean, true if success</returns>
     private bool SaveToJsonFile() {
         if (DEBUG) Debug.Log("==== Writing JSON to file : " + jsonFile);
         bool success = true;
@@ -51,6 +59,10 @@ public class SaveGame {
         return success;
     }
 
+    /// <summary>
+    ///  Load a save from a json file
+    /// </summary>
+    /// <returns>boolean, true if success</returns>
     private bool LoadFromJsonFile() {
         if (DEBUG) Debug.Log("==== LOAD JSON from file : " + jsonFile);
         bool ok = false;
@@ -77,6 +89,10 @@ public class SaveGame {
         }
         return ok;
     }
+    /// <summary>
+    /// Save a binary to file
+    /// </summary>
+    /// <returns>bool returns true if succsessful save</returns>
     private bool SaveToBinaryFile() {
         bool writeOk = true;
         BinaryFormatter binaryFormatter = new BinaryFormatter();
@@ -93,12 +109,16 @@ public class SaveGame {
         catch (Exception e) {
             Debug.Log("Unable to save binary, because: " + e);
             writeOk = false;
-            throw;
+            //throw;
         }
 
         return writeOk;
     }
 
+    /// <summary>
+    /// Load a binary save from file
+    /// </summary>
+    /// <returns>true/false bool if successful</returns>
     private bool LoadFromBinaryFile() {
         bool readOk = true;
         if (File.Exists(binaryFile)) {
@@ -123,6 +143,11 @@ public class SaveGame {
         return readOk;
     }
 
+    /// <summary>
+    /// This function saves a game to file, with specified type
+    /// </summary>
+    /// <param name="type">JSON = 1, BIN = 2</param>
+    /// <returns></returns>
     public bool SaveToFile(int type) {
         bool savedOk = false;
         if (DEBUG) Debug.Log("SaveToFile invoked");
@@ -138,6 +163,11 @@ public class SaveGame {
         return savedOk;
     }
 
+    /// <summary>
+    /// This function loads a saved game from file
+    /// </summary>
+    /// <param name="type">JSON = 1, BIN = 2</param>
+    /// <returns></returns>
     public GameData LoadFromFile(int type) {
         GameData data = new GameData();
         if (type == BINARY) {
