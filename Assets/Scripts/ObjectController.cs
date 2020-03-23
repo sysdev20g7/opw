@@ -28,10 +28,12 @@ public class ObjectController : MonoBehaviour {
 
     public GameObject prefabZombie;
     public GameObject prefabPolice;
+    private Helper _helper;
+    
     private static bool _DEBUG = true;
     private static string _NPC_ENEMY_TAG = "Enemy";
-    [SerializeField] private Dictionary<int, Vector3> _scenePlayerPos;
-    [SerializeField] private List<NPC> _enemyObjects = new List<NPC>(); //List over  Enemy NPCs in-game
+    private Dictionary<int, Vector3> _scenePlayerPos;
+    private List<NPC> _enemyObjects = new List<NPC>(); //List over  Enemy NPCs in-game
     private GameData _runningGame = new GameData();
     
     // Start is called before the first frame update
@@ -40,7 +42,9 @@ public class ObjectController : MonoBehaviour {
         // Create list to hold enemy and npc objects during game
         this._scenePlayerPos = new Dictionary<int, Vector3>();
         this._enemyObjects = new List<NPC>();
-        // Load prefabs to be used for spawns in game
+        
+        // Load a new helper to get access to global methods
+        Helper _helper = new Helper();
     }
 
     // Update is called once per frame
@@ -89,20 +93,12 @@ public class ObjectController : MonoBehaviour {
     }
     
     /// <summary>
-    ///  Finds the SceneLoader object in the current running Scene
-    /// </summary>
-    /// <returns></returns>
-    private SceneLoader FindSceneLoaderInScene() {
-        GameObject loader = GameObject.Find("SceneLoader");
-        return loader.GetComponent<SceneLoader>();
-    }
-    /// <summary>
     ///  This methods saves the game
     /// </summary>
     private void SaveGame() {
         if (_DEBUG) Debug.Log("Saving");
        GameData toBeSaved = new GameData();
-       int currentScene = FindSceneLoaderInScene().GetCurrentScene();
+       int currentScene = this._helper.FindSceneLoaderInScene().GetCurrentScene();
        //toBeSaved.savedEnemyList = _enemyObjects;
        //toBeSaved.savedPlayerPosition = _scenePlayerPos;
        //toBeSaved.jsonSavedEnemies = convertNpcListToJson(_enemyObjects);
@@ -129,7 +125,7 @@ public class ObjectController : MonoBehaviour {
         }
         
         //Find sceneloader in scene and set required values before loading
-        SceneLoader loader = FindSceneLoaderInScene();
+        SceneLoader loader = _helper.FindSceneLoaderInScene();
         this._scenePlayerPos[loaded.playerScene] = loaded.GetPlayerPosition();
         Debug.Log("Loading from save into scene " + loaded.playerScene);
         loader.LoadSpecifedScene(loaded.playerScene); // Load scene
