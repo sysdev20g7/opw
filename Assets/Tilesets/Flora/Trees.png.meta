@@ -38,6 +38,9 @@ TextureImporter:
   - first:
       213: 5056307353415951033
     second: Trees_11
+  - first:
+      213: 3674274018525464506
+    second: Trees_12
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -285,9 +288,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 280
-        y: 790
-        width: 94
-        height: 107
+        y: 799
+        width: 95
+        height: 98
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
