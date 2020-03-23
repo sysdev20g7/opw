@@ -16,12 +16,12 @@ public class PoliceSpawner : MonoBehaviour
     }
 
     IEnumerator EnemySpawn() {
-        //if (FindObjectsOfType<Police>().Length < maxEnemies) {
+        if (FindObjectsOfType<Police>().Length <= maxEnemies) {
             while (enemyCount < maxEnemies) {
                 Instantiate(enemy, spawner.transform.position, Quaternion.identity);
                 yield return new WaitForSeconds(0.4f);
                 enemyCount += 1;
             }
-        //}
     }
+}
 }
