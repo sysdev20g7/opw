@@ -41,13 +41,12 @@ public class SceneLoader : MonoBehaviour {
     }
 
     void Start() {
-        Helper helper = new Helper();
         // Updates scene index to current scene before invoking switch
        this._currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         // Load last saved player pos for this scene
-        objectcontroller = helper.FindObjectControllerInScene();
+        objectcontroller = GameObject.FindGameObjectWithTag("GameController").GetComponent<ObjectController>();
         if (objectcontroller == null) {
-            Debug.Log("You forgot to include the objectcontroller in the first scene");
+            
         } else {
             objectcontroller.LoadSavedPlayerPos(this._currentSceneIndex);
             objectcontroller.LoadEnemyPosInScene(this._currentSceneIndex);
