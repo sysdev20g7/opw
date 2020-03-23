@@ -20,7 +20,7 @@ public class SceneLoader : MonoBehaviour {
     public float animationDuration = 1f;
     // Update is called once per frame
 
-    public static int MAX_NUM_SCENES = 2; // Equals the number of valid scenes;
+    public static int MAX_NUM_SCENES = 3; // Equals the number of valid scenes;
                                           // see File -> Build settings in Unity...
     private static bool DEBUG_SCENEMGMT = false;
     private bool firstScene = true;
