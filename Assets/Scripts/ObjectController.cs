@@ -5,6 +5,7 @@ using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using Object = System.Object;
@@ -28,24 +29,25 @@ public class ObjectController : MonoBehaviour {
 
     public GameObject prefabZombie;
     public GameObject prefabPolice;
-    private Helper _helper;
     
-    private static bool _DEBUG = true;
+    private static bool _DEBUG = false;
     private static GameObject _obInstance;
     private static string _NPC_ENEMY_TAG = "Enemy";
     private Dictionary<int, Vector3> _scenePlayerPos;
     private List<NPC> _enemyObjects = new List<NPC>(); //List over  Enemy NPCs in-game
     private GameData _runningGame = new GameData();
-    
-    // Start is called before the first frame update
-    void Start()
-    {
+
+
+    public ObjectController() {
+        
         // Create list to hold enemy and npc objects during game
         this._scenePlayerPos = new Dictionary<int, Vector3>();
         this._enemyObjects = new List<NPC>();
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
         
-        // Load a new helper to get access to global methods
-        Helper _helper = new Helper();
     }
 
     // Update is called once per frame
@@ -100,19 +102,28 @@ public class ObjectController : MonoBehaviour {
 
         return playerPos;
     }
-    
+
+    public void ResetGame() {
+        // Overwrite and reset data
+        this._enemyObjects = new List<NPC>();
+        this._scenePlayerPos = new Dictionary<int, Vector3>();
+        this._runningGame = new GameData();
+        SaveGame deleteSave = new SaveGame();
+        deleteSave.DeleteSave(1);
+    }
     /// <summary>
     ///  This methods saves the game
     /// </summary>
     public void SaveGame() {
         if (_DEBUG) Debug.Log("Saving");
        GameData toBeSaved = new GameData();
-       int currentScene = this._helper.FindSceneLoaderInScene().GetCurrentScene();
+       Helper load = new Helper();
+       int currentScene = load.FindSceneLoaderInScene().GetCurrentScene();
        //toBeSaved.savedEnemyList = _enemyObjects;
        //toBeSaved.savedPlayerPosition = _scenePlayerPos;
        //toBeSaved.jsonSavedEnemies = convertNpcListToJson(_enemyObjects);
        toBeSaved.WriteToSave(this.FindPlayerPositionFromTag("Player"),currentScene);
-       if (_DEBUG) Debug.Log("Converted NPC-list into JSON:" + toBeSaved.jsonSavedEnemies);
+       //if (_DEBUG) Debug.Log("Converted NPC-list into JSON:" + toBeSaved.jsonSavedEnemies);
        
        SaveGame defaultSave = new SaveGame(toBeSaved);
        if (!(defaultSave.SaveToFile(1))) {
@@ -134,48 +145,15 @@ public class ObjectController : MonoBehaviour {
         }
         
         //Find sceneloader in scene and set required values before loading
-        SceneLoader loader = _helper.FindSceneLoaderInScene();
         this._scenePlayerPos[loaded.playerScene] = loaded.GetPlayerPosition();
         Debug.Log("Loading from save into scene " + loaded.playerScene);
-        loader.LoadSpecifedScene(loaded.playerScene); // Load scene
+        SceneManager.LoadScene(loaded.playerScene);
         //Load PlayerPos (this is not automatically done if target Scene is current Scene
         // because the SceneLoader instance already exist and what that is in start()
         // is not executed.
-        LoadSavedPlayerPos(loaded.playerScene); 
+        //LoadSavedPlayerPos(loaded.playerScene); 
     }
     
-    //--------------TO BE REMOVED IF NOT NEEDED --------------//
-    // Start
-    
-    /// <summary>
-    ///  This function converts a List<NPC> with multiple NPCs
-    ///  into a json-string
-    /// </summary>
-    /// <param name="source"></param>
-    /// <returns>json string</returns>
-    private string convertNpcListToJson(List<NPC> source) {
-        string json = "";
-
-        for (int i = source.Count - 1; i >= 0; i--) {
-            NPC npc = source[i];
-            string enemyType = npc.getTypeString;
-            json += JsonUtility.ToJson(source);
-            Debug.Log("Appended json:" + json);
-        }
-
-        return json;
-    }
-    //END-----------TO BE REMOVED IF NOT NEEDED --------------//
-    
-    /// <summary>
-    /// This method will convert a json string to a NPC list (might not be needed)
-    /// </summary>
-    /// <param name="json"></param>
-    /// <returns>returns a game object filled with data</returns>
-    private GameData convertJsonToNpcList(string json) {
-        GameData gdFromJson = JsonUtility.FromJson<GameData>(json);
-        return gdFromJson;
-    }
 
     /// <summary>
     /// Save current player position (xzy coord) in running scene to a
@@ -288,5 +266,38 @@ public class ObjectController : MonoBehaviour {
                 }
             }
         }
+    }
+    
+    //--------------TO BE REMOVED IF NOT NEEDED --------------//
+    // Start
+    
+    /// <summary>
+    ///  This function converts a List<NPC> with multiple NPCs
+    ///  into a json-string
+    /// </summary>
+    /// <param name="source"></param>
+    /// <returns>json string</returns>
+    private string convertNpcListToJson(List<NPC> source) {
+        string json = "";
+
+        for (int i = source.Count - 1; i >= 0; i--) {
+            NPC npc = source[i];
+            string enemyType = npc.getTypeString;
+            json += JsonUtility.ToJson(source);
+            Debug.Log("Appended json:" + json);
+        }
+
+        return json;
+    }
+    //END-----------TO BE REMOVED IF NOT NEEDED --------------//
+    
+    /// <summary>
+    /// This method will convert a json string to a NPC list (might not be needed)
+    /// </summary>
+    /// <param name="json"></param>
+    /// <returns>returns a game object filled with data</returns>
+    private GameData convertJsonToNpcList(string json) {
+        GameData gdFromJson = JsonUtility.FromJson<GameData>(json);
+        return gdFromJson;
     }
 }

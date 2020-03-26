@@ -36,6 +36,30 @@ public class SaveGame {
     }
 
     /// <summary>
+    /// Delete the saved game file
+    /// </summary>
+    /// <param name="type"></param>
+    public void DeleteSave(int type) {
+        if (type == JSON) {
+            File.Delete(jsonFile);
+        } 
+    }
+
+    /// <summary>
+    /// Check if a game save exists
+    /// </summary>
+    /// <param name="type">type of game, 1 = JSON</param>
+    /// <returns>true if save exists</returns>
+    public bool SaveExists(int type) {
+        if (type == JSON) {
+            return File.Exists(jsonFile);
+        }
+        else {
+            return File.Exists(binaryFile);
+        }
+    }
+
+    /// <summary>
     ///  Write a save to a json file
     /// </summary>
     /// <returns>boolean, true if success</returns>
