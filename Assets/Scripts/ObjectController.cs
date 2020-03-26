@@ -31,6 +31,7 @@ public class ObjectController : MonoBehaviour {
     public GameObject prefabPolice;
     
     private static bool _DEBUG = false;
+    private static int JSON = 1, BINARY = 2;
     private static GameObject _obInstance;
     private static string _NPC_ENEMY_TAG = "Enemy";
     private Dictionary<int, Vector3> _scenePlayerPos;
@@ -103,13 +104,19 @@ public class ObjectController : MonoBehaviour {
         return playerPos;
     }
 
+    /// <summary>
+    ///  This function resets the exsisting game data
+    ///  and also deletes the save file if present.
+    /// </summary>
     public void ResetGame() {
         // Overwrite and reset data
         this._enemyObjects = new List<NPC>();
         this._scenePlayerPos = new Dictionary<int, Vector3>();
         this._runningGame = new GameData();
         SaveGame deleteSave = new SaveGame();
-        deleteSave.DeleteSave(1);
+        if (deleteSave.SaveExists(JSON)) {
+            deleteSave.DeleteSave(JSON);
+        }
     }
     /// <summary>
     ///  This methods saves the game
