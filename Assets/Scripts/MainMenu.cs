@@ -20,6 +20,7 @@ public class MainMenu : MonoBehaviour {
     {
         ObjectController obj = this._helper.FindObjectControllerInScene();
         // Reset existing game data, delete existing saves
+        Debug.Log("New game; deleted old data and save");
         obj.ResetGame();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
@@ -56,11 +57,13 @@ public class MainMenu : MonoBehaviour {
         try {
             GameObject loadBtn = GameObject.FindGameObjectWithTag(_loadBtnTag);
             if (enabled) {
+                Debug.Log("Save exists, load enabled");
                 loadBtn.GetComponent<Button>().transition = Selectable.Transition.Animation;
                 loadBtn.GetComponent<Button>().interactable = true;
                 loadBtn.GetComponent<Animator>().enabled = true;
             }
             else {
+                Debug.Log("Save not found, load disabled");
                 loadBtn.GetComponent<Button>().interactable = false;
                 loadBtn.GetComponent<Button>().transition = Selectable.Transition.None;
                 loadBtn.GetComponent<Animator>().enabled = false;

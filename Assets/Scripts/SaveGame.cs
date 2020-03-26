@@ -12,11 +12,11 @@ using UnityEngine.UIElements;
 ///  either binary or json.
 /// </summary>
 public class SaveGame {
-    public static bool DEBUG = true;
+    public static bool DEBUG = false;
     private GameData _data;
     private static string SAVE_PATH = "/gamedata";
-    private string jsonFile = Application.dataPath + SAVE_PATH + ".json";
-    private string binaryFile =  Application.dataPath + SAVE_PATH + ".save";
+    private string jsonFile = Application.persistentDataPath + SAVE_PATH + ".json";
+    private string binaryFile =  Application.persistentDataPath + SAVE_PATH + ".save";
     private static int JSON = 1;
     private static int BINARY = 2;
 
@@ -73,6 +73,7 @@ public class SaveGame {
             // Write new file & owerwrite if already exsisiting
             File.WriteAllText(jsonFile, json);
             if (DEBUG) Debug.Log("Wrote JSON data to : " + jsonFile );
+            Debug.Log("Saved game to " + jsonFile.ToString());
         }
         catch (Exception e) {
             success = false;
@@ -110,6 +111,10 @@ public class SaveGame {
         }
         else {
             if (DEBUG) Debug.Log("Unable to find file at " + jsonFile);
+        }
+
+        if (ok) {
+            Debug.Log("Loaded game from " + jsonFile.ToString());
         }
         return ok;
     }
