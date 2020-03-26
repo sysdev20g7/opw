@@ -31,6 +31,7 @@ public class ObjectController : MonoBehaviour {
     private Helper _helper;
     
     private static bool _DEBUG = true;
+    private static GameObject _obInstance;
     private static string _NPC_ENEMY_TAG = "Enemy";
     private Dictionary<int, Vector3> _scenePlayerPos;
     private List<NPC> _enemyObjects = new List<NPC>(); //List over  Enemy NPCs in-game
@@ -68,7 +69,15 @@ public class ObjectController : MonoBehaviour {
 
     void Awake() {
         // Keep this instance alive for the rest of the game
+        
         DontDestroyOnLoad(this.gameObject);
+
+        if (_obInstance == null) {
+            _obInstance = this.gameObject;
+        }
+        else {
+            Destroy(this.gameObject);
+        }
     }
     
     /// <summary>
