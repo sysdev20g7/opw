@@ -40,6 +40,33 @@ public class MainMenu : MonoBehaviour {
     }
 
 
+    
+    /// <summary>
+    /// This function is just to show an example of how to
+    ///  save or the game with the global objectcontroller.
+    ///
+    /// It should not be called in this class, but rather be implemented
+    /// as needed in the classes or menus that need to load/save the game.
+    /// </summary>
+    private void SaveGameLoadGameExample() {
+        bool save = false, load = false;
+        if (save) {
+            Helper saveHelper = new Helper();
+            ObjectController saveController 
+                = saveHelper.FindObjectControllerInScene();
+            // Does the real work of saving the game
+            saveController.SaveGame();
+        }
+
+        if (load) {
+            Helper loadHelper = new Helper();
+            ObjectController loadController
+                = loadHelper.FindObjectControllerInScene(); 
+            // Does the real work of loading the game and switching scene
+            loadController.LoadGame();
+        }
+    }
+    
     /// <summary>
     ///  This function loads a saved game
     /// </summary>

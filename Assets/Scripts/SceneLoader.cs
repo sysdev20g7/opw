@@ -41,10 +41,11 @@ public class SceneLoader : MonoBehaviour {
     }
 
     void Start() {
+        this.sceneAnimation = GameObject.Find("BlackFade").GetComponent<Animator>();
         // Updates scene index to current scene before invoking switch
        this._currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         // Load last saved player pos for this scene
-        objectcontroller = GameObject.FindGameObjectWithTag("GameController").GetComponent<ObjectController>();
+        this.objectcontroller = GameObject.FindGameObjectWithTag("GameController").GetComponent<ObjectController>();
         if (objectcontroller == null) {
             
         } else {
