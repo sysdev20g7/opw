@@ -49,7 +49,7 @@ public class MainMenu : MonoBehaviour {
     }
 
     /// <summary>
-    /// This function disables and makes the load game button invisible
+    /// This function disables the load game button 
     /// if enabled is set to false
     /// </summary>
     /// <param name="enabled">true to enable the button, otherwise false</param>
@@ -68,6 +68,11 @@ public class MainMenu : MonoBehaviour {
                 loadBtn.GetComponent<Button>().transition = Selectable.Transition.None;
                 loadBtn.GetComponent<Animator>().enabled = false;
                 
+                /// FIXME
+                /// Insert other related things to to here
+                /// to indicate that it's not possible to
+                /// load a save ( for example add a grey overlay, etc.)
+
             }
         }
         catch (Exception e) {
