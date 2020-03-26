@@ -99,8 +99,11 @@ public class SceneLoader : MonoBehaviour {
     ///  the selected scene
     /// </summary>
     /// <param name="scene">Scene index to load</param>
-    public void LoadSpecifedScene(int scene) {
-        StartCoroutine(LoadScene(scene,false));
+    /// <param name="saveCurrentPos"> set this to true if you want
+    /// to save player and enemy pos. In menus this is preferred to be false,
+    /// in game this is preferred to be true </param> 
+    public void LoadSpecifedScene(int scene, bool saveCurrentPos) {
+        StartCoroutine(LoadScene(scene,saveCurrentPos));
     }
 
     /*
