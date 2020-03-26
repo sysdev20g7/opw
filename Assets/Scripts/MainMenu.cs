@@ -77,8 +77,8 @@ public class MainMenu : MonoBehaviour {
         }
         catch (Exception e) {
             Console.WriteLine(e);
-            Debug.Log("Unable to find tag loadbtn" + _loadBtnTag.ToString());
-            throw;
+            Debug.Log("Unable to find " + _loadBtnTag.ToString()
+                      + "in this menu");
         }
     }
 
