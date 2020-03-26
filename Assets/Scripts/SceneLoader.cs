@@ -15,7 +15,7 @@ using UnityEngine.SceneManagement;
  */
 public class SceneLoader : MonoBehaviour {
     private ObjectController objectcontroller;
-    public Animator animation;
+    public Animator sceneAnimation;
 
     public float animationDuration = 1f;
     // Update is called once per frame
@@ -132,7 +132,7 @@ public class SceneLoader : MonoBehaviour {
                       + ")");
 
             
-            animation.SetTrigger("Begin");
+            sceneAnimation.SetTrigger("Begin");
             yield return new WaitForSeconds(1);    // Break and sleep 1 sec
             if (savePositions) {
             objectcontroller.WriteSavedPlayerPos(this._currentSceneIndex); 
