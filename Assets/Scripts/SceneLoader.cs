@@ -28,14 +28,14 @@ public class SceneLoader : MonoBehaviour {
     private int _requestedSceneIndex;
 
     void Update() {
-        if (Input.GetMouseButtonDown(0)) {
-            if (DEBUG_SCENEMGMT) PrintDebug("LeftClick");
+        if (Input.GetKeyDown(KeyCode.PageUp)) {
+            if (DEBUG_SCENEMGMT) PrintDebug("PageUp");
             // Write data before switching scene
             LoadNextScene(true);
         }
-        else if (Input.GetMouseButtonDown(1)) {
+        else if (Input.GetKeyDown(KeyCode.PageDown)) {
             // Write data before switching scene
-            if (DEBUG_SCENEMGMT) PrintDebug("RightClick");
+            if (DEBUG_SCENEMGMT) PrintDebug("PageDown");
             LoadNextScene(false);
         }
     }
