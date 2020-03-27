@@ -129,9 +129,10 @@ public class MainMenu : MonoBehaviour {
             }
             else {
                 Debug.Log("Save not found, load disabled");
-                loadBtn.GetComponent<Button>().interactable = true;
+                loadBtn.GetComponent<Button>().interactable = false;
                 loadBtn.GetComponent<Button>().transition = Selectable.Transition.Animation;
                 // Sett knappen til disabled
+                loadBtn.GetComponent<Animator>().SetTrigger("Disabled");
                 loadBtn.GetComponent<Animator>().enabled = true;
                 loadBtn.GetComponent<Button>().onClick = null;
                 //loadBtn.SetActive(true); // Disable the button
