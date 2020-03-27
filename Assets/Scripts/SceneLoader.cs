@@ -49,6 +49,7 @@ public class SceneLoader : MonoBehaviour {
         if (objectcontroller == null) {
             
         } else {
+            objectcontroller.lastOpenScene = this._currentSceneIndex;
             objectcontroller.LoadSavedPlayerPos(this._currentSceneIndex);
             objectcontroller.LoadEnemyPosInScene(this._currentSceneIndex);
         }

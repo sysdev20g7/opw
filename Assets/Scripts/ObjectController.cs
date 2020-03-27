@@ -29,6 +29,7 @@ public class ObjectController : MonoBehaviour {
 
     public GameObject prefabZombie;
     public GameObject prefabPolice;
+    public int lastOpenScene; 
     
     private static bool _DEBUG = false;
     private static int JSON = 1, BINARY = 2;
