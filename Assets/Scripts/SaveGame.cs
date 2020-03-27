@@ -12,11 +12,11 @@ using UnityEngine.UIElements;
 ///  either binary or json.
 /// </summary>
 public class SaveGame {
-    public static bool DEBUG = true;
+    public static bool DEBUG = false;
     private GameData _data;
     private static string SAVE_PATH = "/gamedata";
-    private string jsonFile = Application.dataPath + SAVE_PATH + ".json";
-    private string binaryFile =  Application.dataPath + SAVE_PATH + ".save";
+    private string jsonFile = Application.persistentDataPath + SAVE_PATH + ".json";
+    private string binaryFile =  Application.persistentDataPath + SAVE_PATH + ".save";
     private static int JSON = 1;
     private static int BINARY = 2;
 
@@ -36,6 +36,30 @@ public class SaveGame {
     }
 
     /// <summary>
+    /// Delete the saved game file
+    /// </summary>
+    /// <param name="type"></param>
+    public void DeleteSave(int type) {
+        if (type == JSON) {
+            File.Delete(jsonFile);
+        } 
+    }
+
+    /// <summary>
+    /// Check if a game save exists
+    /// </summary>
+    /// <param name="type">type of game, 1 = JSON</param>
+    /// <returns>true if save exists</returns>
+    public bool SaveExists(int type) {
+        if (type == JSON) {
+            return File.Exists(jsonFile);
+        }
+        else {
+            return File.Exists(binaryFile);
+        }
+    }
+
+    /// <summary>
     ///  Write a save to a json file
     /// </summary>
     /// <returns>boolean, true if success</returns>
@@ -49,6 +73,7 @@ public class SaveGame {
             // Write new file & owerwrite if already exsisiting
             File.WriteAllText(jsonFile, json);
             if (DEBUG) Debug.Log("Wrote JSON data to : " + jsonFile );
+            Debug.Log("Saved game to " + jsonFile.ToString());
         }
         catch (Exception e) {
             success = false;
@@ -86,6 +111,10 @@ public class SaveGame {
         }
         else {
             if (DEBUG) Debug.Log("Unable to find file at " + jsonFile);
+        }
+
+        if (ok) {
+            Debug.Log("Loaded game from " + jsonFile.ToString());
         }
         return ok;
     }
