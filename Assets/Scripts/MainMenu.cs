@@ -95,14 +95,14 @@ public class MainMenu : MonoBehaviour {
     private void PromptExistingGame(bool gameExists) {
         if (gameExists) {
             // A game save exists, shall we delete ?
-            
+            EnablePopupCanvas(true);
             /// Prompt the user when clicking new game,
             /// to confirm if he want to really proceed
             /// with deleting the game save.
             ///
             if (true) {
                 // The user said yes, we'll delete the data
-                DeleteGame(); 
+                //DeleteGame();  //This is done on Yes button on GUI
             } 
         }
         else {
@@ -148,6 +148,28 @@ public class MainMenu : MonoBehaviour {
             Console.WriteLine(e);
             Debug.Log("Unable to find " + _loadBtnTag.ToString()
                       + "in this menu");
+        }
+    }
+
+    public void EnablePopupCanvas(bool enabled) {
+        try {
+            GameObject Popup = GameObject.Find("NewGameCanvas");
+            GameObject Menu = GameObject.Find("Canvas");
+            if (enabled) {
+                Debug.Log("Found canvas");
+                Popup.GetComponent<Canvas>().enabled = true;
+                Menu.GetComponent<Canvas>().enabled = false;
+            }
+            else {
+                Popup.GetComponent<Canvas>().enabled = false;
+                Menu.GetComponent<Canvas>().enabled = true;
+            }
+        }
+        catch (Exception e) {
+            Debug.Log("Error occured when trying to display popup");
+            Debug.Log("Most likely you've forgotten to enable the canvas" +
+                      "game object, or the menu game object");
+            throw;
         }
     }
 
