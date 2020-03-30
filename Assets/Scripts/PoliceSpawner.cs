@@ -16,7 +16,10 @@ public class PoliceSpawner : MonoBehaviour
     }
 
     IEnumerator EnemySpawn() {
-        if (FindObjectsOfType<Police>().Length <= maxEnemies) {
+        int length = GameObject.FindGameObjectsWithTag("Police").Length;
+        yield return new WaitForSeconds(1f);
+        if (length <= maxEnemies) {
+            enemyCount = length;
             while (enemyCount < maxEnemies) {
                 Instantiate(enemy, spawner.transform.position, Quaternion.identity);
                 yield return new WaitForSeconds(0.4f);

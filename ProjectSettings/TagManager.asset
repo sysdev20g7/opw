@@ -7,6 +7,10 @@ TagManager:
   - PatrolSpots
   - TestGoblinTag
   - Enemy
+  - MenuButtonLoadGame
+  - MenuCanvasPopup
+  - Police
+  - Zombie
   layers:
   - Default
   - TransparentFX

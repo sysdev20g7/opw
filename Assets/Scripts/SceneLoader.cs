@@ -15,39 +15,46 @@ using UnityEngine.SceneManagement;
  */
 public class SceneLoader : MonoBehaviour {
     private ObjectController objectcontroller;
-    public Animator animation;
+    public Animator sceneAnimation;
 
     public float animationDuration = 1f;
     // Update is called once per frame
 
     public static int MAX_NUM_SCENES = 3; // Equals the number of valid scenes;
                                           // see File -> Build settings in Unity...
-    private static bool DEBUG_SCENEMGMT = false;
+    private static bool DEBUG_SCENEMGMT = true;
     private bool firstScene = true;
     private int _currentSceneIndex;
     private int _requestedSceneIndex;
 
     void Update() {
-        if (Input.GetMouseButtonDown(0)) {
-            if (DEBUG_SCENEMGMT) PrintDebug("LeftClick");
+        if (Input.GetKeyDown(KeyCode.PageUp)) {
+            if (DEBUG_SCENEMGMT) PrintDebug("PageUp");
             // Write data before switching scene
             LoadNextScene(true);
         }
-        else if (Input.GetMouseButtonDown(1)) {
+        else if (Input.GetKeyDown(KeyCode.PageDown)) {
             // Write data before switching scene
-            if (DEBUG_SCENEMGMT) PrintDebug("RightClick");
+            if (DEBUG_SCENEMGMT) PrintDebug("PageDown");
             LoadNextScene(false);
         }
     }
 
     void Start() {
+        this.sceneAnimation = GameObject.Find("BlackFade").GetComponent<Animator>();
         // Updates scene index to current scene before invoking switch
        this._currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         // Load last saved player pos for this scene
-        objectcontroller = GameObject.FindGameObjectWithTag("GameController").GetComponent<ObjectController>();
+        this.objectcontroller = GameObject.FindGameObjectWithTag("GameController").GetComponent<ObjectController>();
         if (objectcontroller == null) {
             
         } else {
+            if (!objectcontroller.PlayerHasVisitedScene(this._currentSceneIndex)) {
+                GameObject g = GameObject.Find("PlayerSpawn");
+                objectcontroller.AddPlayerPos(g.transform.position, this._currentSceneIndex);
+                objectcontroller.SetPlayerVisitedScene(this._currentSceneIndex, true);
+            }
+            objectcontroller.lastOpenScene = this._currentSceneIndex;
             objectcontroller.LoadSavedPlayerPos(this._currentSceneIndex);
             objectcontroller.LoadEnemyPosInScene(this._currentSceneIndex);
         }
@@ -99,8 +106,11 @@ public class SceneLoader : MonoBehaviour {
     ///  the selected scene
     /// </summary>
     /// <param name="scene">Scene index to load</param>
-    public void LoadSpecifedScene(int scene) {
-        StartCoroutine(LoadScene(scene,false));
+    /// <param name="saveCurrentPos"> set this to true if you want
+    /// to save player and enemy pos. In menus this is preferred to be false,
+    /// in game this is preferred to be true </param> 
+    public void LoadSpecifedScene(int scene, bool saveCurrentPos) {
+        StartCoroutine(LoadScene(scene,saveCurrentPos));
     }
 
     /*
@@ -129,7 +139,7 @@ public class SceneLoader : MonoBehaviour {
                       + ")");
 
             
-            animation.SetTrigger("Begin");
+            sceneAnimation.SetTrigger("Begin");
             yield return new WaitForSeconds(1);    // Break and sleep 1 sec
             if (savePositions) {
             objectcontroller.WriteSavedPlayerPos(this._currentSceneIndex); 

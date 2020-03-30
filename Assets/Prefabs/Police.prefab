@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 729361243}
   m_Layer: 0
   m_Name: Police
-  m_TagString: Enemy
+  m_TagString: Police
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -155,7 +155,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a561e13886a57347b691661554e96d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 6562623317143493070, guid: 85f98f9c736753740b17dea5be1e0bfe, type: 3}
   patrolSpeed: 600
   chaseSpeed: 1000
   nextWaypointDistance: 0.4

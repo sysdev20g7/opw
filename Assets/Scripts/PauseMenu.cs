@@ -52,4 +52,12 @@ public class PauseMenu : MonoBehaviour {
         SceneManager.LoadScene(MainMenu);
         Debug.Log("Loading main menu...");
     }
+
+    public void SaveGameButton() {
+            Helper saveHelper = new Helper();
+            ObjectController saveController 
+                = saveHelper.FindObjectControllerInScene();
+            // Does the real work of saving the game
+            saveController.SaveGame();
+    }
 }
