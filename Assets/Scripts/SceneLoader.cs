@@ -49,6 +49,10 @@ public class SceneLoader : MonoBehaviour {
         if (objectcontroller == null) {
             
         } else {
+            if (objectcontroller.HasPosition(this._currentSceneIndex)) {
+                GameObject g = GameObject.Find("PlayerSpawn");
+                objectcontroller.AddPlayerPos(g.transform.position, this._currentSceneIndex);
+            }
             objectcontroller.lastOpenScene = this._currentSceneIndex;
             objectcontroller.LoadSavedPlayerPos(this._currentSceneIndex);
             objectcontroller.LoadEnemyPosInScene(this._currentSceneIndex);

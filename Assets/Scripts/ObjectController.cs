@@ -40,6 +40,7 @@ public class ObjectController : MonoBehaviour {
     private Dictionary<int, Vector3> _scenePlayerPos;
     private List<NPC> _enemyObjects = new List<NPC>(); //List over  Enemy NPCs in-game
     private GameData _runningGame = new GameData();
+    private bool hasRespawned = false;
 
 
     public ObjectController() {
@@ -88,6 +89,14 @@ public class ObjectController : MonoBehaviour {
         else {
             Destroy(this.gameObject);
         }
+    }
+
+    public bool HasPosition(int scene) {
+        bool hasPos = true;
+        if (_scenePlayerPos[scene] == null) {
+            hasPos = false;
+        }
+        return hasPos;
     }
     
     /// <summary>
@@ -192,13 +201,15 @@ public class ObjectController : MonoBehaviour {
             if (this._scenePlayerPos.TryGetValue(scene, out result)) {
                 if (_DEBUG) Debug.Log("Found coordinates for scene "
                                     + scene + " at " + result.ToString());
-                GameObject g = GameObject.Find("Player");
-                // set player pos to last stored pos and rotation to "no rotation"
-                g.transform.SetPositionAndRotation(result,Quaternion.identity );
+                Instantiate(prefabPlayer, result, Quaternion.identity);
             } else {
                 if (_DEBUG) Debug.Log("Unable to find player coordinates");
             }
         }
+    }
+
+    public void AddPlayerPos(Vector3 pos, int scene) {
+        this._scenePlayerPos[scene] = pos;
     }
 
     
@@ -294,13 +305,18 @@ public class ObjectController : MonoBehaviour {
      * Instantiates a new player object on the coordinates of the spawn.
      */
     private void respawnPlayerInJail(Scene scene, LoadSceneMode mode) {
-        GameObject g = GameObject.Find("Player");
+        GameObject g = GameObject.FindGameObjectWithTag("Player");
         Destroy(g);
         this._scenePlayerPos = new Dictionary<int, Vector3>();
         this._enemyObjects = new List<NPC>();
         GameObject spawn = GameObject.Find("PlayerSpawn");
         Instantiate(prefabPlayer, spawn.transform.position, Quaternion.identity);
         SceneManager.sceneLoaded -= respawnPlayerInJail;
+        hasRespawned = true;
+    }
+
+    public bool GetHasRespawned() {
+        return this.hasRespawned;
     }
     
     //--------------TO BE REMOVED IF NOT NEEDED --------------//
