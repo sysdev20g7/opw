@@ -988,6 +988,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eedaa1909f4ae454298c98d897714fc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SCN_OPTIONS_MENU: 4
+  SCN_MAIN_MENU: 0
 --- !u!1 &1207675000
 GameObject:
   m_ObjectHideFlags: 0
@@ -1687,8 +1689,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1139479329}
-        m_MethodName: SetActive
+      - m_Target: {fileID: 1139479331}
+        m_MethodName: EnableOptionsMenu
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

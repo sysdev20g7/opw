@@ -20,6 +20,7 @@ public class PauseMenu : MonoBehaviour {
             = pauseHelper.FindObjectControllerInScene();
         this.gameIsPaused = !pauseController.runningInGame;
         this._currentScene = SceneManager.GetActiveScene().buildIndex;
+        Resume();
     }
 
     // Update is called once per frame
