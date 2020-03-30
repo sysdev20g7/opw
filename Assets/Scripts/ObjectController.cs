@@ -31,16 +31,16 @@ public class ObjectController : MonoBehaviour {
     public GameObject prefabPolice;
     public GameObject prefabPlayer;
     public int lastOpenScene;
-    public int jailSceneNumber;
 
-    private static bool _DEBUG = false;
+    private static bool _DEBUG = true;
     private static int JSON = 1, BINARY = 2;
     private static GameObject _obInstance;
-    private static string _NPC_ENEMY_TAG = "Enemy";
+    private static string _POLICE_ENEMY_TAG = "Police";
+    private static string _ZOMBIE_ENEMY_TAG = "Zombie";
     private Dictionary<int, Vector3> _scenePlayerPos;
     private List<NPC> _enemyObjects = new List<NPC>(); //List over  Enemy NPCs in-game
+    private List<bool> playerHasVisited = new List<bool>();
     private GameData _runningGame = new GameData();
-    private bool hasRespawned = false;
 
 
     public ObjectController() {
@@ -48,11 +48,13 @@ public class ObjectController : MonoBehaviour {
         // Create list to hold enemy and npc objects during game
         this._scenePlayerPos = new Dictionary<int, Vector3>();
         this._enemyObjects = new List<NPC>();
+        this.playerHasVisited = new List<bool>();
+        ResetPlayerHasVisited();
     }
     // Start is called before the first frame update
     void Start()
     {
-        
+        ResetPlayerHasVisited();
     }
 
     // Update is called once per frame
@@ -91,12 +93,18 @@ public class ObjectController : MonoBehaviour {
         }
     }
 
-    public bool HasPosition(int scene) {
-        bool hasPos = true;
-        if (_scenePlayerPos[scene] == null) {
-            hasPos = false;
+    private void ResetPlayerHasVisited() {
+        for (int i = 0; i <= SceneLoader.MAX_NUM_SCENES; i++) {
+            this.playerHasVisited.Add(false);
         }
-        return hasPos;
+    }
+
+    public void SetPlayerVisitedScene(int scene, bool visited) {
+        this.playerHasVisited[scene] = visited;
+    }
+
+    public bool PlayerHasVisitedScene(int scene) {
+        return this.playerHasVisited[scene];
     }
     
     /// <summary>
@@ -129,6 +137,7 @@ public class ObjectController : MonoBehaviour {
         this._enemyObjects = new List<NPC>();
         this._scenePlayerPos = new Dictionary<int, Vector3>();
         this._runningGame = new GameData();
+        ResetPlayerHasVisited();
         SaveGame deleteSave = new SaveGame();
         if (deleteSave.SaveExists(JSON)) {
             deleteSave.DeleteSave(JSON);
@@ -220,30 +229,34 @@ public class ObjectController : MonoBehaviour {
     /// <param name="scene">The slot number to write to
     /// (normally the current scene index)</param>
     public void WriteEnemyPosInScene(int scene) {
-        Array enemiesInScene = GameObject.FindGameObjectsWithTag(_NPC_ENEMY_TAG);
+        Array policeInScene = GameObject.FindGameObjectsWithTag(_POLICE_ENEMY_TAG);
+        Array zombieInScene = GameObject.FindGameObjectsWithTag(_ZOMBIE_ENEMY_TAG);
         //Dictionary<int,Vector3> currentSceneDir = new Dictionary<int, Vector3>();
-        foreach (GameObject enemy in enemiesInScene) {
+        WriteEnemiesToList(policeInScene, scene);
+        WriteEnemiesToList(zombieInScene, scene);
+    }
+
+    private void WriteEnemiesToList(Array enemies, int scene) {
+        foreach (GameObject enemy in enemies) {
             Debug.Log("Harvesting object " + enemy.name + " from scene " + scene);
-            NPC npc = new NPC(enemy,scene);
+            NPC npc = new NPC(enemy, scene);
             // If valid enemy store in dict and remove from scene
             if (npc.valid) {
                 _enemyObjects.Add(npc);
                 Destroy(enemy);
                 Debug.Log("Stored " + npc.getTypeString
-                            + " to list for scene " + npc.GetScene() 
+                            + " to list for scene " + npc.GetScene()
                             + " " + npc.Position3Axis.ToString());
             }
             else {
                 Debug.Log("No valid NPCs to store for scene " + scene);
             }
-        } 
-        if (enemiesInScene.Length == 0) {
+        }
+        if (enemies.Length == 0) {
             Debug.Log("NPC enemies array is also empty in scene" + scene);
         }
         Debug.Log("Total count of stored NPCs: " + _enemyObjects.Count.ToString());
-
     }
-
     
     
     /// <summary>
@@ -297,6 +310,7 @@ public class ObjectController : MonoBehaviour {
      * Then loads the scene where the player will respawn.
      */
     public void playerCaughtByCop() {
+        this._scenePlayerPos = new Dictionary<int, Vector3>();
         SceneManager.sceneLoaded += respawnPlayerInJail;
         SceneManager.LoadScene("Jail");
     }
@@ -305,19 +319,14 @@ public class ObjectController : MonoBehaviour {
      * Instantiates a new player object on the coordinates of the spawn.
      */
     private void respawnPlayerInJail(Scene scene, LoadSceneMode mode) {
+        this._enemyObjects = new List<NPC>();
+        this.playerHasVisited = new List<bool>();
         GameObject g = GameObject.FindGameObjectWithTag("Player");
         Destroy(g);
-        this._scenePlayerPos = new Dictionary<int, Vector3>();
-        this._enemyObjects = new List<NPC>();
-        GameObject spawn = GameObject.Find("PlayerSpawn");
-        Instantiate(prefabPlayer, spawn.transform.position, Quaternion.identity);
+        ResetPlayerHasVisited();
         SceneManager.sceneLoaded -= respawnPlayerInJail;
-        hasRespawned = true;
     }
 
-    public bool GetHasRespawned() {
-        return this.hasRespawned;
-    }
     
     //--------------TO BE REMOVED IF NOT NEEDED --------------//
     // Start
