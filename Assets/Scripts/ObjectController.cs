@@ -32,7 +32,7 @@ public class ObjectController : MonoBehaviour {
     public GameObject prefabPlayer;
     public int lastOpenScene;
     public int jailSceneNumber;
-    
+
     private static bool _DEBUG = false;
     private static int JSON = 1, BINARY = 2;
     private static GameObject _obInstance;
@@ -65,7 +65,7 @@ public class ObjectController : MonoBehaviour {
         }
 
         if (Input.GetKeyDown(KeyCode.F1)) {
-            respawnPlayerInJail();
+            playerCaughtByCop();
         }
         
         if ( (Input.GetKeyDown(KeyCode.F12)) || 
@@ -282,14 +282,25 @@ public class ObjectController : MonoBehaviour {
         }
     }
 
-    public void respawnPlayerInJail() {
-        SceneManager.LoadScene(jailSceneNumber);
+    /* Starts a listening event for respawnPlayerInJail.
+     * Then loads the scene where the player will respawn.
+     */
+    public void playerCaughtByCop() {
+        SceneManager.sceneLoaded += respawnPlayerInJail;
+        SceneManager.LoadScene("Jail");
+    }
+
+    /* Destroys the player object and creates new position lists.
+     * Instantiates a new player object on the coordinates of the spawn.
+     */
+    private void respawnPlayerInJail(Scene scene, LoadSceneMode mode) {
         GameObject g = GameObject.Find("Player");
         Destroy(g);
-        GameObject spawn = GameObject.Find("PlayerSpawn");
-        Instantiate(prefabPlayer, spawn.transform.position, Quaternion.identity);
         this._scenePlayerPos = new Dictionary<int, Vector3>();
         this._enemyObjects = new List<NPC>();
+        GameObject spawn = GameObject.Find("PlayerSpawn");
+        Instantiate(prefabPlayer, spawn.transform.position, Quaternion.identity);
+        SceneManager.sceneLoaded -= respawnPlayerInJail;
     }
     
     //--------------TO BE REMOVED IF NOT NEEDED --------------//
