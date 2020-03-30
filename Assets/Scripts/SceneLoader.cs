@@ -22,7 +22,7 @@ public class SceneLoader : MonoBehaviour {
 
     public static int MAX_NUM_SCENES = 3; // Equals the number of valid scenes;
                                           // see File -> Build settings in Unity...
-    private static bool DEBUG_SCENEMGMT = false;
+    private static bool DEBUG_SCENEMGMT = true;
     private bool firstScene = true;
     private int _currentSceneIndex;
     private int _requestedSceneIndex;
@@ -49,6 +49,11 @@ public class SceneLoader : MonoBehaviour {
         if (objectcontroller == null) {
             
         } else {
+            if (!objectcontroller.PlayerHasVisitedScene(this._currentSceneIndex)) {
+                GameObject g = GameObject.Find("PlayerSpawn");
+                objectcontroller.AddPlayerPos(g.transform.position, this._currentSceneIndex);
+                objectcontroller.SetPlayerVisitedScene(this._currentSceneIndex, true);
+            }
             objectcontroller.lastOpenScene = this._currentSceneIndex;
             objectcontroller.LoadSavedPlayerPos(this._currentSceneIndex);
             objectcontroller.LoadEnemyPosInScene(this._currentSceneIndex);
