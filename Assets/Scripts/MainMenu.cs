@@ -11,6 +11,8 @@ public class MainMenu : MonoBehaviour {
     private Helper _helper;
     private ObjectController obj;
     private SaveGame checkSave;
+    public int SCN_OPTIONS_MENU = 4;
+    public int SCN_MAIN_MENU = 0;
 
     // Constructor
     public MainMenu() {
@@ -147,7 +149,7 @@ public class MainMenu : MonoBehaviour {
         catch (Exception e) {
             Console.WriteLine(e);
             Debug.Log("Unable to find " + _loadBtnTag.ToString()
-                      + "in this menu");
+                      + " in this menu");
         }
     }
 
@@ -170,6 +172,58 @@ public class MainMenu : MonoBehaviour {
             Debug.Log("Most likely you've forgotten to enable the canvas" +
                       "game object, or the menu game object");
             throw;
+        }
+    }
+
+    public void EnableMainMenuOptions(bool enableOptions) {
+        try {
+            GameObject Canvas = GameObject.Find("Canvas");
+            GameObject Options = Canvas.transform.Find("OptionsMenu").gameObject;
+            GameObject Menu = Canvas.transform.Find("MainMenu").gameObject;
+            
+            if (enableOptions) {
+                Options.SetActive(true);
+                Menu.SetActive(false);
+            }
+            else {
+                Options.SetActive(false);
+                Menu.SetActive(true);
+                
+            }
+        }
+        catch (Exception e) {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
+    private void ReturnToPauseMenu() {
+        Helper opMenuHelper = new Helper();
+        ObjectController controller
+            = opMenuHelper.FindObjectControllerInScene();
+        
+        if (controller.lastInGameScene is null) {
+            // We are currently in main meny 
+        } else {
+            // We are currently in-game
+            int returnScene = (int) controller.lastInGameScene;
+            //SceneLoader sc = opMenuHelper.FindSceneLoaderInScene();
+            //sc.LoadSpecifedScene(returnScene,false);
+            SceneManager.LoadScene(returnScene);
+        }
+    }
+
+    public void EnableOptionsMenu(bool enabled) {
+
+        if (obj.lastInGameScene == null) {
+            Debug.Log("From Main Menu");
+            EnableMainMenuOptions(enabled);
+
+        } else {
+            Debug.Log("From Pause Menu");
+            if (enabled == false) {
+                ReturnToPauseMenu();
+            }
         }
     }
 
