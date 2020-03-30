@@ -70,34 +70,40 @@ MonoBehaviour:
     m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "This game was made by following the ideas of Jan & Lennart\r.\n\nMain
-    Character by Erlend Nikolaisen, based on work by:\r\nYamilian\t\t\thttps://opengameart.org/users/yamilian\r\nRedshrike\t\t\thttps://opengameart.org/users/redshrike\r\n\t\t\nPolice
-    by Nils Jarle Haugen, based on work by:\r\nWulax\t\t\t\thttps://opengameart.org/users/wulax\r\nRedshrike\t\t\thttps://opengameart.org/users/redshrike\r\nJoe
-    White\t\t\thttps://opengameart.org/users/joe-white\r\nPennomi\t\t\thttps://opengameart.org/users/pennomi\r\nLaetissima\t\thttps://opengameart.org/users/laetissima\r\nGaurav\t\t\t\thttps://github.com/Gaurav0\r\n\nZombie
-    by Martin H\xE5hjem \xC5rdal, based on work by:\r\nWulax\t\t\t\thttps://opengameart.org/users/wulax\r\nRedshrike\t\t\thttps://opengameart.org/users/redshrike\r\nJoe
-    White\t\t\thttps://opengameart.org/users/joe-white\r\nPennomi\t\t\thttps://opengameart.org/users/pennomi\r\nLaetissima\t\thttps://opengameart.org/users/laetissima\r\nGaurav\t\t\t\thttps://github.com/Gaurav0\r\n\nEvil
+  m_Text: "This game was based on the ideas of Jan & Lennart\r.\n\nMain Character
+    by Erlend Nikolaisen, based on work by:\r\nYamilian - https://opengameart.org/users/yamilian\r\nRedshrike
+    - https://opengameart.org/users/redshrike\r\n\t\t\nPolice by Nils Jarle Haugen,
+    based on work by:\r\nWulax - https://opengameart.org/users/wulax\r\nRedshrike
+    - https://opengameart.org/users/redshrike\r\nJoe White - https://opengameart.org/users/joe-white\r\nPennomi
+    - https://opengameart.org/users/pennomi\r\nLaetissima - https://opengameart.org/users/laetissima\r\nGaurav
+    - https://github.com/Gaurav0\r\n\nZombie by Martin H\xE5hjem \xC5rdal, based
+    on work by:\r\nWulax - https://opengameart.org/users/wulax\r\nRedshrike - https://opengameart.org/users/redshrike\r\nJoe
+    White - https://opengameart.org/users/joe-white\r\nPennomi - https://opengameart.org/users/pennomi\r\nLaetissima
+    - https://opengameart.org/users/laetissima\r\nGaurav - https://github.com/Gaurav0\r\n\nEvil
     Tree #1 by Lennart\r, Lasse\r, Erlend\r\n\nEvil Tree #2 by Jan\r, P\xE5l, Martin\r\n\t\t\nGoblin
-    by \nRedshrike\t\t\t\t\t\thttps://opengameart.org/users/redshrike\r\nWilliam.Thompsonj\thttps://opengameart.org/users/williamthompsonj\r\n\nJail
-    Map, by P\xE5l Nyseth, based on work by:\r\nSharm\t\t\t\t\t\t\thttps://opengameart.org/users/sharm\r\nWilliam.Thompsonj\thttps://opengameart.org/users/williamthompsonj\r\nDaneeklu
-    \t\t\t\t\t\thttps://opengameart.org/users/daneeklu\r\nJohann Charlot\t\t\thttp://poufpoufproduction.fr/\r\n\r\nForest
-    map  by Lasse Kregnes Hansen, Erlend Nikolaisen and P\xE5l Nyseth, based on work
-    by:\r\nSharm\t\t\t\t\t\t\t\thttps://opengameart.org/users/sharm\r\nWilliam.Thompsonj\t\thttps://opengameart.org/users/williamthompsonj\r\nJohann
-    Charlot\t\t\t\thttp://poufpoufproduction.fr/\r\nC.Nilsson\t\t\t\t\t\t\thttps://opengameart.org/users/cnilsson\r\nEmilio
-    J. Sanchez-Sierra \nMakrohn\t\t\t\t\t\t\thttps://opengameart.org/users/makrohn\r\nDaneeklu
-    \t\t\t\t\t\t\thttps://opengameart.org/users/daneeklu\r\nFeralFantom\t\t\t\t\thttps://opengameart.org/users/feralfantom\r\n\nSecret
-    Base, By P\xE5l Nyseth, based on work by:\r\nSharm\t\t\thttps://opengameart.org/users/sharm\r\nC.Nilsson\t\thttps://opengameart.org/users/cnilsson\r\n\nLibraries:\r\n\nAstarPathfindingProject\r
+    by\nRedshrike - https://opengameart.org/users/redshrike\r\nWilliam.Thompsonj\t\nhttps://opengameart.org/users/williamthompsonj\r\n\nJail
+    Map, by P\xE5l Nyseth, based on work by:\r\nSharm - https://opengameart.org/users/sharm\r\nWilliam.Thompsonj\nhttps://opengameart.org/users/williamthompsonj\r\nDaneeklu
+    - https://opengameart.org/users/daneeklu\r\nJohann Charlot - http://poufpoufproduction.fr/\r\n\r\nForest
+    map\nby Lasse Kregnes Hansen, Erlend Nikolaisen and P\xE5l Nyseth\nbased on work
+    by:\r\nSharm - https://opengameart.org/users/sharm\r\nWilliam.Thompsonj\t\t\nhttps://opengameart.org/users/williamthompsonj\r\nJohann
+    Charlot - http://poufpoufproduction.fr/\r\nC.Nilsson - https://opengameart.org/users/cnilsson\r\nEmilio
+    J. Sanchez-Sierra \nMakrohn - https://opengameart.org/users/makrohn\r\nDaneeklu
+    - https://opengameart.org/users/daneeklu\r\nFeralFantom - https://opengameart.org/users/feralfantom\r\n\nSecret
+    Base, By P\xE5l Nyseth, based on work by:\r\nSharm - https://opengameart.org/users/sharm\r\nC.Nilsson
+    - https://opengameart.org/users/cnilsson\r\n\nLibraries:\r\nAstarPathfindingProject\r
     by Aron Granberg\r \nhttps://www.arongranberg.com/astar/\r\n\nDevelopers:\r\nLasse
     Kregnes Hansen\r\nNils Jarle Haugen\r\nErlend Nikolaisen\r\nP\xE5l Nyseth\r\nMartin
     H\xE5hjem \xC5rdal\r\n\nLicenses by which assets used are place under.\nCC-BY-SA
-    3.0 \thttps://creativecommons.org/licenses/by-sa/3.0/\r\nCC-BY 4.0\thttps://creativecommons.org/licenses/by/4.0/\r\nCC-BY
-    3.0\thttps://creativecommons.org/licenses/by/3.0/\r\nGPL 3.0\t\thttps://www.gnu.org/licenses/gpl-3.0.html\r\nGPL
-    2.0\t\thttps://www.gnu.org/licenses/old-licenses/gpl-2.0.html\r\nOGA-BY 3.0\thttps://opengameart.org/content/oga-by-30-faq\r\n"
+    3.0 - https://creativecommons.org/licenses/by-sa/3.0/\r\nCC-BY 4.0 - https://creativecommons.org/licenses/by/4.0/\r\nCC-BY
+    3.0 - https://creativecommons.org/licenses/by/3.0/\r\nGPL 3.0 - https://www.gnu.org/licenses/gpl-3.0.html\r\nGPL
+    2.0 - https://www.gnu.org/licenses/old-licenses/gpl-2.0.html\r\nOGA-BY 3.0 -
+    https://opengameart.org/content/oga-by-30-faq\r\n"
 --- !u!1 &2853935975081549302
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,10 +227,10 @@ RectTransform:
   m_Father: {fileID: 3686115376907367422}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: -171}
-  m_SizeDelta: {x: 110.54, y: 59}
+  m_AnchoredPosition: {x: 0, y: -28.75}
+  m_SizeDelta: {x: 110.5, y: -57.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3686115376847082224
 CanvasRenderer:
@@ -361,7 +367,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3686115376907367422
 RectTransform:
   m_ObjectHideFlags: 0
@@ -417,10 +423,10 @@ RectTransform:
   m_Father: {fileID: 3686115376907367422}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00012207031, y: 153}
-  m_SizeDelta: {x: 739.6, y: 132.4}
+  m_AnchoredPosition: {x: 0, y: -45.75}
+  m_SizeDelta: {x: 0, y: 91.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3686115377217224028
 CanvasRenderer:
@@ -519,13 +525,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: -0.000061035156, w: 0}
   m_textInfo:
     textComponent: {fileID: 3686115377217224019}
-    characterCount: 8
+    characterCount: 0
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 1
+    spaceCount: 0
+    wordCount: 0
     linkCount: 0
-    lineCount: 1
-    pageCount: 1
+    lineCount: 0
+    pageCount: 0
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
@@ -689,13 +695,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 3686115377713821149}
-    characterCount: 4
+    characterCount: 0
     spriteCount: 0
     spaceCount: 0
-    wordCount: 1
+    wordCount: 0
     linkCount: 0
-    lineCount: 1
-    pageCount: 1
+    lineCount: 0
+    pageCount: 0
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
@@ -747,7 +753,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 16.05, y: -0.00019357567}
-  m_SizeDelta: {x: -32.1, y: 4439.6}
+  m_SizeDelta: {x: -32.1, y: 4700}
   m_Pivot: {x: 0, y: 1}
 --- !u!95 &1029653466326201927
 Animator:
