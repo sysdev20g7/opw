@@ -29,7 +29,9 @@ public class ObjectController : MonoBehaviour {
 
     public GameObject prefabZombie;
     public GameObject prefabPolice;
-    public int lastOpenScene; 
+    public GameObject prefabPlayer;
+    public int lastOpenScene;
+    public int jailSceneNumber;
     
     private static bool _DEBUG = false;
     private static int JSON = 1, BINARY = 2;
@@ -60,6 +62,10 @@ public class ObjectController : MonoBehaviour {
         ) {
             if (_DEBUG) Debug.Log("Catched Save Keypress");
             SaveGame();
+        }
+
+        if (Input.GetKeyDown(KeyCode.F1)) {
+            respawnPlayerInJail();
         }
         
         if ( (Input.GetKeyDown(KeyCode.F12)) || 
@@ -274,6 +280,16 @@ public class ObjectController : MonoBehaviour {
                 }
             }
         }
+    }
+
+    public void respawnPlayerInJail() {
+        SceneManager.LoadScene(jailSceneNumber);
+        GameObject g = GameObject.Find("Player");
+        Destroy(g);
+        GameObject spawn = GameObject.Find("PlayerSpawn");
+        Instantiate(prefabPlayer, spawn.transform.position, Quaternion.identity);
+        this._scenePlayerPos = new Dictionary<int, Vector3>();
+        this._enemyObjects = new List<NPC>();
     }
     
     //--------------TO BE REMOVED IF NOT NEEDED --------------//
