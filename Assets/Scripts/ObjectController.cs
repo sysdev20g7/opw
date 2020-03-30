@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Collections;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -30,7 +31,8 @@ public class ObjectController : MonoBehaviour {
     public GameObject prefabZombie;
     public GameObject prefabPolice;
     public GameObject prefabPlayer;
-    public int lastOpenScene;
+    [ReadOnly]public int? lastInGameScene = null;
+    [ReadOnly] public bool runningInGame = false;
 
     private static bool _DEBUG = true;
     private static int JSON = 1, BINARY = 2;
@@ -39,7 +41,7 @@ public class ObjectController : MonoBehaviour {
     private static string _ZOMBIE_ENEMY_TAG = "Zombie";
     private Dictionary<int, Vector3> _scenePlayerPos;
     private List<NPC> _enemyObjects = new List<NPC>(); //List over  Enemy NPCs in-game
-    private List<bool> playerHasVisited = new List<bool>();
+    private List<bool> _playerHasVisited = new List<bool>();
     private GameData _runningGame = new GameData();
 
 
@@ -48,8 +50,8 @@ public class ObjectController : MonoBehaviour {
         // Create list to hold enemy and npc objects during game
         this._scenePlayerPos = new Dictionary<int, Vector3>();
         this._enemyObjects = new List<NPC>();
-        this.playerHasVisited = new List<bool>();
-        ResetPlayerHasVisited();
+        this._playerHasVisited = new List<bool>();
+        ResetPlayerHasVisited(); //Set all visited scenes to false
     }
     // Start is called before the first frame update
     void Start()
@@ -95,16 +97,16 @@ public class ObjectController : MonoBehaviour {
 
     private void ResetPlayerHasVisited() {
         for (int i = 0; i <= SceneLoader.MAX_NUM_SCENES; i++) {
-            this.playerHasVisited.Add(false);
+            this._playerHasVisited.Add(false);
         }
     }
 
     public void SetPlayerVisitedScene(int scene, bool visited) {
-        this.playerHasVisited[scene] = visited;
+        this._playerHasVisited[scene] = visited;
     }
 
     public bool PlayerHasVisitedScene(int scene) {
-        return this.playerHasVisited[scene];
+        return this._playerHasVisited[scene];
     }
     
     /// <summary>
@@ -178,6 +180,7 @@ public class ObjectController : MonoBehaviour {
         
         //Find sceneloader in scene and set required values before loading
         this._scenePlayerPos[loaded.playerScene] = loaded.GetPlayerPosition();
+        this._playerHasVisited[loaded.playerScene] = true;
         Debug.Log("Loading from save into scene " + loaded.playerScene);
         SceneManager.LoadScene(loaded.playerScene);
         //Load PlayerPos (this is not automatically done if target Scene is current Scene
@@ -217,7 +220,7 @@ public class ObjectController : MonoBehaviour {
         }
     }
 
-    public void AddPlayerPos(Vector3 pos, int scene) {
+    public void SetPlayerPos(Vector3 pos, int scene) {
         this._scenePlayerPos[scene] = pos;
     }
 
@@ -320,7 +323,7 @@ public class ObjectController : MonoBehaviour {
      */
     private void respawnPlayerInJail(Scene scene, LoadSceneMode mode) {
         this._enemyObjects = new List<NPC>();
-        this.playerHasVisited = new List<bool>();
+        this._playerHasVisited = new List<bool>();
         GameObject g = GameObject.FindGameObjectWithTag("Player");
         Destroy(g);
         ResetPlayerHasVisited();
