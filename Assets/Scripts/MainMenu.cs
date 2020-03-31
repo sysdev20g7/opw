@@ -13,6 +13,7 @@ public class MainMenu : MonoBehaviour {
     private SaveGame checkSave;
     public int SCN_OPTIONS_MENU = 4;
     public int SCN_MAIN_MENU = 0;
+    public bool INGAME_DEBUG;
 
     // Constructor
     public MainMenu() {
@@ -23,6 +24,7 @@ public class MainMenu : MonoBehaviour {
     void Start() {
         // Check if save exists, and set load button accordingly
         obj = this._helper.FindObjectControllerInScene();
+        this.INGAME_DEBUG = obj.InGameDebug();
         checkSave = new SaveGame();
         EnableLoadButton(checkSave.SaveExists(JSON));
     }
@@ -30,6 +32,14 @@ public class MainMenu : MonoBehaviour {
     public void PlayGame()
     {
         // Check if a save exist, ask user to continue before delete?
+        bool existing = checkSave.SaveExists(JSON);
+        if (existing) {
+            if (INGAME_DEBUG == true) GameLog.Log("MainMenu:Started_new_game");
+        }
+        else {
+            
+            if (INGAME_DEBUG == true) GameLog.Log("MainMenu:Save_exsists,_prompting");
+        }
         PromptExistingGame(checkSave.SaveExists(JSON));
     }
 
@@ -74,6 +84,7 @@ public class MainMenu : MonoBehaviour {
     /// </summary>
     public void LoadGame() {
         if (checkSave.SaveExists(JSON)) {
+            if (INGAME_DEBUG == true) GameLog.Log("MainMenu:Loaded_exsisting_game");
             obj.LoadGame();
         }
     }
@@ -156,15 +167,16 @@ public class MainMenu : MonoBehaviour {
     public void EnablePopupCanvas(bool enabled) {
         try {
             GameObject Popup = GameObject.Find("NewGameCanvas");
-            GameObject Menu = GameObject.Find("Canvas");
+            GameObject Canvas = GameObject.Find("Canvas");
+            GameObject Menu = Canvas.transform.Find("MainMenu").gameObject;
             if (enabled) {
                 Debug.Log("Found canvas");
                 Popup.GetComponent<Canvas>().enabled = true;
-                Menu.GetComponent<Canvas>().enabled = false;
+                Menu.SetActive(false);
             }
             else {
                 Popup.GetComponent<Canvas>().enabled = false;
-                Menu.GetComponent<Canvas>().enabled = true;
+                Menu.SetActive(true);
             }
         }
         catch (Exception e) {
@@ -193,6 +205,7 @@ public class MainMenu : MonoBehaviour {
         }
         catch (Exception e) {
             Console.WriteLine(e);
+            if (INGAME_DEBUG == true) GameLog.Log("Exception: " + e);
             throw;
         }
     }

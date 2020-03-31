@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -20,6 +21,7 @@ public class PauseMenu : MonoBehaviour {
             = pauseHelper.FindObjectControllerInScene();
         this.gameIsPaused = !pauseController.runningInGame;
         this._currentScene = SceneManager.GetActiveScene().buildIndex;
+        Resume();
     }
 
     // Update is called once per frame
@@ -72,5 +74,35 @@ public class PauseMenu : MonoBehaviour {
             // Does the real work of saving the game
             pauseController.WriteSavedPlayerPos(SceneManager.GetActiveScene().buildIndex);
             pauseController.SaveGame();
+    }
+
+
+    public void DisplaySuccessfulSave(bool yes) {
+        try {
+            GameObject Canvas = GameObject.Find("PauseMenu");
+            GameObject SaveIcon = Canvas.transform.Find("SavedOk").gameObject;
+
+            if (yes) {
+                Debug.Log("Saved OK");
+                SaveIcon.SetActive(true);
+                StartCoroutine(HideGameObject(2, SaveIcon));
+            }
+            
+        }
+        catch (Exception e) {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
+    IEnumerator HideGameObject(float delay, GameObject gb) {
+        Debug.Log("Fired Corotine");
+        yield return new WaitForSecondsRealtime(delay);
+        
+        Debug.Log("Hidden Save OK");
+
+        if (!(gb is null)) {
+            gb.SetActive(false);
+        }
     }
 }
