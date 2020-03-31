@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - PatrolSpots
+  - TestGoblinTag
+  - Enemy
+  - MenuButtonLoadGame
+  - MenuCanvasPopup
+  - Police
+  - Zombie
   layers:
   - Default
   - TransparentFX
@@ -14,7 +20,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Obstacles
   - 
   - 
   - 
@@ -51,6 +57,9 @@ TagManager:
   - name: Objects
     uniqueID: 1369454705
     locked: 0
+  - name: All_Characters
+    uniqueID: 1135715219
+    locked: 0
   - name: Layout
     uniqueID: 1632794305
     locked: 0
@@ -62,6 +71,9 @@ TagManager:
     locked: 0
   - name: Trees2
     uniqueID: 1592468995
+    locked: 0
+  - name: Ground4
+    uniqueID: 2665632419
     locked: 0
   - name: Trees
     uniqueID: 2395427301

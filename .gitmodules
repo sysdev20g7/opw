@@ -1,0 +1,3 @@
+[submodule "Assets/Prefabs/GameLog"]
+	path = Assets/Prefabs/GameLog
+	url = https://github.com/Kiarash-Parvizi/GameLog
