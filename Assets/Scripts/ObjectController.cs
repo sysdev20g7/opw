@@ -96,13 +96,20 @@ public class ObjectController : MonoBehaviour {
     }
 
     private void ResetPlayerHasVisited() {
+        GameLog.Log("ObjectController: Resetting list: playerhasvisited");
+        this._playerHasVisited = new List<bool>();
         for (int i = 0; i <= SceneLoader.MAX_NUM_SCENES; i++) {
             this._playerHasVisited.Add(false);
+            GameLog.Log("                 Set " + i.ToString()
+                + " to " + this._playerHasVisited[i].ToString());
         }
     }
 
     public void SetPlayerVisitedScene(int scene, bool visited) {
         this._playerHasVisited[scene] = visited;
+        GameLog.Log("ObjectController: Set list: playerhasvisited");
+        GameLog.Log("                 Set " + scene.ToString()
+                                            + " to " + visited.ToString());
     }
 
     public bool PlayerHasVisitedScene(int scene) {
@@ -135,6 +142,7 @@ public class ObjectController : MonoBehaviour {
     ///  and also deletes the save file if present.
     /// </summary>
     public void ResetGame() {
+        GameLog.Log("ObjectController: ResetGame() was called");
         // Overwrite and reset data
         this._enemyObjects = new List<NPC>();
         this._scenePlayerPos = new Dictionary<int, Vector3>();
@@ -149,6 +157,7 @@ public class ObjectController : MonoBehaviour {
     ///  This methods saves the game
     /// </summary>
     public void SaveGame() {
+        GameLog.Log("ObjectController: SaveGame() was called");
         if (_DEBUG) Debug.Log("Saving");
        GameData toBeSaved = new GameData();
        Helper load = new Helper();
@@ -170,6 +179,7 @@ public class ObjectController : MonoBehaviour {
     /// </summary>
     public void LoadGame() {
         if (_DEBUG) Debug.Log("Loaded saved game");
+        GameLog.Log("ObjectController: LoadGame() was called");
         SaveGame defaultLoadSlot = new SaveGame(); 
         GameData loaded = defaultLoadSlot.LoadFromFile(1);
         if (_DEBUG) {

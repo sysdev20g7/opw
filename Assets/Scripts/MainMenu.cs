@@ -30,6 +30,14 @@ public class MainMenu : MonoBehaviour {
     public void PlayGame()
     {
         // Check if a save exist, ask user to continue before delete?
+        bool existing = checkSave.SaveExists(JSON);
+        if (existing) {
+            GameLog.Log("MainMenu: Started new game");
+        }
+        else {
+            
+            GameLog.Log("MainMenu: Save exsists, prompting");
+        }
         PromptExistingGame(checkSave.SaveExists(JSON));
     }
 
@@ -74,6 +82,7 @@ public class MainMenu : MonoBehaviour {
     /// </summary>
     public void LoadGame() {
         if (checkSave.SaveExists(JSON)) {
+            GameLog.Log("MainMenu: Loaded exsisting game");
             obj.LoadGame();
         }
     }
@@ -193,6 +202,7 @@ public class MainMenu : MonoBehaviour {
         }
         catch (Exception e) {
             Console.WriteLine(e);
+            GameLog.Log("Exception: " + e);
             throw;
         }
     }
