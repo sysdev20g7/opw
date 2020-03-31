@@ -50,7 +50,6 @@ public class EnemyPathfinding : MonoBehaviour {
      */
     public void DoSomething(bool b) {
         isChasing = b;
-        Start();
     }
 
     /* 
@@ -77,6 +76,14 @@ public class EnemyPathfinding : MonoBehaviour {
 
     // Update is called once per frame
     void FixedUpdate() {
+
+        if (isChasing) {
+            speed = chaseSpeed;
+        }
+        else {
+            speed = patrolSpeed;
+        }
+
         if (path == null)
             return;
 
