@@ -35,6 +35,7 @@ public class ObjectController : MonoBehaviour {
     [ReadOnly] public bool runningInGame = false;
 
     private static bool _DEBUG = true;
+    private readonly bool INGAME_DEBUG = true;
     private static int JSON = 1, BINARY = 2;
     private static GameObject _obInstance;
     private static string _POLICE_ENEMY_TAG = "Police";
@@ -53,6 +54,11 @@ public class ObjectController : MonoBehaviour {
         this._playerHasVisited = new List<bool>();
         ResetPlayerHasVisited(); //Set all visited scenes to false
     }
+
+    public bool InGameDebug() {
+        return this.INGAME_DEBUG;
+    }
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -96,20 +102,22 @@ public class ObjectController : MonoBehaviour {
     }
 
     private void ResetPlayerHasVisited() {
-        GameLog.Log("ObjectController: Resetting list: playerhasvisited");
+        if (INGAME_DEBUG == true) GameLog.Log("ObjectController:Resetting_list:PlayerVisitedList", Color.yellow);
         this._playerHasVisited = new List<bool>();
         for (int i = 0; i <= SceneLoader.MAX_NUM_SCENES; i++) {
             this._playerHasVisited.Add(false);
-            GameLog.Log("                 Set " + i.ToString()
-                + " to " + this._playerHasVisited[i].ToString());
+            if (INGAME_DEBUG == true) GameLog.Log("PlayerVisitedList:Wrote["
+                        + i.ToString() +","
+                        + this._playerHasVisited[i].ToString()
+                        +"]");
         }
     }
 
     public void SetPlayerVisitedScene(int scene, bool visited) {
         this._playerHasVisited[scene] = visited;
-        GameLog.Log("ObjectController: Set list: playerhasvisited");
-        GameLog.Log("                 Set " + scene.ToString()
-                                            + " to " + visited.ToString());
+        if (INGAME_DEBUG == true) GameLog.Log("ObjectController:Update_list:" +
+                    "PlayerVisitedList[" + scene.ToString() + visited.ToString()
+                    + "]", Color.yellow);
     }
 
     public bool PlayerHasVisitedScene(int scene) {
@@ -142,7 +150,7 @@ public class ObjectController : MonoBehaviour {
     ///  and also deletes the save file if present.
     /// </summary>
     public void ResetGame() {
-        GameLog.Log("ObjectController: ResetGame() was called");
+        if (INGAME_DEBUG == true) GameLog.Log("ObjectController:Resetting_game_data", Color.green);
         // Overwrite and reset data
         this._enemyObjects = new List<NPC>();
         this._scenePlayerPos = new Dictionary<int, Vector3>();
@@ -150,6 +158,7 @@ public class ObjectController : MonoBehaviour {
         ResetPlayerHasVisited();
         SaveGame deleteSave = new SaveGame();
         if (deleteSave.SaveExists(JSON)) {
+            if (INGAME_DEBUG == true) GameLog.Log("ObjectController:_Deleted_game_save", Color.red);
             deleteSave.DeleteSave(JSON);
         }
     }
@@ -157,7 +166,7 @@ public class ObjectController : MonoBehaviour {
     ///  This methods saves the game
     /// </summary>
     public void SaveGame() {
-        GameLog.Log("ObjectController: SaveGame() was called");
+        if (INGAME_DEBUG == true) GameLog.Log("ObjectController:Saved_game", Color.red);
         if (_DEBUG) Debug.Log("Saving");
        GameData toBeSaved = new GameData();
        Helper load = new Helper();
@@ -179,7 +188,6 @@ public class ObjectController : MonoBehaviour {
     /// </summary>
     public void LoadGame() {
         if (_DEBUG) Debug.Log("Loaded saved game");
-        GameLog.Log("ObjectController: LoadGame() was called");
         SaveGame defaultLoadSlot = new SaveGame(); 
         GameData loaded = defaultLoadSlot.LoadFromFile(1);
         if (_DEBUG) {
@@ -187,6 +195,9 @@ public class ObjectController : MonoBehaviour {
             Debug.Log("Time created: " + loaded.timeCreated);
             Debug.Log("Last accessed: " + loaded.timeAccessed);
         }
+        if (INGAME_DEBUG == true) GameLog.Log("              Loaded_GameSave_from_JSON",Color.green);
+        if (INGAME_DEBUG == true) GameLog.Log("              Time_created:" + loaded.timeCreated, Color.white);
+        if (INGAME_DEBUG == true) GameLog.Log("              Last_accessed:" + loaded.timeAccessed, Color.white);
         
         //Find sceneloader in scene and set required values before loading
         this._scenePlayerPos[loaded.playerScene] = loaded.GetPlayerPosition();
@@ -219,18 +230,26 @@ public class ObjectController : MonoBehaviour {
         Vector3 result;
         if (_scenePlayerPos is null) { 
             if (_DEBUG) Debug.Log("No player coordinates stored");
+            if (INGAME_DEBUG == true) GameLog.Log("ObjectController:Player_coordinates_list_not_initialized," +
+                        "ignoring_load",Color.red);
         } else {
             if (this._scenePlayerPos.TryGetValue(scene, out result)) {
+                if (INGAME_DEBUG == true) GameLog.Log("ObjectController:Loaded_player_position_for_" +
+                            scene.ToString() + "," + result.ToString(),Color.green);
                 if (_DEBUG) Debug.Log("Found coordinates for scene "
                                     + scene + " at " + result.ToString());
                 Instantiate(prefabPlayer, result, Quaternion.identity);
             } else {
                 if (_DEBUG) Debug.Log("Unable to find player coordinates");
+                if (INGAME_DEBUG == true) GameLog.Log("ObjectController:" +
+                            "No_player_coordinates_to_load_for_this_scene", Color.yellow); 
             }
         }
     }
 
     public void SetPlayerPos(Vector3 pos, int scene) {
+        if (INGAME_DEBUG == true) GameLog.Log("ObjectController:Updated_player_coordinated_for_scene"
+                    + scene.ToString() + "," + pos.ToString(), Color.white); 
         this._scenePlayerPos[scene] = pos;
     }
 
@@ -252,6 +271,8 @@ public class ObjectController : MonoBehaviour {
     private void WriteEnemiesToList(Array enemies, int scene) {
         foreach (GameObject enemy in enemies) {
             Debug.Log("Harvesting object " + enemy.name + " from scene " + scene);
+            if (INGAME_DEBUG == true) GameLog.Log("ObjectController: Harvesting_enemies_to_list:" 
+                        + enemy.name + "_from_scene" + scene, Color.white);
             NPC npc = new NPC(enemy, scene);
             // If valid enemy store in dict and remove from scene
             if (npc.valid) {
@@ -260,15 +281,21 @@ public class ObjectController : MonoBehaviour {
                 Debug.Log("Stored " + npc.getTypeString
                             + " to list for scene " + npc.GetScene()
                             + " " + npc.Position3Axis.ToString());
+                if (INGAME_DEBUG == true) GameLog.Log("ObjectController:Added_" + npc.getTypeString
+                            + "," + npc.Position3Axis.ToString(), Color.green);
             }
             else {
                 Debug.Log("No valid NPCs to store for scene " + scene);
+                if (INGAME_DEBUG == true) GameLog.Log("ObjectController:No_NPCs_to_store_in_scene" +
+                            scene.ToString(), Color.yellow);
             }
         }
         if (enemies.Length == 0) {
             Debug.Log("NPC enemies array is also empty in scene" + scene);
         }
         Debug.Log("Total count of stored NPCs: " + _enemyObjects.Count.ToString());
+        if (INGAME_DEBUG == true) GameLog.Log("ObjectController:Total_count_of_stored_NPCs:"
+                    + _enemyObjects.Count.ToString(), Color.white);
     }
     
     
@@ -280,6 +307,8 @@ public class ObjectController : MonoBehaviour {
     public void LoadEnemyPosInScene(int scene) {
         if (this._enemyObjects.Count.Equals(0))  {
                     if (_DEBUG) Debug.Log("The ememyObject list is empty");
+                    if (INGAME_DEBUG == true) GameLog.Log("ObjectController:Enemy_coordinates_list_is_empty," +
+                                "ignoring_load",Color.white);
         } else {
             List<GameObject> spawned = new List<GameObject>();
             for (int i = _enemyObjects.Count - 1; i >= 0; i--) {
@@ -312,6 +341,8 @@ public class ObjectController : MonoBehaviour {
                         foreach (var gb in spawned) {
                             Debug.Log("Spawned " + gb.name + "at "
                                       + gb.transform.position.ToString());
+                            if (INGAME_DEBUG == true) GameLog.Log("ObjectController:Loaded_enemy:" + gb.name + ","
+                                      + gb.transform.position.ToString(), Color.green);
                         }
                     }
                 }
@@ -322,7 +353,8 @@ public class ObjectController : MonoBehaviour {
     /* Starts a listening event for respawnPlayerInJail.
      * Then loads the scene where the player will respawn.
      */
-    public void playerCaughtByCop() {
+    public void playerCaughtByCop() { 
+        if (INGAME_DEBUG == true) GameLog.Log("ObjectController:Player_was_caught_by_police",Color.white);
         this._scenePlayerPos = new Dictionary<int, Vector3>();
         SceneManager.sceneLoaded += respawnPlayerInJail;
         SceneManager.LoadScene("Jail");
@@ -332,6 +364,7 @@ public class ObjectController : MonoBehaviour {
      * Instantiates a new player object on the coordinates of the spawn.
      */
     private void respawnPlayerInJail(Scene scene, LoadSceneMode mode) {
+        if (INGAME_DEBUG == true) GameLog.Log("ObjectController:Respawning_player_in_jail",Color.white);
         this._enemyObjects = new List<NPC>();
         this._playerHasVisited = new List<bool>();
         GameObject g = GameObject.FindGameObjectWithTag("Player");
