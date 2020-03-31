@@ -181,6 +181,11 @@ public class ObjectController : MonoBehaviour {
        if (!(defaultSave.SaveToFile(1))) {
            if (_DEBUG) Debug.Log("Saved game went wrong");
        }
+       else {
+           Helper pauseMenu = new Helper();
+           PauseMenu menu = pauseMenu.FindPauseMenuInScene();
+           menu.DisplaySuccessfulSave(true);
+       }
     }
 
     /// <summary>

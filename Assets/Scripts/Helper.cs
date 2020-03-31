@@ -23,4 +23,10 @@ public class Helper {
         GameObject loader = GameObject.Find("SceneLoader");
         return loader.GetComponent<SceneLoader>();
     }
+
+
+    public PauseMenu FindPauseMenuInScene() {
+        GameObject pause = GameObject.Find("PauseMenuCanvas");
+        return pause.GetComponent<PauseMenu>();
+    }
 }
