@@ -167,15 +167,16 @@ public class MainMenu : MonoBehaviour {
     public void EnablePopupCanvas(bool enabled) {
         try {
             GameObject Popup = GameObject.Find("NewGameCanvas");
-            GameObject Menu = GameObject.Find("Canvas");
+            GameObject Canvas = GameObject.Find("Canvas");
+            GameObject Menu = Canvas.transform.Find("MainMenu").gameObject;
             if (enabled) {
                 Debug.Log("Found canvas");
                 Popup.GetComponent<Canvas>().enabled = true;
-                Menu.GetComponent<Canvas>().enabled = false;
+                Menu.SetActive(false);
             }
             else {
                 Popup.GetComponent<Canvas>().enabled = false;
-                Menu.GetComponent<Canvas>().enabled = true;
+                Menu.SetActive(true);
             }
         }
         catch (Exception e) {
