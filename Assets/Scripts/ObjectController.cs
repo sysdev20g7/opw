@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -68,6 +68,7 @@ public class ObjectController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        StartCoroutine("playerCollideWithEnemy");
         if ( (Input.GetKeyDown(KeyCode.F11)) || 
              (((Input.GetKeyDown(KeyCode.AltGr)) && (Input.GetKeyDown(KeyCode.S))))
         ) {
@@ -376,6 +377,27 @@ public class ObjectController : MonoBehaviour {
         Destroy(g);
         ResetPlayerHasVisited();
         SceneManager.sceneLoaded -= respawnPlayerInJail;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns>null</returns> if either player, police, or either objects'
+    /// colliders are not found.
+    private IEnumerator playerCollideWithEnemy() {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        GameObject police = GameObject.FindGameObjectWithTag("Police");
+        if (player == null || police == null) {
+            yield return null;
+        }
+        Collider2D playerCollider = player.GetComponent<Collider2D>();
+        Collider2D policeCollider = player.GetComponent<Collider2D>();
+        if (playerCollider == null || policeCollider == null) {
+            yield return null;
+        }
+        if (playerCollider.IsTouching(police.GetComponent<Collider2D>())) {
+            playerCaughtByCop();
+        }
     }
 
     

@@ -17,10 +17,10 @@ public class PlayerCollision : MonoBehaviour {
     /// </summary>
     /// <param name="collision"></param>
     private void OnCollisionEnter2D(Collision2D collision) {
-        if (oc != null) { 
-            if (collision.gameObject.tag == "Police") {
-                oc.playerCaughtByCop();
-            }
-        }
+      //  if (oc != null) { 
+      //      if (collision.gameObject.tag == "Police") {
+      //          oc.playerCaughtByCop();
+      //      }
+      //  }
     }
 }
