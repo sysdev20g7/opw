@@ -11,6 +11,7 @@ TagManager:
   - MenuCanvasPopup
   - Police
   - Zombie
+  - PlayerUI
   layers:
   - Default
   - TransparentFX
