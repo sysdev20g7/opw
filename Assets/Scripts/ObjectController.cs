@@ -68,7 +68,7 @@ public class ObjectController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        StartCoroutine("playerCollideWithEnemy");
+        //StartCoroutine("playerCollideWithEnemy");
         if ( (Input.GetKeyDown(KeyCode.F11)) || 
              (((Input.GetKeyDown(KeyCode.AltGr)) && (Input.GetKeyDown(KeyCode.S))))
         ) {
