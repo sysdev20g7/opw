@@ -68,7 +68,6 @@ public class ObjectController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        //StartCoroutine("playerCollideWithEnemy");
         if ( (Input.GetKeyDown(KeyCode.F11)) || 
              (((Input.GetKeyDown(KeyCode.AltGr)) && (Input.GetKeyDown(KeyCode.S))))
         ) {
@@ -361,9 +360,24 @@ public class ObjectController : MonoBehaviour {
      */
     public void playerCaughtByCop() { 
         if (INGAME_DEBUG == true) GameLog.Log("ObjectController:Player_was_caught_by_police",Color.white);
+        enableCaptureMessage();
         this._scenePlayerPos = new Dictionary<int, Vector3>();
         SceneManager.sceneLoaded += respawnPlayerInJail;
         SceneManager.LoadScene("Jail");
+    }
+
+    /// <summary>
+    /// Enables a capture message on the Player UI.
+    /// </summary>
+    private void enableCaptureMessage() {
+        GameObject playerUI = GameObject.FindGameObjectWithTag("PlayerUI");
+        TMP_Text capturedMessage = null;
+        if (playerUI != null) {
+            capturedMessage = playerUI.GetComponentInChildren<TMP_Text>();
+        }
+        if (capturedMessage != null) {
+            capturedMessage.enabled = true;
+        }
     }
 
     /* Destroys the player object and creates new position lists.
@@ -378,28 +392,6 @@ public class ObjectController : MonoBehaviour {
         ResetPlayerHasVisited();
         SceneManager.sceneLoaded -= respawnPlayerInJail;
     }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns>null</returns> if either player, police, or either objects'
-    /// colliders are not found.
-    private IEnumerator playerCollideWithEnemy() {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        GameObject police = GameObject.FindGameObjectWithTag("Police");
-        if (player == null || police == null) {
-            yield return null;
-        }
-        Collider2D playerCollider = player.GetComponent<Collider2D>();
-        Collider2D policeCollider = player.GetComponent<Collider2D>();
-        if (playerCollider == null || policeCollider == null) {
-            yield return null;
-        }
-        if (playerCollider.IsTouching(police.GetComponent<Collider2D>())) {
-            playerCaughtByCop();
-        }
-    }
-
     
     //--------------TO BE REMOVED IF NOT NEEDED --------------//
     // Start
@@ -421,9 +413,33 @@ public class ObjectController : MonoBehaviour {
         }
 
         return json;
+
     }
+
+    /// <summary>
+    /// Checks wether player collides with police.
+    /// Add 'StartCoroutine("playerCollideWithEnemy");' in Update() to run.
+    /// </summary>
+    /// <returns>null</returns> if either player, police, or either objects'
+    /// colliders are not found.
+    private IEnumerator playerCollideWithEnemy() {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        GameObject police = GameObject.FindGameObjectWithTag("Police");
+        if (player == null || police == null) {
+            yield return null;
+        }
+        Collider2D playerCollider = player.GetComponent<Collider2D>();
+        Collider2D policeCollider = player.GetComponent<Collider2D>();
+        if (playerCollider == null || policeCollider == null) {
+            yield return null;
+        }
+        if (playerCollider.IsTouching(police.GetComponent<Collider2D>())) {
+            playerCaughtByCop();
+        }
+    }
+
     //END-----------TO BE REMOVED IF NOT NEEDED --------------//
-    
+
     /// <summary>
     /// This method will convert a json string to a NPC list (might not be needed)
     /// </summary>
