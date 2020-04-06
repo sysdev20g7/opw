@@ -15,9 +15,10 @@ GameObject:
   - component: {fileID: 8223122875116162118}
   - component: {fileID: 2569328622284052936}
   - component: {fileID: 7193990464203117110}
+  - component: {fileID: -170527786951913129}
   m_Layer: 0
   m_Name: Zombie
-  m_TagString: Untagged
+  m_TagString: Zombie
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,9 +30,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6299134750936105919}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 59.44, y: 103.89, z: -20}
-  m_LocalScale: {x: 0.8875, y: 1, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -73,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1562873171
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: -3918262494484203506, guid: 41e59ff3b0e66c24082ca0bb817a1553,
     type: 3}
@@ -97,7 +98,7 @@ Animator:
   m_GameObject: {fileID: 6299134750936105919}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 65d1394b1b135dd47a5b2b8e08b1820f, type: 2}
+  m_Controller: {fileID: 9100000, guid: f6a584172bbd2a2409c1648cf492ea1d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -155,7 +156,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a561e13886a57347b691661554e96d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   patrolSpeed: 600
   chaseSpeed: 1000
   nextWaypointDistance: 0.4
@@ -187,3 +187,15 @@ MonoBehaviour:
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1
+--- !u!114 &-170527786951913129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6299134750936105919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 319c74a7cf50c8541bddd88c8ab1cee3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
