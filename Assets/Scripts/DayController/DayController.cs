@@ -26,16 +26,10 @@ public class DayController : MonoBehaviour {
 
         running = true;
         DayListeners = new List<DayListener>();
-        //Remove the next few lines for when I've implemented pull
-        //Then the listeners pulls first when they've started and then gets
-        //states pushed later. Or just remove on onCycleChange call
         DayCycle = DayCycle.DayTime;
-        onCycleChange();
         //Finds the number of states of DayCycles
         float NumberOfCycles = Convert.ToSingle(Enum.GetValues(typeof(DayCycle)).Length);
         CycleLengthInSeconds = (DayLengthInMinutes * 60) / NumberOfCycles;
-
-        //InvokeRepating invokes a method first after 0 seconds, then every X seconds.
         StartCoroutine("changeCycle");
     }
 
