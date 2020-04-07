@@ -84,14 +84,31 @@ public class DayController : MonoBehaviour {
     }
 
     /// <summary>
-    /// Adds day listeners.
+    /// Adds day listener.
     /// </summary>
+    /// <param name="dayListener"></param>
+    /// <returns>bool</returns>
     public bool addListener(DayListener dayListener) {
         if (dayListener == null && DayListeners.Contains(dayListener)) {
             return false;
         }
         DayListeners.Add(dayListener);
         Debug.Log(dayListener + " added to listeners");
+
+        return true;
+    }
+
+    /// <summary>
+    /// Removes day listener. 
+    /// </summary>
+    /// <param name="dayListener"></param>
+    /// <returns>bool</returns>
+    public bool removeListener(DayListener dayListener) {
+        if (!DayListeners.Contains(dayListener)) {
+            return false;
+        }
+        DayListeners.Remove(dayListener);
+        Debug.Log(dayListener + " removed from listeners");
 
         return true;
     }
