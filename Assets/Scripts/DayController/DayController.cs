@@ -5,7 +5,9 @@ using UnityEngine;
 
 /// <summary>
 /// DayController holds and changes what day cycle of day it is, either day time or night time.
-/// After half a day it changes the cycle of day and notifies listeners.
+/// After half a day it changes the cycle of day and pushes the state to listeners.
+/// Also implements a pull method, intended for when listeners are enabled/created, to get current
+/// state.
 /// Length of night time and day time is equal.
 /// 
 /// When using this script, ensure that it's executed before any listeners,
@@ -65,10 +67,20 @@ public class DayController : MonoBehaviour {
             foreach (DayListener dayListener in DayListeners) {
                 if (dayListener != null) {
                     dayListener.onChangeCycle(this.DayCycle);
+                } else {
+                    Debug.Log("Listener is Null, may not be unsubscribed.");
                 }
             }
         }
         Debug.Log("Pushing cycle change");
+    }
+
+    /// <summary>
+    /// Returns the current DayCycle.
+    /// </summary>
+    /// <returns>DayCycle</returns>
+    public DayCycle GetDayCycle() {
+        return this.DayCycle;
     }
 
     /// <summary>
