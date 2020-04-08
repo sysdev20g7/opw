@@ -14,19 +14,30 @@ public class PlayerBehaviour : StateMachineBehaviour
         if (Input.GetAxisRaw("Vertical") > 0) {
             //animator.SetTrigger("Up");
             animator.Play("Player_Up_Walk");
-        } 
+        }
+        else if ((Input.GetAxisRaw("Vertical") == 0) && (Input.GetAxisRaw("Horizontal") == 0)) {
+            animator.GetComponent<PlayCorrectIdleAnimation>().PlayCorrectAnimation();
+        }
         if (Input.GetAxisRaw("Vertical") < 0) {
             //animator.SetTrigger("Down");
             animator.Play("Player_Down_Walk");
         }
+        else if ((Input.GetAxisRaw("Vertical") == 0) && (Input.GetAxisRaw("Horizontal") == 0)) {
+            animator.GetComponent<PlayCorrectIdleAnimation>().PlayCorrectAnimation();
+        }
         if (Input.GetAxisRaw("Horizontal") > 0) {
             //animator.SetTrigger("Right");
             animator.Play("Player_Right_Walk");
-        } 
+        }
+        else if ((Input.GetAxisRaw("Vertical") == 0) && (Input.GetAxisRaw("Horizontal") == 0)) {
+            animator.GetComponent<PlayCorrectIdleAnimation>().PlayCorrectAnimation();
+        }
         if (Input.GetAxisRaw("Horizontal") < 0) {
             //animator.SetTrigger("Left");
             animator.Play("Player_Left_Walk");
-
+        }
+        else if ((Input.GetAxisRaw("Vertical") == 0) && (Input.GetAxisRaw("Horizontal") == 0)) {
+            animator.GetComponent<PlayCorrectIdleAnimation>().PlayCorrectAnimation();
         }
     }
 
