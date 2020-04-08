@@ -12,28 +12,19 @@ public class PlayerBehaviour : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
         if (Input.GetAxisRaw("Vertical") > 0) {
-            //animator.SetTrigger("Up");
+            animator.GetComponent<PlayCorrectIdleAnimation>().SetCurrentDirection("Up");
             animator.Play("Player_Up_Walk");
         }
-        else if ((Input.GetAxisRaw("Vertical") == 0) && (Input.GetAxisRaw("Horizontal") == 0)) {
-            animator.GetComponent<PlayCorrectIdleAnimation>().PlayCorrectAnimation();
-        }
         if (Input.GetAxisRaw("Vertical") < 0) {
-            //animator.SetTrigger("Down");
+            animator.GetComponent<PlayCorrectIdleAnimation>().SetCurrentDirection("Down");
             animator.Play("Player_Down_Walk");
         }
-        else if ((Input.GetAxisRaw("Vertical") == 0) && (Input.GetAxisRaw("Horizontal") == 0)) {
-            animator.GetComponent<PlayCorrectIdleAnimation>().PlayCorrectAnimation();
-        }
         if (Input.GetAxisRaw("Horizontal") > 0) {
-            //animator.SetTrigger("Right");
+            animator.GetComponent<PlayCorrectIdleAnimation>().SetCurrentDirection("Right");
             animator.Play("Player_Right_Walk");
         }
-        else if ((Input.GetAxisRaw("Vertical") == 0) && (Input.GetAxisRaw("Horizontal") == 0)) {
-            animator.GetComponent<PlayCorrectIdleAnimation>().PlayCorrectAnimation();
-        }
         if (Input.GetAxisRaw("Horizontal") < 0) {
-            //animator.SetTrigger("Left");
+            animator.GetComponent<PlayCorrectIdleAnimation>().SetCurrentDirection("Left");
             animator.Play("Player_Left_Walk");
         }
         else if ((Input.GetAxisRaw("Vertical") == 0) && (Input.GetAxisRaw("Horizontal") == 0)) {
