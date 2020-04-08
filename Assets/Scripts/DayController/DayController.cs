@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,23 +13,24 @@ using UnityEngine;
 /// When using this script, ensure that it's executed before any listeners,
 /// in the Script Execution Order.
 /// </summary>
-public class DayController : MonoBehaviour {
+public class DayController : Singleton<DayController> {
+
     private List<DayListener> DayListeners;
-    [SerializeField]
     private float DayLengthInMinutes = 1;
     private float CycleLengthInSeconds;
     private DayCycle DayCycle;
     private bool running;
 
-
     private void Start() {
 
-        running = true;
         DayListeners = new List<DayListener>();
-        DayCycle = DayCycle.DayTime;
+       
         //Finds the number of states of DayCycles
         float NumberOfCycles = Convert.ToSingle(Enum.GetValues(typeof(DayCycle)).Length);
         CycleLengthInSeconds = (DayLengthInMinutes * 60) / NumberOfCycles;
+
+        DayCycle = DayCycle.DayTime;
+        running = true;
         StartCoroutine("changeCycle");
     }
 
