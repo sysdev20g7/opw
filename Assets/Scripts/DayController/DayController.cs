@@ -29,7 +29,7 @@ public class DayController : Singleton<DayController> {
         float NumberOfCycles = Convert.ToSingle(Enum.GetValues(typeof(DayCycle)).Length);
         CycleLengthInSeconds = (DayLengthInMinutes * 60) / NumberOfCycles;
 
-        DayCycle = DayCycle.DayTime;
+        DayCycle = DayCycle.Dawn;
         running = true;
         StartCoroutine("changeCycle");
     }
@@ -42,11 +42,17 @@ public class DayController : Singleton<DayController> {
         while (running) {
             yield return new WaitForSeconds(CycleLengthInSeconds);
             switch (DayCycle) {
+                case DayCycle.Dawn:
+                    DayCycle = DayCycle.DayTime;
+                    break;
                 case DayCycle.DayTime:
+                    DayCycle = DayCycle.Dusk;
+                    break;
+                case DayCycle.Dusk:
                     DayCycle = DayCycle.NightTime;
                     break;
                 case DayCycle.NightTime:
-                    DayCycle = DayCycle.DayTime;
+                    DayCycle = DayCycle.Dawn;
                     break;
             }
             onCycleChange();

@@ -16,14 +16,19 @@ public class DayCycleIndicatorDisplay : MonoBehaviour, DayListener {
     [SerializeField]
     private Image image;
     [SerializeField]
-    private Sprite spriteNight;
+    private Sprite spriteDawn;
     [SerializeField]
     private Sprite spriteDay;
+    [SerializeField]
+    private Sprite spriteDusk;
+    [SerializeField]
+    private Sprite spriteNight;
     private DayCycle dayCycle;
 
+
     public void Start() {
-        dayController = DayController.Instance;
-        if (!dayController) { 
+        //dayController = DayController.Instance;
+        if (dayController != null) { 
             dayController.addListener(this);
             dayCycle = dayController.GetDayCycle();
             updateIndicator();
@@ -49,11 +54,24 @@ public class DayCycleIndicatorDisplay : MonoBehaviour, DayListener {
     /// </summary>
     private void updateIndicator() {
         switch (dayCycle) {
+            case DayCycle.Dawn:
+                if (image.sprite != spriteDawn) {
+                    image.sprite = spriteDawn;
+                    Debug.Log("Changing Sprite Dawn");
+                }
+                break;
             case DayCycle.DayTime:
                 if (image.sprite != spriteDay) {
                     image.sprite = spriteDay;
                     Debug.Log("Changing Sprite DayTime");
                 }
+                break;
+            case DayCycle.Dusk:
+                if (image.sprite != spriteDusk) {
+                    image.sprite = spriteDusk;
+                    Debug.Log("Changing Sprite Dusk");
+                }
+
                 break;
             case DayCycle.NightTime:
                 if (image.sprite != spriteNight) {
@@ -68,7 +86,8 @@ public class DayCycleIndicatorDisplay : MonoBehaviour, DayListener {
 
     //Unsubsribes this listener when disabled.
     private void OnDisable() {
-        if (!dayController)
+        if (dayController != null)
         dayController.removeListener(this);
+        Debug.Log("Unsubscribed " + this + "from observer");
     }
 }
