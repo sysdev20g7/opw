@@ -13,7 +13,7 @@ using UnityEngine;
 /// When using this script, ensure that it's executed before any listeners,
 /// in the Script Execution Order.
 /// </summary>
-public class DayController : Singleton<DayController> {
+public class DayController : MonoBehaviour {
 
     private List<DayListener> DayListeners;
     private float DayLengthInMinutes = 1;
@@ -81,6 +81,7 @@ public class DayController : Singleton<DayController> {
     /// </summary>
     /// <returns>DayCycle</returns>
     public DayCycle GetDayCycle() {
+        Debug.Log("Listner pulling DayCycle");
         return this.DayCycle;
     }
 

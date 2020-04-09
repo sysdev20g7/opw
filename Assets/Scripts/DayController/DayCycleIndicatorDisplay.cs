@@ -11,6 +11,7 @@ using UnityEngine.UI;
 /// in the Script Execution Order.
 /// </summary>
 public class DayCycleIndicatorDisplay : MonoBehaviour, DayListener {
+
     [SerializeField]
     private DayController dayController;
     [SerializeField]
@@ -27,7 +28,7 @@ public class DayCycleIndicatorDisplay : MonoBehaviour, DayListener {
 
 
     public void Start() {
-        //dayController = DayController.Instance;
+
         if (dayController != null) { 
             dayController.addListener(this);
             dayCycle = dayController.GetDayCycle();
@@ -88,6 +89,5 @@ public class DayCycleIndicatorDisplay : MonoBehaviour, DayListener {
     private void OnDisable() {
         if (dayController != null)
         dayController.removeListener(this);
-        Debug.Log("Unsubscribed " + this + "from observer");
     }
 }
