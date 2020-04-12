@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6854863914504423089}
   m_Layer: 0
   m_Name: dayController
-  m_TagString: Untagged
+  m_TagString: DayController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

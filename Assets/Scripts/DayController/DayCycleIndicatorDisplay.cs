@@ -29,6 +29,9 @@ public class DayCycleIndicatorDisplay : MonoBehaviour, DayListener {
 
     public void Start() {
 
+        GameObject temp = GameObject.FindGameObjectWithTag("DayController");
+        if (temp != null) dayController = temp.GetComponent<DayController>();
+        else Debug.Log("Can't Find DayController");
         if (dayController != null) { 
             dayController.addListener(this);
             dayCycle = dayController.GetDayCycle();
