@@ -12,6 +12,7 @@ TagManager:
   - Police
   - Zombie
   - PlayerUI
+  - DayController
   layers:
   - Default
   - TransparentFX
