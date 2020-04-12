@@ -61,26 +61,26 @@ public class DayCycleIndicatorDisplay : MonoBehaviour, DayListener {
             case DayCycle.Dawn:
                 if (image.sprite != spriteDawn) {
                     image.sprite = spriteDawn;
-                    Debug.Log("Changing Sprite Dawn");
+                    Debug.Log("Changing Sprite to Dawn");
                 }
                 break;
             case DayCycle.DayTime:
                 if (image.sprite != spriteDay) {
                     image.sprite = spriteDay;
-                    Debug.Log("Changing Sprite DayTime");
+                    Debug.Log("Changing Sprite to DayTime");
                 }
                 break;
             case DayCycle.Dusk:
                 if (image.sprite != spriteDusk) {
                     image.sprite = spriteDusk;
-                    Debug.Log("Changing Sprite Dusk");
+                    Debug.Log("Changing Sprite to Dusk");
                 }
 
                 break;
             case DayCycle.NightTime:
                 if (image.sprite != spriteNight) {
                     image.sprite = spriteNight;
-                    Debug.Log("Changing Sprite NightTime");
+                    Debug.Log("Changing Sprite to NightTime");
                 }
                 break;
             default:
