@@ -35,6 +35,7 @@ public class ZombieSpawner : MonoBehaviour, DayListener
             dayController = temp.GetComponent<DayController>();
             dayController.subscribe(this);
             dayCycle = dayController.GetDayCycle();
+            setSpawnState();
         }
         spawnPoints = FindObjectOfType<MoveSpots>();
     }
@@ -46,7 +47,7 @@ public class ZombieSpawner : MonoBehaviour, DayListener
     /// <param name="dayCycle"></param>
     public void onChangeCycle(DayCycle dayCycle) {
         this.dayCycle = dayCycle;
-        changeSpawnState();
+        setSpawnState();
         Debug.Log(this + "listener: Cycle changed to " + dayCycle);
     }
 
@@ -54,7 +55,7 @@ public class ZombieSpawner : MonoBehaviour, DayListener
     /// Decides based on what part of the day it is
     /// wether enemies should spawn or despawn.
     /// </summary>
-    private void changeSpawnState() {
+    private void setSpawnState() {
         switch (dayCycle) {
             case DayCycle.Dawn:
                 Debug.Log(this + " - Despawning " + enemy);
