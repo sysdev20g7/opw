@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// ZombieSpawner spawns or despawns <i>n</i> zombies depending
 /// on if it is night or day. If it is night, it will spawn zombies, 
-/// if day, despawn.
+/// if dusk, despawn.
 /// </summary>
 public class ZombieSpawner : MonoBehaviour, DayListener  
 {
@@ -12,8 +12,11 @@ public class ZombieSpawner : MonoBehaviour, DayListener
     public int enemyCount;
     public int maxEnemies;
 
+    private Coroutine spawnCoroutine;
+    private Coroutine despawnCoroutine;
+
     [SerializeField]
-    private float respawnTime; //In seconds
+    private float spawnTime; //In seconds
     [SerializeField]
     private float despawnTime; //In seconds
 
@@ -27,13 +30,13 @@ public class ZombieSpawner : MonoBehaviour, DayListener
     // Acts as a initialzing method. 
     void Start()
     {
-        spawnPoints = FindObjectOfType<MoveSpots>();
         var temp = GameObject.FindGameObjectWithTag("DayController");
         if (temp != null) {
             dayController = temp.GetComponent<DayController>();
-            dayController.addListener(this);
+            dayController.subscribe(this);
             dayCycle = dayController.GetDayCycle();
         }
+        spawnPoints = FindObjectOfType<MoveSpots>();
     }
 
     /// <summary>
@@ -44,18 +47,19 @@ public class ZombieSpawner : MonoBehaviour, DayListener
     public void onChangeCycle(DayCycle dayCycle) {
         this.dayCycle = dayCycle;
         changeSpawnState();
-        Debug.Log(this + "-Listener: Cycle changed to " + dayCycle);
+        Debug.Log(this + "listener: Cycle changed to " + dayCycle);
     }
 
     /// <summary>
     /// Decides based on what part of the day it is
-    /// wether Zombies should spawn or despawn.
+    /// wether enemies should spawn or despawn.
     /// </summary>
     private void changeSpawnState() {
         switch (dayCycle) {
             case DayCycle.Dawn:
-                Debug.Log(this + " - Despawning Zombies");
-                DespawnEnemies();
+                Debug.Log(this + " - Despawning " + enemy);
+                if (spawnCoroutine != null) StopCoroutine(spawnCoroutine);
+                despawnCoroutine = StartCoroutine(DespawnEnemies());
                 break;
             case DayCycle.DayTime:
                 //Do nothing.
@@ -64,39 +68,53 @@ public class ZombieSpawner : MonoBehaviour, DayListener
                 //Do nothing
                 break;
             case DayCycle.NightTime:
-                Debug.Log(this + " - Spawning Zombies");
-                StartCoroutine(EnemySpawn());
+                Debug.Log(this + " - Spawning " + enemy);
+                if (despawnCoroutine != null) StopCoroutine(despawnCoroutine);
+                spawnCoroutine = StartCoroutine(SpawnEnemies());
                 break;
         }
     }
 
     /// <summary>
-    /// Spawns new Zombie GameObjects 
+    /// Spawns new enemy GameObjects to the max enemy count.
     /// </summary>
-    /// <returns>new WaitForSeconds</returns>
-    private IEnumerator EnemySpawn() {
-        enemyCount = GameObject.FindGameObjectsWithTag("Zombie").Length;
+    /// <returns>new WaitForSeconds(respawntime)</returns>
+    private IEnumerator SpawnEnemies() {
+        enemyCount = GameObject.FindGameObjectsWithTag(enemy.tag).Length;
         yield return new WaitForSeconds(1f);
         if (enemyCount <= maxEnemies) {
             while (enemyCount < maxEnemies) {
                 randomSpot = Random.Range(0, spawnPoints.movespots.Length);
+                enemyCount++;
                 Instantiate(enemy, spawnPoints.movespots[randomSpot].position, Quaternion.identity);
-                yield return new WaitForSeconds(respawnTime);
-                enemyCount += 1;
+                yield return new WaitForSeconds(spawnTime);
+            }
+        }
+
+    }
+
+    /// <summary>
+    /// Despawns enemy GameObjects if any instances of the enemy present in scene.
+    /// </summary>
+    private IEnumerator DespawnEnemies() {
+        var enemyList = GameObject.FindGameObjectsWithTag(enemy.tag) ;
+        if (enemyList.Length > 0) {
+            foreach (GameObject enemy in enemyList) {
+                yield return new WaitForSeconds(despawnTime);
+                enemyCount--;
+                Destroy(enemy);
             }
         }
     }
 
     /// <summary>
-    /// Despawns zombie GameObjects if any zombies present in scene.
+    /// Unsubscribes this listener from DayController
+    /// and stops all running coroutines.
     /// </summary>
-    private IEnumerator DespawnEnemies() {
-        var zombieList = GameObject.FindGameObjectsWithTag("Zombie");
-        if (zombieList.Length > 0) {
-            foreach (GameObject zombie in zombieList) {
-                yield return new WaitForSeconds(despawnTime);
-                Destroy(zombie);
-            }
+    private void OnDisable() {
+        if (dayController != null) {
+            dayController.unsubscribe(this);
         }
+        this.StopAllCoroutines();
     }
 }

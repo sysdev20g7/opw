@@ -86,11 +86,12 @@ public class DayController : MonoBehaviour {
     }
 
     /// <summary>
-    /// Adds day listener.
+    /// Subscribes day listener.
+    /// Adds it to internal list.
     /// </summary>
     /// <param name="dayListener"></param>
     /// <returns>bool</returns>
-    public bool addListener(DayListener dayListener) {
+    public bool subscribe(DayListener dayListener) {
         if (dayListener == null && DayListeners.Contains(dayListener)) {
             return false;
         }
@@ -101,11 +102,12 @@ public class DayController : MonoBehaviour {
     }
 
     /// <summary>
-    /// Removes day listener. 
+    /// Unsubscribes day listener.
+    /// Removes it from internal list.
     /// </summary>
     /// <param name="dayListener"></param>
     /// <returns>bool</returns>
-    public bool removeListener(DayListener dayListener) {
+    public bool unsubscribe(DayListener dayListener) {
         if (!DayListeners.Contains(dayListener)) {
             return false;
         }
