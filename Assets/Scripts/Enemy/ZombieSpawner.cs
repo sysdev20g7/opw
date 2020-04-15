@@ -35,6 +35,7 @@ public class ZombieSpawner : MonoBehaviour, DayListener
             dayController = temp.GetComponent<DayController>();
             dayController.subscribe(this);
             dayCycle = dayController.GetDayCycle();
+            //Sets initial state
             setSpawnState();
         }
         spawnPoints = FindObjectOfType<MoveSpots>();
