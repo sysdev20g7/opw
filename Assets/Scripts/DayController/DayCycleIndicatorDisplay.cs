@@ -33,7 +33,7 @@ public class DayCycleIndicatorDisplay : MonoBehaviour, DayListener {
         if (temp != null) dayController = temp.GetComponent<DayController>();
         else Debug.Log("Can't Find DayController");
         if (dayController != null) { 
-            dayController.addListener(this);
+            dayController.subscribe(this);
             dayCycle = dayController.GetDayCycle();
             updateIndicator();
         }
@@ -88,9 +88,11 @@ public class DayCycleIndicatorDisplay : MonoBehaviour, DayListener {
         }
     }
 
-    //Unsubsribes this listener when disabled.
+    /// <summary>
+    /// Unsubscribes this listener from DayController.
+    /// </summary>
     private void OnDisable() {
         if (dayController != null)
-        dayController.removeListener(this);
+        dayController.unsubscribe(this);
     }
 }
