@@ -12,6 +12,11 @@ public class ZombieSpawner : MonoBehaviour, DayListener
     public int enemyCount;
     public int maxEnemies;
 
+    [SerializeField]
+    private float respawnTime; //In seconds
+    [SerializeField]
+    private float despawnTime; //In seconds
+
     private MoveSpots spawnPoints;
     private int randomSpot;
 
@@ -69,15 +74,14 @@ public class ZombieSpawner : MonoBehaviour, DayListener
     /// Spawns new Zombie GameObjects 
     /// </summary>
     /// <returns>new WaitForSeconds</returns>
-    IEnumerator EnemySpawn() {
-        int length = GameObject.FindGameObjectsWithTag("Zombie").Length;
+    private IEnumerator EnemySpawn() {
+        enemyCount = GameObject.FindGameObjectsWithTag("Zombie").Length;
         yield return new WaitForSeconds(1f);
-        if (length <= maxEnemies) {
-            enemyCount = length;
+        if (enemyCount <= maxEnemies) {
             while (enemyCount < maxEnemies) {
                 randomSpot = Random.Range(0, spawnPoints.movespots.Length);
                 Instantiate(enemy, spawnPoints.movespots[randomSpot].position, Quaternion.identity);
-                yield return new WaitForSeconds(0.4f);
+                yield return new WaitForSeconds(respawnTime);
                 enemyCount += 1;
             }
         }
@@ -86,11 +90,12 @@ public class ZombieSpawner : MonoBehaviour, DayListener
     /// <summary>
     /// Despawns zombie GameObjects if any zombies present in scene.
     /// </summary>
-    private void DespawnEnemies() {
+    private IEnumerator DespawnEnemies() {
         var zombieList = GameObject.FindGameObjectsWithTag("Zombie");
-        if (zombieList.Length > 0) { 
-            foreach (GameObject enemy in zombieList) {
-                Destroy(enemy);
+        if (zombieList.Length > 0) {
+            foreach (GameObject zombie in zombieList) {
+                yield return new WaitForSeconds(despawnTime);
+                Destroy(zombie);
             }
         }
     }
