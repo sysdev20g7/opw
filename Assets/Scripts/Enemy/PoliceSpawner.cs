@@ -8,6 +8,7 @@ public class PoliceSpawner : MonoBehaviour
     public GameObject spawner;
     public int enemyCount;
     public int maxEnemies;
+    public float timeUntilSpawn = 60f;
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +17,7 @@ public class PoliceSpawner : MonoBehaviour
     }
 
     IEnumerator EnemySpawn() {
+        yield return new WaitForSeconds(timeUntilSpawn);
         int length = GameObject.FindGameObjectsWithTag("Police").Length;
         yield return new WaitForSeconds(1f);
         if (length <= maxEnemies) {
