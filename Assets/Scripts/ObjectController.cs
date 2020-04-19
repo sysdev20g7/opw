@@ -68,6 +68,7 @@ public class ObjectController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        //DEBUGGING; TO BE REMOVED
         if ( (Input.GetKeyDown(KeyCode.F11)) || 
              (((Input.GetKeyDown(KeyCode.AltGr)) && (Input.GetKeyDown(KeyCode.S))))
         ) {
@@ -79,6 +80,7 @@ public class ObjectController : MonoBehaviour {
             playerCaughtByCop();
         }
         
+        //DEBUGGING; TO BE REMOVED
         if ( (Input.GetKeyDown(KeyCode.F12)) || 
              ((Input.GetKeyDown(KeyCode.AltGr)) && (Input.GetKeyDown(KeyCode.O)))
         ) {
@@ -101,6 +103,14 @@ public class ObjectController : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// This method resets the list playerHasVisited. The list indicate
+    /// with bool values whether a player has visited a scene. It's can be used
+    /// e.g. during loading of a scene; to decide that we should load player
+    /// position from a predefined setting or from a list currently running
+    /// in-memory (running game). ResetGame() and the scene loading system
+    /// has implemented interactions with the list.
+    /// </summary>
     private void ResetPlayerHasVisited() {
         if (INGAME_DEBUG == true) GameLog.Log("ObjectController:Resetting_list:PlayerVisitedList", Color.yellow);
         this._playerHasVisited = new List<bool>();
@@ -112,7 +122,14 @@ public class ObjectController : MonoBehaviour {
                         +"]");
         }
     }
-
+    
+    /// <summary>
+    ///  This function updates a entry inside the playerHasVisited list
+    ///  with a specified boolean value. It's used for the reasons like the
+    ///  function above.
+    /// </summary>
+    /// <param name="scene">The scene to set the visited state</param>
+    /// <param name="visited">true if visited, false if unvisited</param>
     public void SetPlayerVisitedScene(int scene, bool visited) {
         this._playerHasVisited[scene] = visited;
         if (INGAME_DEBUG == true) GameLog.Log("ObjectController:Update_list:" +
@@ -120,6 +137,12 @@ public class ObjectController : MonoBehaviour {
                     + "]", Color.yellow);
     }
 
+    /// <summary>
+    ///  This function returns a boolean value to indicate if a player
+    ///  has visited a specified scene.
+    /// </summary>
+    /// <param name="scene">The scene index number</param>
+    /// <returns>The bool state of the specified scene</returns>
     public bool PlayerHasVisitedScene(int scene) {
         return this._playerHasVisited[scene];
     }
@@ -252,6 +275,14 @@ public class ObjectController : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    ///  This function sets a position entry in the scenePlayerPos list
+    /// for a specifed scene. Old position is immediately overwritten.
+    /// It can be e.g. used when wanting to write a position to load
+    /// when switching to a specified scene.
+    /// </summary>
+    /// <param name="pos">The vector position for the player</param>
+    /// <param name="scene">The scene index to write the position into</param>
     public void SetPlayerPos(Vector3 pos, int scene) {
         if (INGAME_DEBUG == true) GameLog.Log("ObjectController:Updated_player_coordinated_for_scene"
                     + scene.ToString() + "," + pos.ToString(), Color.white); 
@@ -273,6 +304,14 @@ public class ObjectController : MonoBehaviour {
         WriteEnemiesToList(zombieInScene, scene);
     }
 
+    /// <summary>
+    /// This helper function assists the above function by writing
+    /// a specified GameObject array from a scene into the enemyObjects list.
+    /// It also verifies that the NPC/Enemy/Police GameObject is valid before
+    /// storing it into the list.
+    /// </summary>
+    /// <param name="enemies">An array of enemies to write into the list</param>
+    /// <param name="scene">The scene index to associate the enemies/NPC to</param>
     private void WriteEnemiesToList(Array enemies, int scene) {
         foreach (GameObject enemy in enemies) {
             Debug.Log("Harvesting object " + enemy.name + " from scene " + scene);
@@ -438,7 +477,6 @@ public class ObjectController : MonoBehaviour {
         }
     }
 
-    //END-----------TO BE REMOVED IF NOT NEEDED --------------//
 
     /// <summary>
     /// This method will convert a json string to a NPC list (might not be needed)
@@ -449,4 +487,5 @@ public class ObjectController : MonoBehaviour {
         GameData gdFromJson = JsonUtility.FromJson<GameData>(json);
         return gdFromJson;
     }
+    //END-----------TO BE REMOVED IF NOT NEEDED --------------//
 }
