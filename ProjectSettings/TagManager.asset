@@ -13,6 +13,7 @@ TagManager:
   - Zombie
   - PlayerUI
   - DayController
+  - EvilTree
   layers:
   - Default
   - TransparentFX
