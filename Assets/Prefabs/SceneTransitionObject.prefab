@@ -43,9 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5306130ffcbae94eba3c01f8f2e22e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 6562623317143493068, guid: 85f98f9c736753740b17dea5be1e0bfe, type: 3}
   transitionObject: {fileID: 4377589791288974914}
   sceneLoader: {fileID: 7539511269685842722, guid: 831b8eb22395a8c49a4d5acaf4b3296f,
     type: 3}
-  distance: 5
+  distance: 0.84
   secretBaseIndex: 3
