@@ -20,8 +20,11 @@ public class StatusBar : MonoBehaviour {
     [SerializeField]
     private Sprite spriteHeartEmpty;
     [SerializeField]
-    private float offset = 32;
+    
+    public float offset = 38;
 
+    public float startX = 32;
+    public float startY = 16;
     public GameObject heartPrefab;
 
     // Start is called before the first frame update
@@ -54,11 +57,12 @@ public class StatusBar : MonoBehaviour {
         
     public void InitHearts(int count) {
         this.heartPosCurrent.x = this.heartPosCurrent.x + offset;
+        this.heartPosCurrent.y += startY;
         if (this.heartsInit == false) {
             if (count <= 0) {
             }
             else {
-                for (int i = 0; i < count-1; i++) {
+                for (int i = 0; i < count; i++) {
                     CreateHeart( "HeartLevel" + i);
                     this.heartsInit = true;
                 }
