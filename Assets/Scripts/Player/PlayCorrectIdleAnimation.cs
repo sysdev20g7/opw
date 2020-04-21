@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayCorrectIdleAnimation : MonoBehaviour
 {
-    private string currentDirection;
+    private string currentDirection = "Down";
 
     public void SetCurrentDirection(string direction) {
         currentDirection = direction;
