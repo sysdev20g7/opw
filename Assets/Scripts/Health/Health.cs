@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 /// <summary>
 /// Represents the health of an object.
@@ -15,10 +15,10 @@ public class Health : MonoBehaviour
     private int defaultCurrentHealth = 8;
 
     //Events for subscribers, such as healthbar to subscribe to.
-    public delegate int HealDelegate(int amount);
+    public delegate void HealDelegate(int amount);
     public event HealDelegate healEvent;
 
-    public delegate int DamageDelegate(int amount);
+    public delegate void DamageDelegate(int amount);
     public event DamageDelegate damageEvent;
 
     //Allows for different destroyBehavior for when health reaches zero.
@@ -52,7 +52,7 @@ public class Health : MonoBehaviour
 
         int newHealth = Mathf.Max((currentHealth - amount), 0);
         if (damageEvent != null) {
-            damageEvent(newHealth - currentHealth);
+            damageEvent(currentHealth - newHealth);
         }
         currentHealth = newHealth;
         Debug.Log("Damaging current health with " +
@@ -69,7 +69,7 @@ public class Health : MonoBehaviour
 
         int newHealth = Mathf.Min((currentHealth + amount), maxHealth);
         if (healEvent != null) {
-            healEvent(currentHealth - newHealth);
+            healEvent(newHealth - currentHealth);
         }
         currentHealth = newHealth;
         Debug.Log("Healing current health with " +
