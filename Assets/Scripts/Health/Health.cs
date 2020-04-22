@@ -11,15 +11,15 @@ public class Health : MonoBehaviour
     private int currentHealth;
     //default non-zero values for when max- and current health
     //not set in Unity Inspector.
-    private int defaultMaxHealth = 8;
-    private int defaultCurrentHealth = 8;
+    private readonly int defaultMaxHealth = 8;
+    private readonly int defaultCurrentHealth = 8;
 
     //Events for subscribers, such as healthbar to subscribe to.
     public delegate void HealDelegate(int amount);
-    public event HealDelegate healEvent;
+    public event HealDelegate HealEvent;
 
     public delegate void DamageDelegate(int amount);
-    public event DamageDelegate damageEvent;
+    public event DamageDelegate DamageEvent;
 
     //Allows for different destroyBehavior for when health reaches zero.
     private DestroyBehavior destroyBehavior;
@@ -51,9 +51,7 @@ public class Health : MonoBehaviour
         if (amount <0) return;
 
         int newHealth = Mathf.Max((currentHealth - amount), 0);
-        if (damageEvent != null) {
-            damageEvent(currentHealth - newHealth);
-        }
+        DamageEvent?.Invoke(currentHealth - newHealth);
         currentHealth = newHealth;
         Debug.Log("Damaging current health with " +
                     amount + " to " + currentHealth);
@@ -68,9 +66,7 @@ public class Health : MonoBehaviour
         if (amount < 0) return;
 
         int newHealth = Mathf.Min((currentHealth + amount), maxHealth);
-        if (healEvent != null) {
-            healEvent(newHealth - currentHealth);
-        }
+        HealEvent?.Invoke(newHealth - currentHealth);
         currentHealth = newHealth;
         Debug.Log("Healing current health with " +
             amount + " to " + currentHealth);
@@ -81,7 +77,7 @@ public class Health : MonoBehaviour
     /// Returns the current health of the object.
     /// </summary>
     /// <returns>currentHealth</returns>
-    public int getCurrentHealth() {
+    public int GetCurrentHealth() {
         return this.currentHealth;
     }
 
@@ -89,7 +85,7 @@ public class Health : MonoBehaviour
     /// Returns the max health of the object.
     /// </summary>
     /// <returns>maxHealth</returns>
-    public int getMaxHealth() {
+    public int GetMaxHealth() {
         return this.maxHealth;
     }
 
@@ -98,7 +94,7 @@ public class Health : MonoBehaviour
     /// Does not allow negative values or zero.
     /// </summary>
     /// <param name="newMaxHealth"></param>
-    public void setMaxHealth(int newMaxHealth) {
+    public void SetMaxHealth(int newMaxHealth) {
         if (newMaxHealth <= 0) return;
         this.maxHealth = newMaxHealth;
     }
@@ -111,7 +107,7 @@ public class Health : MonoBehaviour
     /// current health is set to max health.
     /// </summary>
     /// <param name="maxHealthChange"></param>
-    public void changeMaxHealthByValue(int maxHealthChange) {
+    public void ChangeMaxHealthByValue(int maxHealthChange) {
         if (maxHealth + maxHealthChange <= 0) return;
         this.maxHealth += maxHealthChange;
         if (maxHealth < currentHealth) this.currentHealth = maxHealth;
