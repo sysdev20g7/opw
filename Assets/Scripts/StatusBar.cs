@@ -77,15 +77,12 @@ public class StatusBar : MonoBehaviour {
         this.heartPosCurrent.x += startX;
         this.heartPosCurrent.y += startY;
         if (this.heartsInit == false) {
-            this.heartsInit = true;
-            
-            if (count <= 0) {
+            for (int i = 0; i < count; i++) {
+                this.healthBar.AddLast(CreateHeart( "HeartLevel" + i));
             }
-            else {
-                for (int i = 0; i < count; i++) {
-                    this.healthBar.AddLast(CreateHeart( "HeartLevel" + i));
-                }
 
+            if (this.healthBar.Count != 0) {
+                this.heartsInit = true;
                 this.currentHeartsLevel = 0;
                 Debug.Log("Init health bar");
             }
@@ -171,6 +168,8 @@ public class StatusBar : MonoBehaviour {
     /// </summary>
     /// <param name="count">Count of hearts</param>
     private void FillHearts (int count) {
+        if (!(heartsInit)) return;
+        
         int target = currentHeartsLevel + count;
         if (target > currentHeartsLevel) {
             if (!(validateLevel(target))) {
@@ -188,6 +187,8 @@ public class StatusBar : MonoBehaviour {
     /// </summary>
     /// <param name="count">Count of hearts</param>
     private void DrainHearts(int count) {
+        if (!(heartsInit)) return;
+        
         int target = currentHeartsLevel - count;
         if (target < currentHeartsLevel) {
             if ((!validateLevel(target))) {

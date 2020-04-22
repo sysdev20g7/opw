@@ -133,12 +133,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 835191ff56714d1efb54412c9d8b1041, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heartPosCurrent: {x: 0, y: 0, z: 0}
+  objectParentHealthBar: {fileID: 0}
+  objectPlayer: {fileID: 0}
+  currentHeartsLevel: 0
   spriteHeartFull: {fileID: -7430422034915189084, guid: 891e64c167cd18cf5aa3a6fee9d4d4e2,
     type: 3}
   spriteHeartHalf: {fileID: 5066987209317114437, guid: 891e64c167cd18cf5aa3a6fee9d4d4e2,
     type: 3}
-  spriteHeartEmpty: {fileID: -8494714120911175114, guid: 891e64c167cd18cf5aa3a6fee9d4d4e2,
+  spriteHeartEmpty: {fileID: -5468107144029345151, guid: 891e64c167cd18cf5aa3a6fee9d4d4e2,
     type: 3}
   offset: 34
   startX: -8
