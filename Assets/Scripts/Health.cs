@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// Represents the health of an object.
@@ -11,36 +9,98 @@ public class Health : MonoBehaviour
     private int maxHealth;
     [SerializeField]
     private int currentHealth;
+    //default non-zero values for when max- and current health
+    //not set in Unity Inspector.
+    private int defaultMaxHealth = 8;
+    private int defaultCurrentHealth = 8;
 
     void Start()
     {
-        //Want object to start with max health.
-        currentHealth = maxHealth;
+        if (maxHealth == 0) maxHealth = defaultMaxHealth;
+        if (currentHealth == 0) currentHealth = defaultCurrentHealth;
+        changeMaxHealthByValue(-4);
+        Debug.Log(getMaxHealth());
+        Debug.Log(getCurrentHealth());
     }
 
     /// <summary>
     /// Lets object be damaged.
     /// </summary>
-    /// <param name="amount"></param>
-    private void TakeDamage(int amount) {
+    /// <param name="amount"></param> The amount damaged.
+    public void TakeDamage(int amount) {
         if (amount <0) {
             return;
         }
         if (!((currentHealth - amount) < 0)) {
-            currentHealth -= amount;
+            this.currentHealth -= amount;
+            Debug.Log("Damaging current health with " +
+               amount + " to " + currentHealth);
+        }
+        else {
+            this.currentHealth = 0;
+            Debug.Log("Damaging current health with " +
+               amount + " to " + currentHealth);
         }
     }
 
-    private void Heal(int amount) {
+    /// <summary>
+    /// Lets object be healed.
+    /// </summary>
+    /// <param name="amount"></param> The amount healed.
+    public void Heal(int amount) {
         if (amount < 0) {
             return;
         }
         if ((currentHealth + amount) > maxHealth) {
-            currentHealth = maxHealth;
+            this.currentHealth = this.maxHealth;
+            Debug.Log("Healing current health with " +
+               amount + " to " + currentHealth);
         }
         else {
-            currentHealth += amount;
+            this.currentHealth += amount;
+            Debug.Log("Healing current health with " +
+               amount + " to " + currentHealth);
         }
+    }
+
+    /// <summary>
+    /// Returns the current health of the object.
+    /// </summary>
+    /// <returns>currentHealth</returns>
+    public int getCurrentHealth() {
+        return this.currentHealth;
+    }
+
+    /// <summary>
+    /// Returns the max health of the object.
+    /// </summary>
+    /// <returns>maxHealth</returns>
+    public int getMaxHealth() {
+        return this.maxHealth;
+    }
+
+    /// <summary>
+    /// Sets the new max health of the object.
+    /// Does not allow negative values or zero.
+    /// </summary>
+    /// <param name="newMaxHealth"></param>
+    public void setMaxHealth(int newMaxHealth) {
+        if (newMaxHealth <= 0) return;
+        this.maxHealth = newMaxHealth;
+    }
+
+    /// <summary>
+    /// Changes the new max health of the object by said given amount.
+    /// Allows for negative values.
+    /// Does not allow to change max health to, or below, zero.
+    /// If max health set to below current health of object
+    /// current health is set to max health.
+    /// </summary>
+    /// <param name="maxHealthChange"></param>
+    public void changeMaxHealthByValue(int maxHealthChange) {
+        if (maxHealth + maxHealthChange <= 0) return;
+        this.maxHealth += maxHealthChange;
+        if (maxHealth < currentHealth) this.currentHealth = maxHealth;
     }
 
 }
