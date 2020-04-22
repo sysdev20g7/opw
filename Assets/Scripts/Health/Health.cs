@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 /// <summary>
 /// Represents the health of an object.
@@ -14,14 +15,19 @@ public class Health : MonoBehaviour
     private int defaultMaxHealth = 8;
     private int defaultCurrentHealth = 8;
 
+    private DestroyBehavior destroyBehavior;
+
     void Start()
     {
+        destroyBehavior = GetComponent<DestroyBehavior>();
+        if (destroyBehavior == null) Debug.Log("Destroy behavior is missing from " + this.gameObject);
         if (maxHealth == 0) maxHealth = defaultMaxHealth;
         if (currentHealth == 0) currentHealth = defaultCurrentHealth;
     }
 
     /// <summary>
     /// Lets object be damaged.
+    /// If damaged to zero, object is destroyed.
     /// </summary>
     /// <param name="amount"></param> The amount damaged.
     public void TakeDamage(int amount) {
@@ -37,6 +43,7 @@ public class Health : MonoBehaviour
             this.currentHealth = 0;
             Debug.Log("Damaging current health with " +
                amount + " to " + currentHealth);
+            if (destroyBehavior != null) destroyBehavior.destroyObject();
         }
     }
 
@@ -99,5 +106,4 @@ public class Health : MonoBehaviour
         this.maxHealth += maxHealthChange;
         if (maxHealth < currentHealth) this.currentHealth = maxHealth;
     }
-
 }
