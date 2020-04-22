@@ -7,8 +7,6 @@
 public abstract class DestroyBehavior : MonoBehaviour
 {
 
-    public virtual void destroyObject() {
-        Debug.Log("Destroy Behavior Called.");
-    }
+    public abstract void destroyObject();
 
 }

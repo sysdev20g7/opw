@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// Represents the health of an object.
@@ -26,8 +25,17 @@ public class Health : MonoBehaviour
     }
 
     /// <summary>
+    /// Checks if current health reaches 0
+    /// then calls destroys object behavior.
+    /// </summary>
+    void Update() {
+        if (currentHealth == 0) {
+            destroyBehavior.destroyObject();
+        }    
+    }
+
+    /// <summary>
     /// Lets object be damaged.
-    /// If damaged to zero, object is destroyed.
     /// </summary>
     /// <param name="amount"></param> The amount damaged.
     public void TakeDamage(int amount) {
@@ -43,7 +51,6 @@ public class Health : MonoBehaviour
             this.currentHealth = 0;
             Debug.Log("Damaging current health with " +
                amount + " to " + currentHealth);
-            if (destroyBehavior != null) destroyBehavior.destroyObject();
         }
     }
 
