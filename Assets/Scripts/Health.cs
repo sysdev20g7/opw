@@ -18,9 +18,6 @@ public class Health : MonoBehaviour
     {
         if (maxHealth == 0) maxHealth = defaultMaxHealth;
         if (currentHealth == 0) currentHealth = defaultCurrentHealth;
-        changeMaxHealthByValue(-4);
-        Debug.Log(getMaxHealth());
-        Debug.Log(getCurrentHealth());
     }
 
     /// <summary>
