@@ -14,6 +14,14 @@ public class Health : MonoBehaviour
     private int defaultMaxHealth = 8;
     private int defaultCurrentHealth = 8;
 
+    //Events for subscribers, such as healthbar to subscribe to.
+    public delegate int HealDelegate(int amount);
+    public event HealDelegate healEvent;
+
+    public delegate int DamageDelegate(int amount);
+    public event DamageDelegate damageEvent;
+
+    //Allows for different destroyBehavior for when health reaches zero.
     private DestroyBehavior destroyBehavior;
 
     void Start()
@@ -35,43 +43,38 @@ public class Health : MonoBehaviour
     }
 
     /// <summary>
-    /// Lets object be damaged.
+    /// Lets object be damaged. Negative values not allowed.
+    /// Raises an damageEvent when object is damaged.
     /// </summary>
     /// <param name="amount"></param> The amount damaged.
     public void TakeDamage(int amount) {
-        if (amount <0) {
-            return;
+        if (amount <0) return;
+
+        int newHealth = Mathf.Max((currentHealth - amount), 0);
+        if (damageEvent != null) {
+            damageEvent(newHealth - currentHealth);
         }
-        if (!((currentHealth - amount) < 0)) {
-            this.currentHealth -= amount;
-            Debug.Log("Damaging current health with " +
-               amount + " to " + currentHealth);
-        }
-        else {
-            this.currentHealth = 0;
-            Debug.Log("Damaging current health with " +
-               amount + " to " + currentHealth);
-        }
+        currentHealth = newHealth;
+        Debug.Log("Damaging current health with " +
+                    amount + " to " + currentHealth);
     }
 
     /// <summary>
-    /// Lets object be healed.
+    /// Lets object be healed. Negative values not allowed.
+    /// Raises and healEvent when object is healed.
     /// </summary>
     /// <param name="amount"></param> The amount healed.
     public void Heal(int amount) {
-        if (amount < 0) {
-            return;
+        if (amount < 0) return;
+
+        int newHealth = Mathf.Min((currentHealth + amount), maxHealth);
+        if (healEvent != null) {
+            healEvent(currentHealth - newHealth);
         }
-        if ((currentHealth + amount) > maxHealth) {
-            this.currentHealth = this.maxHealth;
-            Debug.Log("Healing current health with " +
-               amount + " to " + currentHealth);
-        }
-        else {
-            this.currentHealth += amount;
-            Debug.Log("Healing current health with " +
-               amount + " to " + currentHealth);
-        }
+        currentHealth = newHealth;
+        Debug.Log("Healing current health with " +
+            amount + " to " + currentHealth);
+
     }
 
     /// <summary>
