@@ -12,10 +12,14 @@
 public class PlayerCollision : MonoBehaviour {
 
     private ObjectController oc;
+    private Health playerHealth;
 
     private void Start() {
         if (oc == null) {
             oc = GameObject.FindObjectOfType<ObjectController>();
+        }
+        if (playerHealth == null) {
+            playerHealth = this.gameObject.GetComponent<Health>();
         }
     }   
     /// <summary>
@@ -28,7 +32,8 @@ public class PlayerCollision : MonoBehaviour {
             if (collision.gameObject.tag == "Police" ||
                 collision.gameObject.tag == "Zombie" ||
                 collision.gameObject.tag == "EvilTree") {
-                oc.playerCaughtByCop();
+                //oc.playerCaughtByCop();
+                playerHealth.TakeDamage(1);
             }
         }
     }
