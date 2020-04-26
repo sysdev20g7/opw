@@ -56,7 +56,7 @@ public class SceneLoader : MonoBehaviour {
             }
             objectcontroller.lastInGameScene = this._currentSceneIndex;
             objectcontroller.runningInGame = true;
-            objectcontroller.LoadSavedPlayerPos(this._currentSceneIndex);
+            objectcontroller.LoadPlayerData(this._currentSceneIndex);
             objectcontroller.LoadEnemyPosInScene(this._currentSceneIndex);
         }
     }
@@ -133,6 +133,7 @@ public class SceneLoader : MonoBehaviour {
      * 5. The scene is now visible
      * If scene is not valid, the SceneManager will not load the scene.
      */
+    // savePositions is not needed and should be refactored
     IEnumerator LoadScene(int sceneIndex,bool savePositions) {
         if (sceneIndex <= MAX_NUM_SCENES && sceneIndex > -1) {
             Debug.Log("Switched from scene " + this._currentSceneIndex + " ("
@@ -142,9 +143,9 @@ public class SceneLoader : MonoBehaviour {
             
             sceneAnimation.SetTrigger("Begin");
             yield return new WaitForSeconds(1);    // Break and sleep 1 sec
-            if (savePositions) {
-            objectcontroller.WriteSavedPlayerPos(this._currentSceneIndex); 
-            objectcontroller.WriteEnemyPosInScene(this._currentSceneIndex);
+            if (savePositions) { // <- remove this if
+                objectcontroller.WritePlayerData(this._currentSceneIndex); 
+                objectcontroller.WriteEnemyPosInScene(this._currentSceneIndex);
             }
             SceneManager.LoadScene(sceneIndex);    // Run again to fade out 
 

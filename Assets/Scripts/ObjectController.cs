@@ -242,7 +242,7 @@ public class ObjectController : MonoBehaviour {
         //Load PlayerPos (this is not automatically done if target Scene is current Scene
         // because the SceneLoader instance already exist and what that is in start()
         // is not executed.
-        //LoadSavedPlayerPos(loaded.playerScene); 
+        //LoadPlayerData(loaded.playerScene); 
 
     }
     
@@ -252,17 +252,20 @@ public class ObjectController : MonoBehaviour {
     /// specified save slot.
     /// </summary>
     /// <param name="scene">Save slot to write to, normally this is the running scene</param>
-    public void WriteSavedPlayerPos(int scene) {
+    public void WritePlayerData(int scene) {
         this._scenePlayerPos[scene] = FindPlayerPositionFromTag("Player");
         if (_DEBUG) Debug.Log("Saved player coordinates at "
                              + this._scenePlayerPos[scene].ToString() + " for scene " + scene);
+        Helper playerLocate = new Helper();
+        Health playerHealthScript = playerLocate.FindPlayerHealthInScene();
+        this.runningGame.playerHealth = playerHealthScript.GetCurrentHealth();
     }
     
     /// <summary>
     /// This function loads the saved position for the player in a specified scene
     /// </summary>
     /// <param name="scene">The selected scene index to load from</param>
-    public void LoadSavedPlayerPos(int scene) {
+    public void LoadPlayerData(int scene) {
         Vector3 result;
         if (_scenePlayerPos is null) { 
             if (_DEBUG) Debug.Log("No player coordinates stored");
@@ -276,9 +279,11 @@ public class ObjectController : MonoBehaviour {
                                     + scene + " at " + result.ToString());
                 GameObject player = (GameObject)Instantiate(prefabPlayer, result, Quaternion.identity);
                 Health playerHealthScript = player.GetComponent<Health>();
+                playerHealthScript.SetHealth(this.runningGame.playerHealth);
+                
                 Helper statusBarHelper = new Helper();
                 StatusBar bar = statusBarHelper.FindHealthBarInScene();
-                bar.setHealthLevel();
+                bar.setHealthLevel(5);
             } else {
                 if (_DEBUG) Debug.Log("Unable to find player coordinates");
                 if (INGAME_DEBUG == true) GameLog.Log("ObjectController:" +

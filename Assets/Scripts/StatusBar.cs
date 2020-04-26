@@ -49,13 +49,14 @@ public class StatusBar : MonoBehaviour {
     /// </summary>
     void Start()
     {
-        Helper help = new Helper();
-        Health playerHealth = help.FindPlayerHealthInScene();
-        this.S_MAX_HEALTH = playerHealth.GetMaxHealth();
+        //Helper help = new Helper();
+        //Health playerHealth = help.FindPlayerHealthInScene();
+        this.S_MAX_HEALTH = 8;
         
         
         // For testing, use public methods
         InitHearts(S_MAX_HEALTH); 
+        FillHearts(S_MAX_HEALTH);
         this.objectPlayer = GameObject.FindWithTag("Player");
 
     }
@@ -233,5 +234,12 @@ public class StatusBar : MonoBehaviour {
                 IncreaseHealth(level-currentHeartsLevel);
             }
         }
+    }
+
+
+    public void InitializeHealthLevel(int level) {
+        FillHearts(level);
+        this.currentHeartsLevel = level;
+        
     }
 }
