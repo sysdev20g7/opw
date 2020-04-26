@@ -32,7 +32,7 @@ public class ObjectController : MonoBehaviour {
     public GameObject prefabPolice;
     public GameObject prefabPlayer;
     [ReadOnly]public int? lastInGameScene = null;
-    [ReadOnly] public bool runningInGame = false;
+    [ReadOnly] public bool runningInGame = false; //used by options meny
 
     private static bool _DEBUG = true;
     private readonly bool INGAME_DEBUG = true;
@@ -43,7 +43,7 @@ public class ObjectController : MonoBehaviour {
     private Dictionary<int, Vector3> _scenePlayerPos;
     private List<NPC> _enemyObjects = new List<NPC>(); //List over  Enemy NPCs in-game
     private List<bool> _playerHasVisited = new List<bool>();
-    private GameData _runningGame = new GameData();
+    public GameData runningGame = new GameData();
 
 
     public ObjectController() {
@@ -52,6 +52,7 @@ public class ObjectController : MonoBehaviour {
         this._scenePlayerPos = new Dictionary<int, Vector3>();
         this._enemyObjects = new List<NPC>();
         this._playerHasVisited = new List<bool>();
+        this.runningGame = new GameData();
         ResetPlayerHasVisited(); //Set all visited scenes to false
     }
 
@@ -177,7 +178,7 @@ public class ObjectController : MonoBehaviour {
         // Overwrite and reset data
         this._enemyObjects = new List<NPC>();
         this._scenePlayerPos = new Dictionary<int, Vector3>();
-        this._runningGame = new GameData();
+        this.runningGame = new GameData();
         ResetPlayerHasVisited();
         SaveGame deleteSave = new SaveGame();
         if (deleteSave.SaveExists(JSON)) {
@@ -191,9 +192,12 @@ public class ObjectController : MonoBehaviour {
     public void SaveGame() {
         if (INGAME_DEBUG == true) GameLog.Log("ObjectController:Saved_game", Color.red);
         if (_DEBUG) Debug.Log("Saving");
-       GameData toBeSaved = new GameData();
+        // assign in-game data to save data object; like health, weapons etc
+        GameData toBeSaved = this.runningGame;
        Helper load = new Helper();
        int currentScene = load.FindSceneLoaderInScene().GetCurrentScene();
+       toBeSaved.playerHealth = load.FindPlayerHealthInScene().GetCurrentHealth();
+
        //toBeSaved.savedEnemyList = _enemyObjects;
        //toBeSaved.savedPlayerPosition = _scenePlayerPos;
        //toBeSaved.jsonSavedEnemies = convertNpcListToJson(_enemyObjects);
@@ -230,12 +234,16 @@ public class ObjectController : MonoBehaviour {
         //Find sceneloader in scene and set required values before loading
         this._scenePlayerPos[loaded.playerScene] = loaded.GetPlayerPosition();
         this._playerHasVisited[loaded.playerScene] = true;
+        
+        // Assign running data as loaded data
+        this.runningGame = loaded;
         Debug.Log("Loading from save into scene " + loaded.playerScene);
         SceneManager.LoadScene(loaded.playerScene);
         //Load PlayerPos (this is not automatically done if target Scene is current Scene
         // because the SceneLoader instance already exist and what that is in start()
         // is not executed.
         //LoadSavedPlayerPos(loaded.playerScene); 
+
     }
     
 
@@ -266,7 +274,11 @@ public class ObjectController : MonoBehaviour {
                             scene.ToString() + "," + result.ToString(),Color.green);
                 if (_DEBUG) Debug.Log("Found coordinates for scene "
                                     + scene + " at " + result.ToString());
-                Instantiate(prefabPlayer, result, Quaternion.identity);
+                GameObject player = (GameObject)Instantiate(prefabPlayer, result, Quaternion.identity);
+                Health playerHealthScript = player.GetComponent<Health>();
+                Helper statusBarHelper = new Helper();
+                StatusBar bar = statusBarHelper.FindHealthBarInScene();
+                bar.setHealthLevel();
             } else {
                 if (_DEBUG) Debug.Log("Unable to find player coordinates");
                 if (INGAME_DEBUG == true) GameLog.Log("ObjectController:" +

@@ -32,8 +32,8 @@ public class StatusBar : MonoBehaviour {
     public float startX = -8;
     public float startY = 32;
     public GameObject heartPrefab;
-    
-    public static int S_MAX_HEALTH = 10; // 1-MAX_LEVEL (usually 10)
+
+    private int S_MAX_HEALTH; // this is controlled by player health script
 
 
     /// <summary>
@@ -49,12 +49,13 @@ public class StatusBar : MonoBehaviour {
     /// </summary>
     void Start()
     {
+        Helper help = new Helper();
+        Health playerHealth = help.FindPlayerHealthInScene();
+        this.S_MAX_HEALTH = playerHealth.GetMaxHealth();
+        
+        
         // For testing, use public methods
         InitHearts(S_MAX_HEALTH); 
-        FillHearts(10); 
-        DrainHearts(15);
-        FillHearts(5); 
-        FillHearts(10);
         this.objectPlayer = GameObject.FindWithTag("Player");
 
     }
