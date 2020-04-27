@@ -35,7 +35,7 @@ public class ObjectController : MonoBehaviour {
     [ReadOnly] public bool runningInGame = false; //used by options meny
 
     private static bool _DEBUG = true;
-    private readonly bool INGAME_DEBUG = true;
+    private readonly bool INGAME_DEBUG = false;
     private static int JSON = 1, BINARY = 2;
     private static GameObject _obInstance;
     private static string _POLICE_ENEMY_TAG = "Police";
@@ -196,7 +196,10 @@ public class ObjectController : MonoBehaviour {
         GameData toBeSaved = this.runningGame;
        Helper load = new Helper();
        int currentScene = load.FindSceneLoaderInScene().GetCurrentScene();
+       
+       //Stores Relevant Game Data
        toBeSaved.playerHealth = load.FindPlayerHealthInScene().GetCurrentHealth();
+       toBeSaved.timeOfDay = load.GetDayControllerInScene().GetDayCycle().ToString();
 
        //toBeSaved.savedEnemyList = _enemyObjects;
        //toBeSaved.savedPlayerPosition = _scenePlayerPos;
@@ -234,7 +237,12 @@ public class ObjectController : MonoBehaviour {
         //Find sceneloader in scene and set required values before loading
         this._scenePlayerPos[loaded.playerScene] = loaded.GetPlayerPosition();
         this._playerHasVisited[loaded.playerScene] = true;
-        
+
+        //
+        Helper load = new Helper();
+        DayCycle dayCycle = (DayCycle) Enum.Parse(typeof(DayCycle), loaded.timeOfDay.ToString());
+        load.GetDayControllerInScene().SetDayCycle(dayCycle);
+
         // Assign running data as loaded data
         this.runningGame = loaded;
         Debug.Log("Loading from save into scene " + loaded.playerScene);

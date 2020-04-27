@@ -18,6 +18,7 @@ public class GameData {
      public int playerScene;
      public float playerPosX, playerPosY; 
      public float cameraPosX, cameraPosY, cameraPosZ;
+     public string timeOfDay;
      public int playerHealth;
      public bool playerWeaponSword;
      

@@ -1,6 +1,4 @@
-﻿using System;
-
-/// <summary>
+﻿/// <summary>
 /// Represents parts of a whole day.
 /// </summary>
 public enum DayCycle

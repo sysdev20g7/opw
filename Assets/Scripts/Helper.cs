@@ -41,4 +41,9 @@ public class Helper {
         GameObject playerHealth = GameObject.FindWithTag("Player");
         return playerHealth.GetComponent<Health>();
     }
+
+    public DayController GetDayControllerInScene() {
+        GameObject dayController = GameObject.FindGameObjectWithTag("DayController");
+        return dayController.GetComponent<DayController>();
+    }
 }
