@@ -37,7 +37,9 @@ public class StatusBar : MonoBehaviour {
     // on start of this class
     
     [SerializeField]
-    private static int S_MAX_HEALTH = 8; 
+    private static int S_MAX_HEALTH = 8;
+
+    private Health playerHealthComponent;
 
 
     /// <summary>
@@ -53,20 +55,17 @@ public class StatusBar : MonoBehaviour {
     /// </summary>
     void Start()
     {
-        
-        // For testing, use public methods
-        InitHearts(S_MAX_HEALTH); 
-        this.objectPlayer = GameObject.FindWithTag("Player");
+        InitHearts(S_MAX_HEALTH);
+
+        StartCoroutine(Subscribe());
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    // Update is called during destroi 
+    void OnDestroy() {
+        this.playerHealthComponent.HealEvent -= IncreaseHealth;
+        this.playerHealthComponent.DamageEvent-= DecreaseHealth;
 
-    void Awake() {
     }
     
     /// <summary>
@@ -211,13 +210,8 @@ public class StatusBar : MonoBehaviour {
     
     // maybe remove this ? now it returns a bool is you are
     // dead or alive
-    public bool DecreaseHealth(int count) {
-        bool alive = true;
+    public void DecreaseHealth(int count) {
         DrainHearts(count);
-        if (currentHeartsLevel == 0) {
-            alive = false;
-        }
-        return alive;
     }
 
     /// <summary>
@@ -240,5 +234,15 @@ public class StatusBar : MonoBehaviour {
         FillHearts(level);
         this.currentHeartsLevel = level;
         
+    }
+
+
+    private IEnumerator Subscribe() {
+        yield return new WaitForSeconds(1);
+        Helper playerHelper = new Helper();
+        this.playerHealthComponent = playerHelper.FindPlayerHealthInScene();
+
+        this.playerHealthComponent.HealEvent += IncreaseHealth;
+        this.playerHealthComponent.DamageEvent += DecreaseHealth;
     }
 }
