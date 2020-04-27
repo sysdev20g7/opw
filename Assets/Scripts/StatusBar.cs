@@ -32,8 +32,14 @@ public class StatusBar : MonoBehaviour {
     public float startX = -8;
     public float startY = 32;
     public GameObject heartPrefab;
+
+    // This must be set static, as player object is not available
+    // on start of this class
     
-    public static int S_MAX_HEALTH = 10; // 1-MAX_LEVEL (usually 10)
+    [SerializeField]
+    private static int S_MAX_HEALTH = 8;
+
+    private Health playerHealthComponent;
 
 
     /// <summary>
@@ -49,23 +55,17 @@ public class StatusBar : MonoBehaviour {
     /// </summary>
     void Start()
     {
-        // For testing, use public methods
-        InitHearts(S_MAX_HEALTH); 
-        FillHearts(10); 
-        DrainHearts(15);
-        FillHearts(5); 
-        FillHearts(10);
-        this.objectPlayer = GameObject.FindWithTag("Player");
+        InitHearts(S_MAX_HEALTH);
+
+        StartCoroutine(Subscribe());
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    // Update is called during destroi 
+    void OnDestroy() {
+        this.playerHealthComponent.HealEvent -= IncreaseHealth;
+        this.playerHealthComponent.DamageEvent-= DecreaseHealth;
 
-    void Awake() {
     }
     
     /// <summary>
@@ -84,7 +84,7 @@ public class StatusBar : MonoBehaviour {
             if (this.healthBar.Count != 0) {
                 this.heartsInit = true;
                 this.currentHeartsLevel = 0;
-                Debug.Log("Init health bar");
+                Debug.Log("Init empty health bar " + count + " hearts");
             }
         }
     }
@@ -100,7 +100,7 @@ public class StatusBar : MonoBehaviour {
             heart.name = name;
             switchHeartSprite(heart,HeartState.Empty);
             heart.transform.position = pos;
-            heart.transform.parent = this.gameObject.transform;
+            heart.transform.SetParent(transform);
             this.heartPosCurrent = pos;
             return heart;
     }
@@ -210,13 +210,8 @@ public class StatusBar : MonoBehaviour {
     
     // maybe remove this ? now it returns a bool is you are
     // dead or alive
-    public bool DecreaseHealth(int count) {
-        bool alive = true;
+    public void DecreaseHealth(int count) {
         DrainHearts(count);
-        if (currentHeartsLevel == 0) {
-            alive = false;
-        }
-        return alive;
     }
 
     /// <summary>
@@ -232,5 +227,22 @@ public class StatusBar : MonoBehaviour {
                 IncreaseHealth(level-currentHeartsLevel);
             }
         }
+    }
+
+
+    public void InitializeHealthLevel(int level) {
+        FillHearts(level);
+        this.currentHeartsLevel = level;
+        
+    }
+
+
+    private IEnumerator Subscribe() {
+        yield return new WaitForSeconds(1);
+        Helper playerHelper = new Helper();
+        this.playerHealthComponent = playerHelper.FindPlayerHealthInScene();
+
+        this.playerHealthComponent.HealEvent += IncreaseHealth;
+        this.playerHealthComponent.DamageEvent += DecreaseHealth;
     }
 }

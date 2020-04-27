@@ -18,8 +18,9 @@ public class GameData {
      public int playerScene;
      public float playerPosX, playerPosY; 
      public float cameraPosX, cameraPosY, cameraPosZ;
+     public string timeOfDay;
      public int playerHealth;
-     public int[] currentPlayerItems;
+     public bool playerWeaponSword;
      
      
      // The datatypes below are not support with seriliazation in json
@@ -48,7 +49,6 @@ public class GameData {
         this.cameraPosZ = camPos.z;
         this.playerScene = scene;
     }
-    
 
     /// <summary>
     ///  Returns the players position

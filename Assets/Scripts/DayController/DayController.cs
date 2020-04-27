@@ -16,6 +16,7 @@ using UnityEngine;
 public class DayController : MonoBehaviour {
 
     private List<DayListener> DayListeners;
+    [SerializeField]
     private float DayLengthInMinutes = 1;
     private float CycleLengthInSeconds;
     private DayCycle DayCycle;
@@ -83,6 +84,16 @@ public class DayController : MonoBehaviour {
     public DayCycle GetDayCycle() {
         Debug.Log("Listner pulling DayCycle");
         return this.DayCycle;
+    }
+
+    /// <summary>
+    /// Sets a new DayCycle.
+    /// </summary>
+    /// <param name="dayCycle">The DayCycle to set to.</param>
+    public void SetDayCycle(DayCycle dayCycle) {
+        Debug.Log("Setting new DayCycle");
+        this.DayCycle = dayCycle;
+        onCycleChange();
     }
 
     /// <summary>

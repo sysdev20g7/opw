@@ -12,6 +12,7 @@ public class FollowBehaviour : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
         playerPos = GameObject.FindGameObjectWithTag("Player").transform;
         animator.GetComponent<EnemyPathfinding>().DoSomething(animator.GetBool("isFollowing"));
+        //START HIGHSCORE
     }
 
 
@@ -57,6 +58,7 @@ public class FollowBehaviour : StateMachineBehaviour
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
+    // END HIGHSCORE
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
         animator.SetBool("isRight", false);
         animator.SetBool("isLeft", false);

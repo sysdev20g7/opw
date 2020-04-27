@@ -90,6 +90,16 @@ public class Health : MonoBehaviour
     }
 
     /// <summary>
+    /// Sets the health of the object.
+    /// Does not allow negative values or zero.
+    /// </summary>
+    /// <param name="newHealth"></param>
+    public void SetHealth(int newHealth) {
+        if (newHealth <= 0) return;
+        this.currentHealth = Mathf.Min(this.maxHealth,newHealth);
+    }
+
+    /// <summary>
     /// Sets the new max health of the object.
     /// Does not allow negative values or zero.
     /// </summary>
