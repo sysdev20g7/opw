@@ -49,10 +49,6 @@ public class GameData {
         this.playerScene = scene;
     }
 
-    public void WriteToSave(bool hasWeaponSword) {
-        this.playerWeaponSword = hasWeaponSword;
-    }
-    
     /// <summary>
     ///  Returns the players position
     /// </summary>
