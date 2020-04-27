@@ -33,7 +33,11 @@ public class StatusBar : MonoBehaviour {
     public float startY = 32;
     public GameObject heartPrefab;
 
-    private int S_MAX_HEALTH; // this is controlled by player health script
+    // This must be set static, as player object is not available
+    // on start of this class
+    
+    [SerializeField]
+    private static int S_MAX_HEALTH = 8; 
 
 
     /// <summary>
@@ -49,10 +53,6 @@ public class StatusBar : MonoBehaviour {
     /// </summary>
     void Start()
     {
-        //Helper help = new Helper();
-        //Health playerHealth = help.FindPlayerHealthInScene();
-        this.S_MAX_HEALTH = 8;
-        
         
         // For testing, use public methods
         InitHearts(S_MAX_HEALTH); 
@@ -85,7 +85,7 @@ public class StatusBar : MonoBehaviour {
             if (this.healthBar.Count != 0) {
                 this.heartsInit = true;
                 this.currentHeartsLevel = 0;
-                Debug.Log("Init health bar");
+                Debug.Log("Init empty health bar " + count + " hearts");
             }
         }
     }
