@@ -101,7 +101,7 @@ public class StatusBar : MonoBehaviour {
             heart.name = name;
             switchHeartSprite(heart,HeartState.Empty);
             heart.transform.position = pos;
-            heart.transform.parent = this.gameObject.transform;
+            heart.transform.SetParent(transform);
             this.heartPosCurrent = pos;
             return heart;
     }
