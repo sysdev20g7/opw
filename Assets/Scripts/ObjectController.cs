@@ -245,24 +245,53 @@ public class ObjectController : MonoBehaviour {
         //LoadPlayerData(loaded.playerScene); 
 
     }
+
+    /// <summary>
+    ///  Handles player health data storage and presentation
+    /// When loading a scene, health value is loaded from memory 
+    /// and set to the player object in the scene.
+    /// When loadFromList, HealthBar UI is filled with current lvl health 
+    /// When exiting a scene, loadFromList must be false,
+    ///  to store the players health value in memory. 
+    /// </summary>
+    /// <param name="loadFromList">true if loading a scene</param>
+    private void SetPlayerHealth(bool loadFromList, bool initHealthBarUI) {
+        Helper objectHelper = new Helper();
+        try {
+            Health playerHealth = objectHelper.FindPlayerHealthInScene();
+            if (loadFromList) {
+                playerHealth.SetHealth(this.runningGame.playerHealth);
+                    if (initHealthBarUI) {
+                        objectHelper.FindHealthBarInScene().setHealthLevel(
+                            playerHealth.GetCurrentHealth());
+                    }
+            }
+            else {
+                this.runningGame.playerHealth = playerHealth.GetCurrentHealth();
+            }
+        }
+        catch (Exception e) {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
     
 
     /// <summary>
-    /// Save current player position (xzy coord) in running scene to a
-    /// specified save slot.
+    /// Saves player data (position, health etc) in memory. Player position is saved for the
+    /// specified scene
     /// </summary>
     /// <param name="scene">Save slot to write to, normally this is the running scene</param>
     public void WritePlayerData(int scene) {
         this._scenePlayerPos[scene] = FindPlayerPositionFromTag("Player");
         if (_DEBUG) Debug.Log("Saved player coordinates at "
                              + this._scenePlayerPos[scene].ToString() + " for scene " + scene);
-        Helper playerLocate = new Helper();
-        Health playerHealthScript = playerLocate.FindPlayerHealthInScene();
-        this.runningGame.playerHealth = playerHealthScript.GetCurrentHealth();
+        SetPlayerHealth(false, false);
     }
     
     /// <summary>
-    /// This function loads the saved position for the player in a specified scene
+    /// Loads player data (position, health etc) into a scene from memory. PlayerPosition is loaded
+    /// from a list for the specified scene. It also loads current health and updates the player
     /// </summary>
     /// <param name="scene">The selected scene index to load from</param>
     public void LoadPlayerData(int scene) {
@@ -278,18 +307,16 @@ public class ObjectController : MonoBehaviour {
                 if (_DEBUG) Debug.Log("Found coordinates for scene "
                                     + scene + " at " + result.ToString());
                 GameObject player = (GameObject)Instantiate(prefabPlayer, result, Quaternion.identity);
-                Health playerHealthScript = player.GetComponent<Health>();
-                playerHealthScript.SetHealth(this.runningGame.playerHealth);
+                //Health playerHealthScript = player.GetComponent<Health>();
+                //playerHealthScript.SetHealth(this.runningGame.playerHealth);
                 
-                Helper statusBarHelper = new Helper();
-                StatusBar bar = statusBarHelper.FindHealthBarInScene();
-                bar.setHealthLevel(5);
             } else {
                 if (_DEBUG) Debug.Log("Unable to find player coordinates");
                 if (INGAME_DEBUG == true) GameLog.Log("ObjectController:" +
                             "No_player_coordinates_to_load_for_this_scene", Color.yellow); 
             }
         }
+        SetPlayerHealth(true, true);
     }
 
     /// <summary>

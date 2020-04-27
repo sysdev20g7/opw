@@ -56,7 +56,6 @@ public class StatusBar : MonoBehaviour {
         
         // For testing, use public methods
         InitHearts(S_MAX_HEALTH); 
-        FillHearts(S_MAX_HEALTH);
         this.objectPlayer = GameObject.FindWithTag("Player");
 
     }
