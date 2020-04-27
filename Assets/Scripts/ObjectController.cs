@@ -470,6 +470,8 @@ public class ObjectController : MonoBehaviour {
         if (INGAME_DEBUG == true) GameLog.Log("ObjectController:Respawning_player_in_jail",Color.white);
         this._enemyObjects = new List<NPC>();
         this._playerHasVisited = new List<bool>();
+        // quickfix until proper fix in another class - when player dies
+        this.runningGame.playerHealth = 8;    
         GameObject g = GameObject.FindGameObjectWithTag("Player");
         Destroy(g);
         ResetPlayerHasVisited();
