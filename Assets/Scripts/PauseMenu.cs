@@ -57,7 +57,7 @@ public class PauseMenu : MonoBehaviour {
 
     public void LoadOptions() {
         pauseController.lastInGameScene = _currentScene;
-        pauseController.WriteSavedPlayerPos(_currentScene);
+        pauseController.WritePlayerData(_currentScene);
         SceneManager.LoadScene(OptionsMenu);
         Debug.Log("Loading options...");
     }
@@ -65,14 +65,14 @@ public class PauseMenu : MonoBehaviour {
     public void LoadMainMenu()
     {
         Time.timeScale = 1f;
-        pauseController.WriteSavedPlayerPos(SceneManager.GetActiveScene().buildIndex);
+        pauseController.WritePlayerData(SceneManager.GetActiveScene().buildIndex);
         SceneManager.LoadScene(MainMenu);
         Debug.Log("Loading main menu...");
     }
 
     public void SaveGameButton() {
             // Does the real work of saving the game
-            pauseController.WriteSavedPlayerPos(SceneManager.GetActiveScene().buildIndex);
+            pauseController.WritePlayerData(SceneManager.GetActiveScene().buildIndex);
             pauseController.SaveGame();
     }
 

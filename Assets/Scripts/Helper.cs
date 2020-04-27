@@ -29,4 +29,16 @@ public class Helper {
         GameObject pause = GameObject.Find("PauseMenuCanvas");
         return pause.GetComponent<PauseMenu>();
     }
+
+
+    public StatusBar FindHealthBarInScene() {
+        GameObject healthBar = GameObject.Find("HealthBar");
+        return healthBar.GetComponent<StatusBar>();
+    }
+
+
+    public Health FindPlayerHealthInScene() {
+        GameObject playerHealth = GameObject.FindWithTag("Player");
+        return playerHealth.GetComponent<Health>();
+    }
 }
