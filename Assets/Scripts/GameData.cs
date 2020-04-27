@@ -21,6 +21,8 @@ public class GameData {
      public string timeOfDay;
      public int playerHealth;
      public bool playerWeaponSword;
+     public int highscore;
+     public int score = 0;
      
      
      // The datatypes below are not support with seriliazation in json
