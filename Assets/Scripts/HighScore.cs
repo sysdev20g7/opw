@@ -17,13 +17,13 @@ public class HighScore : MonoBehaviour {
     {
         Helper obHelper = new Helper();
         this.objCtrl = obHelper.FindObjectControllerInScene();
+        this.scoreDigits = GameObject.FindWithTag("ScoreDigitUI");
         DisplayScore(
             this.objCtrl.runningGame.score,
             this.objCtrl.runningGame.highscore,
             record);
 
         InvokeRepeating(nameof(TickInterval),0,1f);
-        this.scoreDigits = GameObject.FindWithTag("ScoreDigitUI");
     }
 
     // Update is called once per frame
