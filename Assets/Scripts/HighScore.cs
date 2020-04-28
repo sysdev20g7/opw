@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,7 @@ public class HighScore : MonoBehaviour {
     [SerializeField]
     private bool record = false;
     private ObjectController objCtrl;
+    private GameObject scoreDigits; //Line0 S, Line1 H
     
     // Start is called before the first frame update
     void Start()
@@ -21,6 +23,7 @@ public class HighScore : MonoBehaviour {
             record);
 
         InvokeRepeating(nameof(TickInterval),0,1f);
+        this.scoreDigits = GameObject.FindWithTag("ScoreDigitUI");
     }
 
     // Update is called once per frame
@@ -29,21 +32,23 @@ public class HighScore : MonoBehaviour {
         
     }
 
-    private string ComposeText(int score, int high) {
-        return  "SCORE" + "\t\t\t\t\t" + score + "\n"
-                + "HIGH SCORE " + "\t\t" + high;
+    private string ComposeText() {
+        return  "SCORE" + "\n"
+                + "HIGH SCORE ";
     }
 
 
     private void DisplayScore(int score, int highscore, bool record) {
         if (!(record)) {
-            this.GetComponent<Text>().text = ComposeText(score, highscore);
+            this.GetComponent<TMP_Text>().text = ComposeText();
+            this.scoreDigits.GetComponent<TMP_Text>().text = score + "\n" + highscore;
         }
         else {
-            this.GetComponent<Text>().text =
-                 ComposeText(score, highscore) 
+            this.GetComponent<TMP_Text>().text =
+                 ComposeText() 
                  + "\n NEW RECORD";
-
+            
+            this.scoreDigits.GetComponent<TMP_Text>().text = score + "\n" + highscore;
         }
     }
 
