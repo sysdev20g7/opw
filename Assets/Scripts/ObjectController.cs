@@ -188,6 +188,7 @@ public class ObjectController : MonoBehaviour {
             
             // store the highscore value
             SaveGame saveHighScore = new SaveGame(hsData);
+            hsData.keepHighScore = true; //must be true to reimport
             saveHighScore.SaveToFile(SaveType.Highscore);
         }
         else {
@@ -235,8 +236,10 @@ public class ObjectController : MonoBehaviour {
        toBeSaved.WriteToSave(this.FindPlayerPositionFromTag("Player"),currentScene);
        //if (_DEBUG) Debug.Log("Converted NPC-list into JSON:" + toBeSaved.jsonSavedEnemies);
 
+       // save ingame high score
        if (toBeSaved.keepHighScore) {
            GameData hsData = new GameData();
+           // checking for largest score is done when creating new game
            hsData.highscore = toBeSaved.highscore;
            SaveGame highScoreSave = new SaveGame(hsData);
            highScoreSave.SaveToFile(SaveType.Highscore);
@@ -524,7 +527,7 @@ public class ObjectController : MonoBehaviour {
         GameObject g = GameObject.FindGameObjectWithTag("Player");
         Destroy(g);
         ResetPlayerHasVisited();
-        ResetScore(true,false);
+        this.runningGame.score = 0; //reset score
         SceneManager.sceneLoaded -= respawnPlayerInJail;
     }
     
@@ -616,15 +619,5 @@ public class ObjectController : MonoBehaviour {
         this.runningGame.highscore = highScore;
         return newHigh;
 
-    }
-
-    public void ResetScore(bool currentScore, bool highScore) {
-        if (currentScore) {
-            this.runningGame.score = 0;
-        }
-
-        if (highScore) {
-            this.runningGame.score = 0;
-        }
     }
 }
