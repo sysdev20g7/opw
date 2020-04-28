@@ -46,7 +46,7 @@ public class HighScore : MonoBehaviour {
         else {
             this.GetComponent<TMP_Text>().text =
                  ComposeText() 
-                 + "\n NEW RECORD";
+                 + "\nNEW RECORD";
             
             this.scoreDigits.GetComponent<TMP_Text>().text = score + "\n" + highscore;
         }
