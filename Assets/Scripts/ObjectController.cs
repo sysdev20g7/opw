@@ -171,10 +171,13 @@ public class ObjectController : MonoBehaviour {
     }
 
     /// <summary>
-    ///  This function resets the exsisting game data
-    ///  and also deletes the save file if present.
+    /// This function resets the game data, and also deletes the save json
+    /// file if present. It's possible to decide to not delete the HighScore
+    /// value
     /// </summary>
-    public void ResetGame() {
+    /// <param name="keepHighScore">Keep the highscore value in memory</param>
+    public void ResetGame(bool keepHighScore) {
+        int oldHighScore = this.runningGame.highscore;
         if (INGAME_DEBUG == true) GameLog.Log("ObjectController:Resetting_game_data", Color.green);
         // Overwrite and reset data
         this._enemyObjects = new List<NPC>();
@@ -185,6 +188,15 @@ public class ObjectController : MonoBehaviour {
         if (deleteSave.SaveExists(JSON)) {
             if (INGAME_DEBUG == true) GameLog.Log("ObjectController:_Deleted_game_save", Color.red);
             deleteSave.DeleteSave(JSON);
+        }
+
+        if (keepHighScore) {
+            // append highscore to gamedata, and save to json
+            this.runningGame.highscore = oldHighScore;
+            
+            // currently this does not save
+            //SaveGame saveHighScore = new SaveGame(this.runningGame);
+            //saveHighScore.SaveToFile(JSON);
         }
     }
     /// <summary>

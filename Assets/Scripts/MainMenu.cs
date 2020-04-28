@@ -14,6 +14,7 @@ public class MainMenu : MonoBehaviour {
     public int SCN_OPTIONS_MENU = 4;
     public int SCN_MAIN_MENU = 0;
     public bool INGAME_DEBUG;
+    public bool keepHighScore = true;
 
     // Constructor
     public MainMenu() {
@@ -90,12 +91,19 @@ public class MainMenu : MonoBehaviour {
     }
 
     /// <summary>
+    /// Helper function to toggle keep high score from UI
+    /// </summary>
+    /// <param name="enabled">enabled keeps high score between saves</param>
+    public void KeepHighScorePersistent(bool enabled) {
+        this.keepHighScore = !enabled;
+    }
+    /// <summary>
     ///  This function deletes exisitng data, including save file on disk,
     /// and loads a new game from the first scene
     /// </summary>
     public void DeleteGame() {
         Debug.Log("New game; deleted old data and save");
-        obj.ResetGame(); // Delete data, and create new data slots 
+        obj.ResetGame(this.keepHighScore); // Delete data, and create new data slots 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
     
