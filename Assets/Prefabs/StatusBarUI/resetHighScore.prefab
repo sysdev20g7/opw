@@ -158,7 +158,7 @@ GameObject:
   - component: {fileID: 5835901623557933545}
   - component: {fileID: 5835901623557933544}
   m_Layer: 5
-  m_Name: Toggle
+  m_Name: ToggleHS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -181,7 +181,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 102.09, y: -0.0000072718}
+  m_AnchoredPosition: {x: 108.7, y: -0.0000072718}
   m_SizeDelta: {x: 49.75, y: 57.09}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5835901623557933544
@@ -306,7 +306,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Keep high score in next game
+  m_text: Save high score for all Games
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 6522f30e342599e4e9dd4cc2cc03c830, type: 2}
@@ -375,7 +375,7 @@ MonoBehaviour:
   m_margin: {x: -150.01904, y: 0, z: 40.483704, w: 7.956085}
   m_textInfo:
     textComponent: {fileID: 5835901624137453302}
-    characterCount: 28
+    characterCount: 29
     spriteCount: 0
     spaceCount: 5
     wordCount: 6

@@ -23,6 +23,7 @@ public class GameData {
      public bool playerWeaponSword;
      public int highscore = 0;
      public int score = 0;
+     public bool keepHighScore = true;
      
      
      // The datatypes below are not support with seriliazation in json
