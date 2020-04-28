@@ -484,6 +484,7 @@ public class ObjectController : MonoBehaviour {
         GameObject g = GameObject.FindGameObjectWithTag("Player");
         Destroy(g);
         ResetPlayerHasVisited();
+        ResetScore(true,false);
         SceneManager.sceneLoaded -= respawnPlayerInJail;
     }
     
