@@ -88,6 +88,7 @@ public class ObjectController : MonoBehaviour {
             if (_DEBUG) Debug.Log("Catched Load Keypress");
             LoadGame();
         }
+
     }
 
 
@@ -542,4 +543,44 @@ public class ObjectController : MonoBehaviour {
         return gdFromJson;
     }
     //END-----------TO BE REMOVED IF NOT NEEDED --------------//
+
+
+    /// <summary>
+    /// Increments the score with specified amount, returns bool true
+    /// if new highscore has been reached
+    /// </summary>
+    /// <param name="amount">amount to increase/decrease score with</param>
+    /// <returns></returns>
+    public bool IncrementScore(int amount) {
+        int currentScore = this.runningGame.score;
+        int highScore = this.runningGame.highscore;
+        bool newHigh = false;
+
+        currentScore += amount;
+        if (currentScore < 0) {
+            currentScore = 0;
+        }
+
+        Debug.Log("Score " + currentScore);
+            
+        if (currentScore > 100) {
+            highScore = currentScore;
+            Debug.Log("New high " + highScore);
+            newHigh = true;
+        }
+        this.runningGame.score = currentScore;
+        this.runningGame.highscore = highScore;
+        return newHigh;
+
+    }
+
+    public void ResetScore(bool currentScore, bool highScore) {
+        if (currentScore) {
+            this.runningGame.score = 0;
+        }
+
+        if (highScore) {
+            this.runningGame.score = 0;
+        }
+    }
 }

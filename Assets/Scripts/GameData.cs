@@ -21,7 +21,7 @@ public class GameData {
      public string timeOfDay;
      public int playerHealth;
      public bool playerWeaponSword;
-     public int highscore;
+     public int highscore = 0;
      public int score = 0;
      
      
