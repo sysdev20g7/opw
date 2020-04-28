@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class HighScore : MonoBehaviour {
     [SerializeField] private static int scoreIncrement = 10;
     public bool runScore = false;
+    [SerializeField]
+    private bool record = false;
     private ObjectController objCtrl;
     
     // Start is called before the first frame update
@@ -16,38 +18,42 @@ public class HighScore : MonoBehaviour {
         DisplayScore(
             this.objCtrl.runningGame.score,
             this.objCtrl.runningGame.highscore,
-            false);
+            record);
 
+        InvokeRepeating(nameof(TickInterval),0,1f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (runScore) {
-            InvokeRepeating(nameof(IncreaseScore),0,1f);
-        }
         
     }
 
     private string ComposeText(int score, int high) {
-        return  "SCORE: " + score + "\n"
-                + "HIGHSCORE: " + high;
+        return  "SCORE" + "\t\t\t\t\t" + score + "\n"
+                + "HIGH SCORE " + "\t\t" + high;
     }
 
 
     private void DisplayScore(int score, int highscore, bool record) {
-        if (record) {
+        if (!(record)) {
             this.GetComponent<Text>().text = ComposeText(score, highscore);
         }
         else {
             this.GetComponent<Text>().text =
-                "NEW RECORD \n" + ComposeText(score, highscore);
+                 ComposeText(score, highscore) 
+                 + "\n NEW RECORD";
 
         }
     }
-    
+
+    private void TickInterval() {
+        if (runScore) {
+            IncreaseScore();
+        }
+    }
     private void IncreaseScore() {
-        bool record = this.objCtrl.IncrementScore(scoreIncrement);
+        record = this.objCtrl.IncrementScore(scoreIncrement);
         DisplayScore(
             this.objCtrl.runningGame.score,
             this.objCtrl.runningGame.highscore,

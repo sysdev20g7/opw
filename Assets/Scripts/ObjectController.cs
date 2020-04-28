@@ -554,7 +554,7 @@ public class ObjectController : MonoBehaviour {
     public bool IncrementScore(int amount) {
         int currentScore = this.runningGame.score;
         int highScore = this.runningGame.highscore;
-        bool newHigh = false;
+        bool newHigh;
 
         currentScore += amount;
         if (currentScore < 0) {
@@ -562,8 +562,11 @@ public class ObjectController : MonoBehaviour {
         }
 
         Debug.Log("Score " + currentScore);
-            
-        if (currentScore > 100) {
+
+        if (currentScore <= highScore) {
+            newHigh = false;
+        }
+        else { 
             highScore = currentScore;
             Debug.Log("New high " + highScore);
             newHigh = true;
