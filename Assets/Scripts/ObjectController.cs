@@ -36,7 +36,6 @@ public class ObjectController : MonoBehaviour {
 
     private static bool _DEBUG = true;
     private readonly bool INGAME_DEBUG = false;
-    private static int JSON = 1, BINARY = 2;
     private static GameObject _obInstance;
     private static string _POLICE_ENEMY_TAG = "Police";
     private static string _ZOMBIE_ENEMY_TAG = "Zombie";
@@ -185,9 +184,9 @@ public class ObjectController : MonoBehaviour {
         this.runningGame = new GameData();
         ResetPlayerHasVisited();
         SaveGame deleteSave = new SaveGame();
-        if (deleteSave.SaveExists(JSON)) {
+        if (deleteSave.SaveExists(SaveType.Json)) {
             if (INGAME_DEBUG == true) GameLog.Log("ObjectController:_Deleted_game_save", Color.red);
-            deleteSave.DeleteSave(JSON);
+            deleteSave.DeleteSave(SaveType.Json);
         }
 
         if (keepHighScore) {
@@ -195,8 +194,8 @@ public class ObjectController : MonoBehaviour {
             this.runningGame.highscore = oldHighScore;
             
             // currently this does not save
-            //SaveGame saveHighScore = new SaveGame(this.runningGame);
-            //saveHighScore.SaveToFile(JSON);
+            SaveGame saveHighScore = new SaveGame(this.runningGame);
+            saveHighScore.SaveToFile(SaveType.Highscore);
         }
     }
     /// <summary>
@@ -221,7 +220,7 @@ public class ObjectController : MonoBehaviour {
        //if (_DEBUG) Debug.Log("Converted NPC-list into JSON:" + toBeSaved.jsonSavedEnemies);
        
        SaveGame defaultSave = new SaveGame(toBeSaved);
-       if (!(defaultSave.SaveToFile(1))) {
+       if (!(defaultSave.SaveToFile(SaveType.Json))) {
            if (_DEBUG) Debug.Log("Saved game went wrong");
        }
        else {
@@ -237,7 +236,7 @@ public class ObjectController : MonoBehaviour {
     public void LoadGame() {
         if (_DEBUG) Debug.Log("Loaded saved game");
         SaveGame defaultLoadSlot = new SaveGame(); 
-        GameData loaded = defaultLoadSlot.LoadFromFile(1);
+        GameData loaded = defaultLoadSlot.LoadFromFile(SaveType.Json);
         if (_DEBUG) {
             Debug.Log("Loaded GameSave from JSON");
             Debug.Log("Time created: " + loaded.timeCreated);

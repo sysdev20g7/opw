@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour {
     private static string _loadBtnTag = "MenuButtonLoadGame";
-    private static int JSON = 1, BINARY = 2;
     private Helper _helper;
     private ObjectController obj;
     private SaveGame checkSave;
@@ -27,13 +26,13 @@ public class MainMenu : MonoBehaviour {
         obj = this._helper.FindObjectControllerInScene();
         this.INGAME_DEBUG = obj.InGameDebug();
         checkSave = new SaveGame();
-        EnableLoadButton(checkSave.SaveExists(JSON));
+        EnableLoadButton(checkSave.SaveExists(SaveType.Json));
     }
 
     public void PlayGame()
     {
         // Check if a save exist, ask user to continue before delete?
-        bool existing = checkSave.SaveExists(JSON);
+        bool existing = checkSave.SaveExists(SaveType.Json);
         if (existing) {
             if (INGAME_DEBUG == true) GameLog.Log("MainMenu:Started_new_game");
         }
@@ -41,7 +40,7 @@ public class MainMenu : MonoBehaviour {
             
             if (INGAME_DEBUG == true) GameLog.Log("MainMenu:Save_exsists,_prompting");
         }
-        PromptExistingGame(checkSave.SaveExists(JSON));
+        PromptExistingGame(checkSave.SaveExists(SaveType.Json));
     }
 
 
@@ -84,7 +83,7 @@ public class MainMenu : MonoBehaviour {
     ///  This function loads a saved game
     /// </summary>
     public void LoadGame() {
-        if (checkSave.SaveExists(JSON)) {
+        if (checkSave.SaveExists(SaveType.Json)) {
             if (INGAME_DEBUG == true) GameLog.Log("MainMenu:Loaded_exsisting_game");
             obj.LoadGame();
         }
