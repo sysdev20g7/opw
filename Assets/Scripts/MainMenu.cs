@@ -246,7 +246,18 @@ public class MainMenu : MonoBehaviour {
         }
     }
 
-    public void EnableSaveHighScore(bool enabled) {
+    /// <summary>
+    ///  Flips the bool state of keep high score in
+    /// runningGame GameData. Also update visual toggle
+    /// indicator in UI
+    /// </summary>
+    public void EnableSaveHighScore() {
+        if (obj is null) {
+            
+            Helper findObj = new Helper();
+            ObjectController obj = findObj.FindObjectControllerInScene();
+        }
+        // flip state of keep high score
         if (obj.runningGame.keepHighScore) {
             obj.runningGame.keepHighScore = false;
         }
