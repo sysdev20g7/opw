@@ -16,9 +16,8 @@ public class SaveGame {
     private GameData _data;
     private static string SAVE_PATH = "/gamedata";
     private string jsonFile = Application.persistentDataPath + SAVE_PATH + ".json";
-    private string binaryFile =  Application.persistentDataPath + SAVE_PATH + ".save";
-    private static int JSON = 1;
-    private static int BINARY = 2;
+    private string jsonHScoreFile =  Application.persistentDataPath + "/highscore"+ ".json";
+
 
     /// <summary>
     /// Create a new instance for saving/loading the game
@@ -39,9 +38,12 @@ public class SaveGame {
     /// Delete the saved game file
     /// </summary>
     /// <param name="type"></param>
-    public void DeleteSave(int type) {
-        if (type == JSON) {
+    public void DeleteSave(SaveType savetype) {
+        if (savetype == SaveType.Json) {
             File.Delete(jsonFile);
+        } 
+        else if (savetype == SaveType.Highscore) {
+            File.Delete(jsonHScoreFile);
         } 
     }
 
@@ -50,30 +52,33 @@ public class SaveGame {
     /// </summary>
     /// <param name="type">type of game, 1 = JSON</param>
     /// <returns>true if save exists</returns>
-    public bool SaveExists(int type) {
-        if (type == JSON) {
-            return File.Exists(jsonFile);
+    public bool SaveExists(SaveType type) {
+        bool exist = false;
+        if (type == SaveType.Json) {
+            exist = File.Exists(jsonFile);
         }
-        else {
-            return File.Exists(binaryFile);
+        else if (type == SaveType.Highscore) {
+            exist = File.Exists(jsonHScoreFile);
         }
+
+        return exist;
     }
 
     /// <summary>
     ///  Write a save to a json file
     /// </summary>
     /// <returns>boolean, true if success</returns>
-    private bool SaveToJsonFile() {
-        if (DEBUG) Debug.Log("==== Writing JSON to file : " + jsonFile);
+    private bool SaveToJsonFile(string path) {
+        if (DEBUG) Debug.Log("==== Writing JSON to file : " + path);
         bool success = true;
         this._data.timeCreated = DateTime.Now.ToString();
         string json = JsonUtility.ToJson(this._data);
         if (DEBUG) Debug.Log("Prepared JSON before save: " + json);
         try {
             // Write new file & owerwrite if already exsisiting
-            File.WriteAllText(jsonFile, json);
-            if (DEBUG) Debug.Log("Wrote JSON data to : " + jsonFile );
-            Debug.Log("Saved game to " + jsonFile.ToString());
+            File.WriteAllText(path, json);
+            if (DEBUG) Debug.Log("Wrote JSON data to : " + path );
+            Debug.Log("Saved game to " + path.ToString());
         }
         catch (Exception e) {
             success = false;
@@ -88,19 +93,19 @@ public class SaveGame {
     ///  Load a save from a json file
     /// </summary>
     /// <returns>boolean, true if success</returns>
-    private bool LoadFromJsonFile() {
-        if (DEBUG) Debug.Log("==== LOAD JSON from file : " + jsonFile);
+    private bool LoadFromJsonFile(string path) {
+        if (DEBUG) Debug.Log("==== LOAD JSON from file : " + path);
         bool ok = false;
-        if (File.Exists(jsonFile)) {
-            if (DEBUG) Debug.Log("Found file at: " + jsonFile);
+        if (File.Exists(path)) {
+            if (DEBUG) Debug.Log("Found file at: " + path);
             try {
-                string jsonText = File.ReadAllText(jsonFile);
+                string jsonText = File.ReadAllText(path);
                 if (DEBUG) Debug.Log("Parsing JSON to GameObject: " + jsonText);
                 this._data = JsonUtility.FromJson<GameData>(jsonText);
                 // Log last time accessed to game save file
                 this._data.timeAccessed = DateTime.Now.ToString();
                 jsonText = JsonUtility.ToJson(this._data);
-                File.WriteAllText(jsonFile, jsonText);
+                File.WriteAllText(path, jsonText);
                 if (DEBUG) Debug.Log("Updated accessed timestamp: " + this._data.timeAccessed);
                 ok = true;
             }
@@ -110,81 +115,29 @@ public class SaveGame {
             }
         }
         else {
-            if (DEBUG) Debug.Log("Unable to find file at " + jsonFile);
+            if (DEBUG) Debug.Log("Unable to find file at " + path);
         }
 
         if (ok) {
-            Debug.Log("Loaded game from " + jsonFile.ToString());
+            Debug.Log("Loaded game from " + path.ToString());
         }
         return ok;
     }
-    /// <summary>
-    /// Save a binary to file
-    /// </summary>
-    /// <returns>bool returns true if succsessful save</returns>
-    private bool SaveToBinaryFile() {
-        bool writeOk = true;
-        BinaryFormatter binaryFormatter = new BinaryFormatter();
-        try {
-            FileStream fsWrite = File.Create(binaryFile);
-            this._data.timeCreated = DateTime.Now.ToString();
-            binaryFormatter.Serialize(fsWrite, _data);
-            fsWrite.Close();
-            if (DEBUG) Debug.Log("Saved bin to: " + binaryFile);
-        }
-        catch (IOException io) {
-           Debug.Log("Unable to save binary - I/O-error: " + io); 
-        }
-        catch (Exception e) {
-            Debug.Log("Unable to save binary, because: " + e);
-            writeOk = false;
-            //throw;
-        }
 
-        return writeOk;
-    }
-
-    /// <summary>
-    /// Load a binary save from file
-    /// </summary>
-    /// <returns>true/false bool if successful</returns>
-    private bool LoadFromBinaryFile() {
-        bool readOk = true;
-        if (File.Exists(binaryFile)) {
-            BinaryFormatter binaryFormatter = new BinaryFormatter();
-            try {
-                FileStream fsRead = File.Open(binaryFile, FileMode.Open);
-                this._data = (GameData) binaryFormatter.Deserialize(fsRead);
-                fsRead.Close();
-                if (DEBUG) Debug.Log("Loaded binary save");
-                if (DEBUG) Debug.Log("Loaded bin from: " + binaryFile);
-                this._data.timeAccessed = DateTime.Now.ToString();
-                if (DEBUG) Debug.Log("Updated save with access time");
-                binaryFormatter.Serialize(fsRead, _data);
-                fsRead.Close();
-            }
-            catch (Exception e) {
-                Debug.Log(e);
-                readOk = false;
-                //throw;
-            }
-        }
-        return readOk;
-    }
 
     /// <summary>
     /// This function saves a game to file, with specified type
     /// </summary>
     /// <param name="type">JSON = 1, BIN = 2</param>
     /// <returns></returns>
-    public bool SaveToFile(int type) {
+    public bool SaveToFile(SaveType type) {
         bool savedOk = false;
         if (DEBUG) Debug.Log("SaveToFile invoked");
-        if (type == BINARY) {
-            savedOk = SaveToBinaryFile();
+        if (type == SaveType.Json) {
+            savedOk = SaveToJsonFile(jsonFile);
         } 
-        else if (type == JSON) {
-            savedOk = SaveToJsonFile();
+        else if (type == SaveType.Highscore) {
+            savedOk = SaveToJsonFile(jsonHScoreFile);
         }else {
             savedOk = false;
         }
@@ -197,15 +150,15 @@ public class SaveGame {
     /// </summary>
     /// <param name="type">JSON = 1, BIN = 2</param>
     /// <returns></returns>
-    public GameData LoadFromFile(int type) {
+    public GameData LoadFromFile(SaveType type) {
         GameData data = new GameData();
-        if (type == BINARY) {
-            if (LoadFromBinaryFile()) {
+        if (type == SaveType.Highscore) {
+            if (LoadFromJsonFile(jsonHScoreFile)) {
                 data = this._data;
             }
         } 
-        else if (type == JSON) {
-            if (LoadFromJsonFile()) {
+        else if (type == SaveType.Json) {
+            if (LoadFromJsonFile(jsonFile)) {
                 data = this._data;
             }
         }

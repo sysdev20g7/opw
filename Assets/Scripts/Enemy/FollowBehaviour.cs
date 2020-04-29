@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FollowBehaviour : StateMachineBehaviour
-{
+public class FollowBehaviour : StateMachineBehaviour {
     private Transform playerPos;
     public float range;
     
@@ -13,6 +12,8 @@ public class FollowBehaviour : StateMachineBehaviour
         playerPos = GameObject.FindGameObjectWithTag("Player").transform;
         animator.GetComponent<EnemyPathfinding>().DoSomething(animator.GetBool("isFollowing"));
         //START HIGHSCORE
+        Helper getHighScore = new Helper();
+        getHighScore.FindHighScoreInScene().runScore = true;
     }
 
 
@@ -64,6 +65,10 @@ public class FollowBehaviour : StateMachineBehaviour
         animator.SetBool("isLeft", false);
         animator.SetBool("isUp", false);
         animator.SetBool("isDown", false);
+        
+        
+        Helper getHighScore = new Helper();
+        getHighScore.FindHighScoreInScene().runScore = false;
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
