@@ -317,7 +317,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6373988665207669035}
   m_Layer: 5
-  m_Name: PauseLevelChange
+  m_Name: PauseInteraction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -358,7 +358,7 @@ GameObject:
   - component: {fileID: 6373988665288555572}
   - component: {fileID: 6373988665288555575}
   m_Layer: 5
-  m_Name: NextMapPageUp
+  m_Name: InteractE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -409,7 +409,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 9653660eda472a840b77d8eae8d071dd, type: 3}
+  m_Texture: {fileID: 2800000, guid: 492952a2ea3e98141b561036e001790f, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -823,7 +823,7 @@ GameObject:
   - component: {fileID: 6373988665626309212}
   - component: {fileID: 6373988665626309215}
   m_Layer: 5
-  m_Name: Options Logo
+  m_Name: How To Play Logo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1710,7 +1710,7 @@ GameObject:
   - component: {fileID: 6373988666484617437}
   - component: {fileID: 6373988666484617436}
   m_Layer: 5
-  m_Name: PauseLevelChangingText
+  m_Name: PauseInteractionText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1774,8 +1774,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Pause & Level Changing
-
+  m_Text: 'Pause & Interaction
 
 '
 --- !u!1 &6373988666506056088
@@ -1900,7 +1899,7 @@ GameObject:
   - component: {fileID: 6373988666620526006}
   - component: {fileID: 6373988666620526009}
   m_Layer: 5
-  m_Name: PreviousMapText
+  m_Name: AttackText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1965,7 +1964,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Previous Map
+  m_Text: 'Attack
+
+'
 --- !u!1 &6373988666621551293
 GameObject:
   m_ObjectHideFlags: 0
@@ -1978,7 +1979,7 @@ GameObject:
   - component: {fileID: 6373988666621551288}
   - component: {fileID: 6373988666621551291}
   m_Layer: 5
-  m_Name: NextMapText
+  m_Name: InteractText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2043,7 +2044,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Next Map
+  m_Text: 'Interact
+
+'
 --- !u!1 &6373988666653895305
 GameObject:
   m_ObjectHideFlags: 0
@@ -2273,7 +2276,7 @@ GameObject:
   - component: {fileID: 6373988666878738082}
   - component: {fileID: 6373988666878738085}
   m_Layer: 5
-  m_Name: RawImage
+  m_Name: AttackSpace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2324,7 +2327,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 8cd8032901f93de4385fc98f13124834, type: 3}
+  m_Texture: {fileID: 2800000, guid: 2009c9016b4020241ac00d07cac7f798, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
