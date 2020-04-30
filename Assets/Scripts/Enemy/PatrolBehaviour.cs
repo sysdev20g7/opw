@@ -12,7 +12,7 @@ public class PatrolBehaviour : StateMachineBehaviour {
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        animator.GetComponent<EnemyPathfinding>().DoSomething(animator.GetBool("isFollowing"));
+        animator.GetComponent<EnemyPathfinding>().SetIsChasing(animator.GetBool("isFollowing"));
     }
 
 
