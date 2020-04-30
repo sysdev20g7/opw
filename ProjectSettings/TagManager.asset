@@ -14,6 +14,7 @@ TagManager:
   - PlayerUI
   - DayController
   - EvilTree
+  - ScoreDigitUI
   layers:
   - Default
   - TransparentFX

@@ -2,6 +2,7 @@ using UnityEngine;
 
 /// <summary>
 /// Represents the health of an object.
+/// The object also needs a ZeroHealthBehavior component
 /// </summary>
 public class Health : MonoBehaviour
 {
@@ -21,13 +22,13 @@ public class Health : MonoBehaviour
     public delegate void DamageDelegate(int amount);
     public event DamageDelegate DamageEvent;
 
-    //Allows for different destroyBehavior for when health reaches zero.
-    private DestroyBehavior destroyBehavior;
+    //Allows for different noHealthBehavior for when health reaches zero.
+    private ZeroHealthBehavior noHealthBehavior;
 
     void Start()
     {
-        destroyBehavior = GetComponent<DestroyBehavior>();
-        if (destroyBehavior == null) Debug.Log("Destroy behavior is missing from " + this.gameObject);
+        noHealthBehavior = GetComponent<ZeroHealthBehavior>(); //
+        if (noHealthBehavior == null) Debug.Log("Destroy behavior is missing from " + this.gameObject);
         if (maxHealth == 0) maxHealth = defaultMaxHealth;
         if (currentHealth == 0) currentHealth = defaultCurrentHealth;
     }
@@ -38,7 +39,7 @@ public class Health : MonoBehaviour
     /// </summary>
     void Update() {
         if (currentHealth == 0) {
-            destroyBehavior.destroyObject();
+            noHealthBehavior.ZeroHealthAction();
         }    
     }
 

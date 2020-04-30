@@ -62,7 +62,7 @@ public class StatusBar : MonoBehaviour {
     }
 
     // Update is called during destroi 
-    void OnDestroy() {
+    void OnDisable() {
         this.playerHealthComponent.HealEvent -= IncreaseHealth;
         this.playerHealthComponent.DamageEvent-= DecreaseHealth;
 

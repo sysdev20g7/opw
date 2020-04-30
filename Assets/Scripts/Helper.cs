@@ -46,4 +46,9 @@ public class Helper {
         GameObject dayController = GameObject.FindGameObjectWithTag("DayController");
         return dayController.GetComponent<DayController>();
     }
+
+    public HighScore FindHighScoreInScene() {
+        GameObject highScoreUI = GameObject.Find("HighScore");
+        return highScoreUI.GetComponent<HighScore>();
+    }
 }
