@@ -48,6 +48,7 @@ MonoBehaviour:
   spawner: {fileID: 4765988676898109394}
   enemyCount: 0
   maxEnemies: 1
+  timeUntilSpawn: 60
 --- !u!114 &2093796824
 MonoBehaviour:
   m_ObjectHideFlags: 0

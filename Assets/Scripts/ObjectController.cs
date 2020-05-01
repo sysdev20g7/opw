@@ -36,7 +36,6 @@ public class ObjectController : MonoBehaviour {
 
     private static bool _DEBUG = true;
     private readonly bool INGAME_DEBUG = false;
-    private static int JSON = 1, BINARY = 2;
     private static GameObject _obInstance;
     private static string _POLICE_ENEMY_TAG = "Police";
     private static string _ZOMBIE_ENEMY_TAG = "Zombie";
@@ -88,6 +87,7 @@ public class ObjectController : MonoBehaviour {
             if (_DEBUG) Debug.Log("Catched Load Keypress");
             LoadGame();
         }
+
     }
 
 
@@ -170,10 +170,33 @@ public class ObjectController : MonoBehaviour {
     }
 
     /// <summary>
-    ///  This function resets the exsisting game data
-    ///  and also deletes the save file if present.
+    /// This function resets the game data, and also deletes the save json
+    /// file if present. It will retain high score value if set in GameData
+    /// value
     /// </summary>
     public void ResetGame() {
+        
+        // needed to load hs from file, because gamedata has 0 score if
+        // the player just started the game
+        SaveGame hsImporter = new SaveGame();
+        GameData hsData = hsImporter.LoadFromFile(SaveType.Highscore);
+        if (this.runningGame.keepHighScore) {
+            // import new highscore if higher than older saved hs 
+            if (this.runningGame.highscore < hsData.highscore) {
+                this.runningGame.highscore = hsData.highscore;
+            }
+            
+            // store the highscore value
+            SaveGame saveHighScore = new SaveGame(hsData);
+            hsData.keepHighScore = true; //must be true to reimport
+            saveHighScore.SaveToFile(SaveType.Highscore);
+        }
+        else {
+            hsData.keepHighScore = false;
+            SaveGame deleteHs = new SaveGame();
+            deleteHs.DeleteSave(SaveType.Highscore);
+        }
+        
         if (INGAME_DEBUG == true) GameLog.Log("ObjectController:Resetting_game_data", Color.green);
         // Overwrite and reset data
         this._enemyObjects = new List<NPC>();
@@ -181,9 +204,15 @@ public class ObjectController : MonoBehaviour {
         this.runningGame = new GameData();
         ResetPlayerHasVisited();
         SaveGame deleteSave = new SaveGame();
-        if (deleteSave.SaveExists(JSON)) {
+        if (deleteSave.SaveExists(SaveType.Json)) {
             if (INGAME_DEBUG == true) GameLog.Log("ObjectController:_Deleted_game_save", Color.red);
-            deleteSave.DeleteSave(JSON);
+            deleteSave.DeleteSave(SaveType.Json);
+        }
+
+        // reimport hs state and hs value from hs save
+        if (hsData.keepHighScore) {
+            this.runningGame.keepHighScore = hsData.keepHighScore;
+            this.runningGame.highscore = hsData.highscore;
         }
     }
     /// <summary>
@@ -206,9 +235,23 @@ public class ObjectController : MonoBehaviour {
        //toBeSaved.jsonSavedEnemies = convertNpcListToJson(_enemyObjects);
        toBeSaved.WriteToSave(this.FindPlayerPositionFromTag("Player"),currentScene);
        //if (_DEBUG) Debug.Log("Converted NPC-list into JSON:" + toBeSaved.jsonSavedEnemies);
+
+       // save ingame high score
+       if (toBeSaved.keepHighScore) {
+           GameData hsData = new GameData();
+           // checking for largest score is done when creating new game
+           hsData.highscore = toBeSaved.highscore;
+           SaveGame highScoreSave = new SaveGame(hsData);
+           highScoreSave.SaveToFile(SaveType.Highscore);
+
+       }
+       else {
+          SaveGame highScoreDeleter = new SaveGame(); 
+          highScoreDeleter.DeleteSave(SaveType.Highscore);
+       }
        
        SaveGame defaultSave = new SaveGame(toBeSaved);
-       if (!(defaultSave.SaveToFile(1))) {
+       if (!(defaultSave.SaveToFile(SaveType.Json))) {
            if (_DEBUG) Debug.Log("Saved game went wrong");
        }
        else {
@@ -216,6 +259,7 @@ public class ObjectController : MonoBehaviour {
            PauseMenu menu = pauseMenu.FindPauseMenuInScene();
            menu.DisplaySuccessfulSave(true);
        }
+
     }
 
     /// <summary>
@@ -224,7 +268,7 @@ public class ObjectController : MonoBehaviour {
     public void LoadGame() {
         if (_DEBUG) Debug.Log("Loaded saved game");
         SaveGame defaultLoadSlot = new SaveGame(); 
-        GameData loaded = defaultLoadSlot.LoadFromFile(1);
+        GameData loaded = defaultLoadSlot.LoadFromFile(SaveType.Json);
         if (_DEBUG) {
             Debug.Log("Loaded GameSave from JSON");
             Debug.Log("Time created: " + loaded.timeCreated);
@@ -483,6 +527,7 @@ public class ObjectController : MonoBehaviour {
         GameObject g = GameObject.FindGameObjectWithTag("Player");
         Destroy(g);
         ResetPlayerHasVisited();
+        this.runningGame.score = 0; //reset score
         SceneManager.sceneLoaded -= respawnPlayerInJail;
     }
     
@@ -542,4 +587,37 @@ public class ObjectController : MonoBehaviour {
         return gdFromJson;
     }
     //END-----------TO BE REMOVED IF NOT NEEDED --------------//
+
+
+    /// <summary>
+    /// Increments the score with specified amount, returns bool true
+    /// if new highscore has been reached
+    /// </summary>
+    /// <param name="amount">amount to increase/decrease score with</param>
+    /// <returns></returns>
+    public bool IncrementScore(int amount) {
+        int currentScore = this.runningGame.score;
+        int highScore = this.runningGame.highscore;
+        bool newHigh;
+
+        currentScore += amount;
+        if (currentScore < 0) {
+            currentScore = 0;
+        }
+
+        Debug.Log("Score " + currentScore);
+
+        if (currentScore <= highScore) {
+            newHigh = false;
+        }
+        else { 
+            highScore = currentScore;
+            Debug.Log("New high " + highScore);
+            newHigh = true;
+        }
+        this.runningGame.score = currentScore;
+        this.runningGame.highscore = highScore;
+        return newHigh;
+
+    }
 }
