@@ -29,11 +29,12 @@ public class PlayerCollision : MonoBehaviour {
     /// <param name="collision"></param>
     private void OnCollisionEnter2D(Collision2D collision) {
         if (oc != null) {
-            if (collision.gameObject.tag == "Police" ||
-                collision.gameObject.tag == "Zombie" ||
-                collision.gameObject.tag == "EvilTree") {
-                //oc.playerCaughtByCop();
+            if (collision.gameObject.tag == "Zombie") {
                 playerHealth.TakeDamage(1);
+            }
+            if (collision.gameObject.tag == "Police" ||
+                collision.gameObject.tag == "EvilTree") {
+                playerHealth.TakeDamage(100);
             }
         }
     }

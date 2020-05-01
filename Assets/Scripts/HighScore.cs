@@ -17,6 +17,8 @@ public class HighScore : MonoBehaviour {
     
     [SerializeField]
     private bool newHighScore = false;
+
+    private int recordIncrements = 0;
     private ObjectController objCtrl;
     private GameObject scoreDigits; //Line0 S, Line1 H
     
@@ -60,9 +62,14 @@ public class HighScore : MonoBehaviour {
             this.scoreDigits.GetComponent<TMP_Text>().text = score + "\n" + highscore;
         }
         else {
+            string highScoreString = "";
+            if (this.recordIncrements < 5) {
+                highScoreString = "\nNEW RECORD";
+                
+            }
             this.GetComponent<TMP_Text>().text =
                  ComposeText() 
-                 + "\nNEW RECORD";
+                 + highScoreString;
             
             this.scoreDigits.GetComponent<TMP_Text>().text = score + "\n" + highscore;
         }
@@ -88,6 +95,10 @@ public class HighScore : MonoBehaviour {
             this.objCtrl.runningGame.score,
             this.objCtrl.runningGame.highscore,
             newHighScore);
+        if (newHighScore) {
+            this.recordIncrements++;
+
+        }
     }
 
 }
