@@ -252,11 +252,11 @@ public class MainMenu : MonoBehaviour {
     /// indicator in UI
     /// </summary>
     public void EnableSaveHighScore() {
-        if (obj is null) {
-            
-            Helper findObj = new Helper();
-            ObjectController obj = findObj.FindObjectControllerInScene();
-        }
+        Helper findObj = new Helper();
+        ObjectController obj = findObj.FindObjectControllerInScene();
+        
+        if (obj is null) { return; } //return if fault
+ 
         // flip state of keep high score
         if (obj.runningGame.keepHighScore) {
             obj.runningGame.keepHighScore = false;
@@ -266,7 +266,7 @@ public class MainMenu : MonoBehaviour {
         }
         
         GameObject toggleObj = GameObject.Find("ToggleHS");
-        if (toggleObj = GameObject.Find("ToggleHS")) {
+        if (!(toggleObj is null)) {
             Toggle toggle = toggleObj.GetComponent<Toggle>();
             toggle.isOn = obj.runningGame.keepHighScore;
         }
