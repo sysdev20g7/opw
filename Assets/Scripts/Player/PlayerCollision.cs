@@ -30,7 +30,7 @@ public class PlayerCollision : MonoBehaviour {
     private void OnCollisionEnter2D(Collision2D collision) {
         if (oc != null) {
             if (collision.gameObject.tag == "Zombie") {
-                playerHealth.TakeDamage(1);
+                //playerHealth.TakeDamage(1);
             }
             if (collision.gameObject.tag == "Police" ||
                 collision.gameObject.tag == "EvilTree") {
