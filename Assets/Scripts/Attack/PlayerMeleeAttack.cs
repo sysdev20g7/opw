@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerAttack : Attack
+public class PlayerMeleeAttack : MeleeAttack
 {
     [SerializeField]
     private Transform attackLocation;

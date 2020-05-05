@@ -10,7 +10,7 @@
 /// The attack capable object needs an Animator and an AttackBehavior component
 /// to function properly. 
 /// </summary>
-public abstract class Attack : MonoBehaviour {
+public abstract class MeleeAttack : MonoBehaviour {
     [SerializeField]
     protected int attackDmg { get; set; }
     //Default non-zero values for when max- and current health
