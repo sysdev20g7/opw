@@ -12,17 +12,22 @@
 /// </summary>
 public abstract class MeleeAttack : MonoBehaviour {
     [SerializeField]
-    protected int attackDmg { get; set; }
+    public int attackDmg { get; set; }
     //Default non-zero values for when max- and current health
     //not set in Unity Inspector.
-    private readonly int defaultAttackDmg = 1;
+    protected readonly int defaultAttackDmg = 1;
 
-    protected bool IsAttacking { get; set; }
     [SerializeField]
-    protected float attackTime;
+    public bool IsAttacking { get; set; }
+    protected float attackTime = 0.25f;
+    protected float attackCounter = 0.25f;
+
+    //Attack rate per second
     [SerializeField]
-    protected float startTimeAttack;
+    protected float attackRate = 1f;
+    protected float nextAttackTime = 0f;
 
     protected Animator anim;
+    protected Rigidbody2D rb;
 
 }
