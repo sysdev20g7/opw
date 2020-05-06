@@ -4,7 +4,8 @@
 /// Represents the melee attack of the Player Game Object.
 /// 
 /// The Player Game Object needs an AttackPoint game object as child
-/// to determine if an damageable game object is in range. 
+/// to determine if an damageable game object is in range.
+/// A player can make Player Game Object attack by pressing the space bar.
 /// </summary>
 public class PlayerMeleeAttack : MeleeAttack
 {
@@ -19,8 +20,9 @@ public class PlayerMeleeAttack : MeleeAttack
     }
 
     /// <summary>
-    /// Controlls how often player can attack within 1 second.
-    /// Notifies animator when attacking.
+    /// Lets player attack when pressing the space bar.
+    /// Allows X attacks within 1 second, set by attacksPerSecond.
+    /// Notifies animator when attack state changes.
     /// </summary>
     void Update()
     {
@@ -42,7 +44,7 @@ public class PlayerMeleeAttack : MeleeAttack
     /// Attacks the first enemy in range, if any.
     /// Will also knock back enemy.
     /// </summary>
-    private void Attack()
+    protected override void Attack()
     {
         Collider2D enemy =
                    Physics2D.OverlapCircle(attackLocation.position, attackRange, enemies);
