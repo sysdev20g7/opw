@@ -6,7 +6,5 @@
 /// </summary>
 public abstract class ZeroHealthBehavior : MonoBehaviour
 {
-
     public abstract void ZeroHealthAction();
-
 }

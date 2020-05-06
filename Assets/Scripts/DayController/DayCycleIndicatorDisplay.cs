@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 
 /// <summary>
+/// DayCycleIndicator is a DayListener.
 /// Updates a UI Image which is used for indicating in what cycle
 /// of the day the game is in.
 /// Must be used with a Canvas and a child Image.
@@ -12,18 +13,12 @@ using UnityEngine.UI;
 /// </summary>
 public class DayCycleIndicatorDisplay : MonoBehaviour, DayListener {
 
-    [SerializeField]
-    private DayController dayController;
-    [SerializeField]
-    private Image image;
-    [SerializeField]
-    private Sprite spriteDawn;
-    [SerializeField]
-    private Sprite spriteDay;
-    [SerializeField]
-    private Sprite spriteDusk;
-    [SerializeField]
-    private Sprite spriteNight;
+    [SerializeField] private DayController dayController;
+    [SerializeField] private Image image;
+    [SerializeField] private Sprite spriteDawn;
+    [SerializeField] private Sprite spriteDay;
+    [SerializeField] private Sprite spriteDusk;
+    [SerializeField] private Sprite spriteNight;
     private DayCycle dayCycle;
 
 
@@ -32,6 +27,7 @@ public class DayCycleIndicatorDisplay : MonoBehaviour, DayListener {
         GameObject temp = GameObject.FindGameObjectWithTag("DayController");
         if (temp != null) dayController = temp.GetComponent<DayController>();
         else Debug.Log("Can't Find DayController");
+
         if (dayController != null) { 
             dayController.subscribe(this);
             dayCycle = dayController.GetDayCycle();
@@ -43,7 +39,7 @@ public class DayCycleIndicatorDisplay : MonoBehaviour, DayListener {
     }
 
     /// <summary>
-    /// Changes the this listeners day cycle to observers.
+    /// Changes the internal day cycle state.
     /// </summary>
     /// <param name="dayCycle"></param>
     public void onChangeCycle(DayCycle dayCycle) {

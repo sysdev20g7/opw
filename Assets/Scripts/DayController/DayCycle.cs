@@ -1,5 +1,5 @@
 ﻿/// <summary>
-/// Represents parts of a whole day.
+/// Represents cycle of a whole day.
 /// </summary>
 public enum DayCycle
 {

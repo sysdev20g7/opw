@@ -4,23 +4,25 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// DayController holds and changes what day cycle of day it is, either day time or night time.
-/// After half a day it changes the cycle of day and pushes the state to listeners.
-/// Also implements a pull method, intended for when listeners are enabled/created, to get current
-/// state.
-/// Length of night time and day time is equal.
+/// DayController holds and changes what part of the cycle the day is,
+/// either Dawn, Day time, Dusk or Night time.
+/// Notifies listeners when a change of day cycle.
+/// Also implements a pull method, intended for when listeners are enabled/created,
+/// to get current state.
+/// The length of all parts of a day cycle are equal in length.
 /// 
 /// When using this script, ensure that it's executed before any listeners,
 /// in the Script Execution Order.
 /// </summary>
 public class DayController : MonoBehaviour {
 
-    private List<DayListener> DayListeners;
-    [SerializeField]
-    private float DayLengthInMinutes = 1;
+    [SerializeField] private DayCycle DayCycle;
+
+    [SerializeField] private float DayLengthInMinutes = 1;
     private float CycleLengthInSeconds;
-    private DayCycle DayCycle;
+
     private bool running;
+    private List<DayListener> DayListeners;
 
     private void Start() {
 
@@ -61,8 +63,7 @@ public class DayController : MonoBehaviour {
     }
 
     /// <summary>
-    /// Tells listeners that the day is entering a new cycle,
-    /// from daytime to nighttime, or from night time to daytime.
+    /// Tells listeners that the day is entering a new time of day.
     /// </summary>
     private void onCycleChange() {
         if (DayListeners.Count > 0) {
@@ -98,10 +99,9 @@ public class DayController : MonoBehaviour {
 
     /// <summary>
     /// Subscribes day listener.
-    /// Adds it to internal list.
     /// </summary>
     /// <param name="dayListener"></param>
-    /// <returns>bool</returns>
+    /// <returns>true, if successfully added.</returns>
     public bool subscribe(DayListener dayListener) {
         if (dayListener == null && DayListeners.Contains(dayListener)) {
             return false;
@@ -114,10 +114,9 @@ public class DayController : MonoBehaviour {
 
     /// <summary>
     /// Unsubscribes day listener.
-    /// Removes it from internal list.
     /// </summary>
     /// <param name="dayListener"></param>
-    /// <returns>bool</returns>
+    /// <returns>true if successfully removed.</returns>
     public bool unsubscribe(DayListener dayListener) {
         if (!DayListeners.Contains(dayListener)) {
             return false;

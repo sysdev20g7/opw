@@ -8,6 +8,11 @@ using UnityEngine;
 /// </summary>
 public class ZombieSpawner : MonoBehaviour, DayListener  
 {
+    [SerializeField] private float spawnTime; //In seconds
+    [SerializeField] private float despawnTime; //In seconds
+    [SerializeField] private DayCycle dayCycle;
+    private DayController dayController;
+
     public GameObject enemy;
     public int enemyCount;
     public int maxEnemies;
@@ -15,16 +20,8 @@ public class ZombieSpawner : MonoBehaviour, DayListener
     private Coroutine spawnCoroutine;
     private Coroutine despawnCoroutine;
 
-    [SerializeField]
-    private float spawnTime; //In seconds
-    [SerializeField]
-    private float despawnTime; //In seconds
-
     private MoveSpots spawnPoints;
     private int randomSpot;
-
-    private DayCycle dayCycle;
-    private DayController dayController;
 
     // Start is called before the first frame update
     // Acts as a initialzing method. 
@@ -108,6 +105,7 @@ public class ZombieSpawner : MonoBehaviour, DayListener
             }
         }
     }
+
 
     /// <summary>
     /// Unsubscribes this listener from DayController

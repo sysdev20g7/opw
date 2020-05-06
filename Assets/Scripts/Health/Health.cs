@@ -2,14 +2,15 @@ using UnityEngine;
 
 /// <summary>
 /// Represents the health of an object.
-/// The object also needs a ZeroHealthBehavior component
+/// The object also needs a ZeroHealthBehavior component to function correctly.
 /// </summary>
 public class Health : MonoBehaviour
 {
-    [SerializeField]
-    private int maxHealth;
-    [SerializeField]
-    private int currentHealth;
+    //Allows for different noHealthBehavior for when health reaches zero.
+    [SerializeField] private ZeroHealthBehavior noHealthBehavior;
+
+    [SerializeField] private int maxHealth;
+    [SerializeField] private int currentHealth;
     //default non-zero values for when max- and current health
     //not set in Unity Inspector.
     private readonly int defaultMaxHealth = 8;
@@ -22,13 +23,10 @@ public class Health : MonoBehaviour
     public delegate void DamageDelegate(int amount);
     public event DamageDelegate DamageEvent;
 
-    //Allows for different noHealthBehavior for when health reaches zero.
-    private ZeroHealthBehavior noHealthBehavior;
-
     void Start()
     {
-        noHealthBehavior = GetComponent<ZeroHealthBehavior>(); //
-        if (noHealthBehavior == null) Debug.Log("Destroy behavior is missing from " + this.gameObject);
+        noHealthBehavior = GetComponent<ZeroHealthBehavior>();
+        if (noHealthBehavior == null) Debug.Log("No Health behavior is missing from " + this.gameObject);
         if (maxHealth == 0) maxHealth = defaultMaxHealth;
         if (currentHealth == 0) currentHealth = defaultCurrentHealth;
     }
@@ -37,10 +35,14 @@ public class Health : MonoBehaviour
     /// Checks if current health reaches 0
     /// then calls destroys object behavior.
     /// </summary>
-    void Update() {
-        if (currentHealth == 0) {
+    void Update()
+    {
+        if (currentHealth == 0 && noHealthBehavior != null) {
             noHealthBehavior.ZeroHealthAction();
-        }    
+        }
+        else if (noHealthBehavior == null) {
+            Debug.Log(this + " has a ZeroHealthBehavior missing, won't be destroyed.");
+        }
     }
 
     /// <summary>
