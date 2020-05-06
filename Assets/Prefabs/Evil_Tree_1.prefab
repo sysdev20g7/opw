@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8332750069339337191}
   - component: {fileID: 8332750069339337189}
   - component: {fileID: 207544457}
+  - component: {fileID: 7192401429088700030}
   m_Layer: 8
   m_Name: Evil_Tree_1
   m_TagString: EvilTree
@@ -251,3 +252,18 @@ PolygonCollider2D:
     - - {x: 1.54, y: 0.099999994}
       - {x: 1.5, y: 0.06}
       - {x: 1.4599999, y: 0.06}
+--- !u!114 &7192401429088700030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8332750069339337186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6cf40fb951be594187fc47bdef74177, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsAttacking: 0
+  attackDmg: 100
+  attacksPerSecond: 1

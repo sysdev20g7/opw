@@ -16,7 +16,8 @@ GameObject:
   - component: {fileID: 729361242}
   - component: {fileID: 729361243}
   - component: {fileID: 3528839000032100383}
-  m_Layer: 0
+  - component: {fileID: 7080869815456489405}
+  m_Layer: 9
   m_Name: Police
   m_TagString: Police
   m_Icon: {fileID: 0}
@@ -199,3 +200,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 319c74a7cf50c8541bddd88c8ab1cee3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7080869815456489405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1699090106552034263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6cf40fb951be594187fc47bdef74177, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsAttacking: 0
+  attackDmg: 100
+  attacksPerSecond: 1
