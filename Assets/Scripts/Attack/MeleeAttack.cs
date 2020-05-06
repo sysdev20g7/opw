@@ -21,8 +21,7 @@ public abstract class MeleeAttack : MonoBehaviour {
     /// Added as get method, as C# properties not exposed to Unity.
     /// </summary>
     /// <returns>True, if attacking.</returns>
-    public bool getIsAttacking()
-    {
+    public bool getIsAttacking() {
         return this.IsAttacking;
     }
 
@@ -31,8 +30,7 @@ public abstract class MeleeAttack : MonoBehaviour {
     /// Added as get method, as C# properties not exposed to Unity.
     /// </summary>
     /// <returns>The attack damage of the Game Object.</returns>
-    public int getAttackDmg()
-    {
+    public int getAttackDmg() {
         return this.attackDmg;
     }
 

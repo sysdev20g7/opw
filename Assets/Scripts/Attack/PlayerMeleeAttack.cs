@@ -44,8 +44,7 @@ public class PlayerMeleeAttack : MeleeAttack
     /// Attacks the first enemy in range, if any.
     /// Will also knock back enemy.
     /// </summary>
-    protected override void Attack()
-    {
+    protected override void Attack() {
         Collider2D enemy =
                    Physics2D.OverlapCircle(attackLocation.position, attackRange, enemies);
         if (enemy != null) {
@@ -55,9 +54,8 @@ public class PlayerMeleeAttack : MeleeAttack
         }
     }
 
-    //Used for Debug. Shows, in editor, the area where player can hit enemy.
-    private void OnDrawGizmosSelected()
-    {
+    //Used for debugging. Shows in editor the area where player can hit enemy.
+    private void OnDrawGizmosSelected() {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackLocation.position, attackRange);
     }
