@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Script that plays the correct idle animation
+/// if the player is standing still.
+/// </summary>
 public class PlayCorrectIdleAnimation : MonoBehaviour
 {
     private string currentDirection = "Down";
@@ -10,6 +14,9 @@ public class PlayCorrectIdleAnimation : MonoBehaviour
         currentDirection = direction;
     }
 
+    /// <summary>
+    /// Plays the correct idle animation on the player.
+    /// </summary>
     public void PlayCorrectAnimation() {
         Animator anim = GetComponent<Animator>();
         switch (currentDirection) {
