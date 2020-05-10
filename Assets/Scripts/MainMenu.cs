@@ -23,6 +23,7 @@ public class MainMenu : MonoBehaviour {
         obj = this._helper.FindObjectControllerInScene();
         checkSave = new SaveGame();
         EnableLoadButton(checkSave.SaveExists(SaveType.Json));
+        obj.UpdateBackgroundMusic(); //update vol when returning to meny
         UpdateMusicSlider(obj.musicVolume);
     }
 
@@ -279,6 +280,9 @@ public class MainMenu : MonoBehaviour {
     }
 
 
+    /// <summary>
+    /// Update the music value from the volume slider
+    /// </summary>
     public void UpdateMusicValue() {
         GameObject volumeSlider = GameObject.Find("Slider");
         if (!(volumeSlider == null)) {

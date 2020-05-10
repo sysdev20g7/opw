@@ -548,6 +548,11 @@ public class ObjectController : MonoBehaviour {
 
     }
 
+    /// <summary>
+    /// Finds the object responsible for background music and sets 
+    /// the volume to the current value stored in memory
+    /// </summary>
+    /// <returns>true if successful volume set</returns>
     public bool UpdateBackgroundMusic() {
         bool success = false;
         float volume = this.musicVolume;
