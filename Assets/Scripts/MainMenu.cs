@@ -23,6 +23,7 @@ public class MainMenu : MonoBehaviour {
         obj = this._helper.FindObjectControllerInScene();
         checkSave = new SaveGame();
         EnableLoadButton(checkSave.SaveExists(SaveType.Json));
+        UpdateMusicSlider(obj.musicVolume);
     }
 
     public void PlayGame()
@@ -268,6 +269,25 @@ public class MainMenu : MonoBehaviour {
             toggle.isOn = obj.runningGame.keepHighScore;
         }
         
+    }
+
+    private void UpdateMusicSlider(float volume) {
+        GameObject volumeSlider = GameObject.Find("Slider");
+        if (!(volumeSlider == null)) {
+            volumeSlider.GetComponent<Slider>().value = volume;
+        }
+    }
+
+
+    public void UpdateMusicValue() {
+        GameObject volumeSlider = GameObject.Find("Slider");
+        if (!(volumeSlider == null)) {
+            obj.musicVolume = volumeSlider.GetComponent<Slider>().value;
+            if (obj.UpdateBackgroundMusic()) {
+                Debug.Log("Updated running music volume to " + obj.musicVolume);
+            }
+        }
+
     }
 
 }

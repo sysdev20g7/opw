@@ -42,6 +42,7 @@ public class ObjectController : MonoBehaviour {
     private List<NPC> _enemyObjects = new List<NPC>(); //List over  Enemy NPCs in-game
     private List<bool> _playerHasVisited = new List<bool>();
     public GameData runningGame = new GameData();
+    public float musicVolume = 0.1f;
 
 
     public ObjectController() {
@@ -490,28 +491,6 @@ public class ObjectController : MonoBehaviour {
         SceneManager.sceneLoaded -= respawnPlayerInJail;
     }
     
-    //--------------TO BE REMOVED IF NOT NEEDED --------------//
-    // Start
-    
-    /// <summary>
-    ///  This function converts a List<NPC> with multiple NPCs
-    ///  into a json-string
-    /// </summary>
-    /// <param name="source"></param>
-    /// <returns>json string</returns>
-    private string convertNpcListToJson(List<NPC> source) {
-        string json = "";
-
-        for (int i = source.Count - 1; i >= 0; i--) {
-            NPC npc = source[i];
-            string enemyType = npc.getTypeString;
-            json += JsonUtility.ToJson(source);
-            Debug.Log("Appended json:" + json);
-        }
-
-        return json;
-
-    }
 
     /// <summary>
     /// Checks wether player collides with police.
@@ -535,17 +514,6 @@ public class ObjectController : MonoBehaviour {
         }
     }
 
-
-    /// <summary>
-    /// This method will convert a json string to a NPC list (might not be needed)
-    /// </summary>
-    /// <param name="json"></param>
-    /// <returns>returns a game object filled with data</returns>
-    private GameData convertJsonToNpcList(string json) {
-        GameData gdFromJson = JsonUtility.FromJson<GameData>(json);
-        return gdFromJson;
-    }
-    //END-----------TO BE REMOVED IF NOT NEEDED --------------//
 
 
     /// <summary>
@@ -578,5 +546,19 @@ public class ObjectController : MonoBehaviour {
         this.runningGame.highscore = highScore;
         return newHigh;
 
+    }
+
+    public bool UpdateBackgroundMusic() {
+        bool success = false;
+        float volume = this.musicVolume;
+        if ((volume <= 1) && (volume >= 0)) {
+            GameObject backgroundMusic = GameObject.Find("BackgroundMusic");
+            if (!(backgroundMusic is null)) {
+                backgroundMusic.GetComponent<AudioSource>().volume = this.musicVolume;
+                success = true;
+            }
+        }
+
+        return success;
     }
 }

@@ -58,6 +58,9 @@ public class SceneLoader : MonoBehaviour {
             objectcontroller.runningInGame = true;
             objectcontroller.LoadPlayerData(this._currentSceneIndex);
             objectcontroller.LoadEnemyPosInScene(this._currentSceneIndex);
+            if (objectcontroller.UpdateBackgroundMusic()) {
+                Debug.Log("Sceneloader successfully set volume to " + objectcontroller.musicVolume);
+            }
         }
     }
 
