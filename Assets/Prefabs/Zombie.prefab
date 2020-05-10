@@ -160,7 +160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   patrolSpeed: 600
-  chaseSpeed: 1000
+  chaseSpeed: 600
   nextWaypointDistance: 0.4
 --- !u!114 &7193990464203117110
 MonoBehaviour:
@@ -214,6 +214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6cf40fb951be594187fc47bdef74177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsAttacking: 0
   attackDmg: 1
   attacksPerSecond: 1
 --- !u!114 &7928855668057063418
@@ -228,6 +229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b2f179cea9b34549942266356f27d31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  noHealthBehavior: {fileID: 0}
   maxHealth: 3
   currentHealth: 3
 --- !u!114 &-829999316249415931
