@@ -232,9 +232,10 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "This game was based on the ideas of Jan & Lennart\r.\n\nMain Character
-    by Erlend Nikolaisen, based on work by:\r\nYamilian - https://opengameart.org/users/yamilian\r\nRedshrike
-    - https://opengameart.org/users/redshrike\r\n\t\t\nPolice by Nils Jarle Haugen,
-    based on work by:\r\nWulax - https://opengameart.org/users/wulax\r\nRedshrike
+    by Erlend Nikolaisen\nLasse Kregnes Hansen\nMartin H\xE5hjem \xC5rdal\nbased
+    on work by:\r\nYamilian - https://opengameart.org/users/yamilian\r\nRedshrike
+    - https://opengameart.org/users/redshrike\r\nMakrohn - https://opengameart.org/users/makrohn\r\n\t\t\nPolice
+    by Nils Jarle Haugen, based on work by:\r\nWulax - https://opengameart.org/users/wulax\r\nRedshrike
     - https://opengameart.org/users/redshrike\r\nJoe White - https://opengameart.org/users/joe-white\r\nPennomi
     - https://opengameart.org/users/pennomi\r\nLaetissima - https://opengameart.org/users/laetissima\r\nGaurav
     - https://github.com/Gaurav0\r\n\nZombie by Martin H\xE5hjem \xC5rdal, based
@@ -251,11 +252,13 @@ MonoBehaviour:
     J. Sanchez-Sierra \nMakrohn - https://opengameart.org/users/makrohn\r\nDaneeklu
     - https://opengameart.org/users/daneeklu\r\nFeralFantom - https://opengameart.org/users/feralfantom\r\n\nSecret
     Base, By P\xE5l Nyseth, based on work by:\r\nSharm - https://opengameart.org/users/sharm\r\nC.Nilsson
-    - https://opengameart.org/users/cnilsson\r\n\nLibraries:\r\nAstarPathfindingProject\r
-    by Aron Granberg\r \nhttps://www.arongranberg.com/astar/\r\nKey Icons by Xelu\nhttps://opengameart.org/users/xelu\n\nDevelopers:\r\nLasse
-    Kregnes Hansen\r\nNils Jarle Haugen\r\nErlend Nikolaisen\r\nP\xE5l Nyseth\r\nMartin
-    H\xE5hjem \xC5rdal\r\n\nLicenses by which assets used are place under.\nCC-BY-SA
-    3.0 - https://creativecommons.org/licenses/by-sa/3.0/\r\nCC-BY 4.0 - https://creativecommons.org/licenses/by/4.0/\r\nCC-BY
+    - https://opengameart.org/users/cnilsson\r\n\nSoundtrack:\nPhantoms - https://soundcloud.com/beardmont/sets/phantoms\nJay_you
+    - https://freesound.org/people/Jay_You\n\nLibraries:\r\nAstarPathfindingProject\r
+    by Aron Granberg\r \nhttps://www.arongranberg.com/astar/\r\nKey Icons by Xelu\nhttps://opengameart.org/users/xelu\nHearts
+    by Leozlk\nhttps://opengameart.org/users/leozlk\n\nDevelopers:\r\nLasse Kregnes
+    Hansen\r\nNils Jarle Haugen\r\nErlend Nikolaisen\r\nP\xE5l Nyseth\r\nMartin H\xE5hjem
+    \xC5rdal\r\n\nLicenses by which assets used are place under.\nCC-BY-SA 3.0 -
+    https://creativecommons.org/licenses/by-sa/3.0/\r\nCC-BY 4.0 - https://creativecommons.org/licenses/by/4.0/\r\nCC-BY
     3.0 - https://creativecommons.org/licenses/by/3.0/\r\nGPL 3.0 - https://www.gnu.org/licenses/gpl-3.0.html\r\nGPL
     2.0 - https://www.gnu.org/licenses/old-licenses/gpl-2.0.html\r\nOGA-BY 3.0 -
     https://opengameart.org/content/oga-by-30-faq\r\n"
@@ -356,13 +359,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3686115376907367422}
+  - component: {fileID: 1586096030}
+  - component: {fileID: 7731527064409046139}
   m_Layer: 0
   m_Name: CreditsMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3686115376907367422
 RectTransform:
   m_ObjectHideFlags: 0
@@ -385,6 +390,198 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 739.6, y: 515.7}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!82 &1586096030
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3686115376907367421}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: e4826992cf9733544af3f6566a7f63e6, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.05
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!82 &7731527064409046139
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3686115376907367421}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: e4826992cf9733544af3f6566a7f63e6, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.05
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &3686115377217224016
 GameObject:
   m_ObjectHideFlags: 0
@@ -520,13 +717,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: -0.000061035156, w: 0}
   m_textInfo:
     textComponent: {fileID: 3686115377217224019}
-    characterCount: 0
+    characterCount: 8
     spriteCount: 0
-    spaceCount: 0
-    wordCount: 0
+    spaceCount: 1
+    wordCount: 1
     linkCount: 0
-    lineCount: 0
-    pageCount: 0
+    lineCount: 1
+    pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
@@ -592,8 +789,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 16.05, y: -0.00019357567}
-  m_SizeDelta: {x: -32.1, y: 4750}
+  m_AnchoredPosition: {x: 16.05, y: 5083.2}
+  m_SizeDelta: {x: -32.1, y: 5442.6}
   m_Pivot: {x: 0, y: 1}
 --- !u!95 &1029653466326201927
 Animator:
@@ -747,6 +944,29 @@ MonoBehaviour:
       - m_Target: {fileID: 3686115376907367421}
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_MethodName: PlayOneShot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: a864102ac0abbb8479ba86978d6511d9,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_MethodName: Play
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
