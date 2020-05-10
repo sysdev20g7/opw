@@ -104,6 +104,9 @@ public class ZombieSpawner : MonoBehaviour, DayListener
                 Destroy(enemy);
             }
         }
+
+        Helper helper = new Helper();
+        helper.FindHighScoreInScene().runScore = false;
     }
 
 

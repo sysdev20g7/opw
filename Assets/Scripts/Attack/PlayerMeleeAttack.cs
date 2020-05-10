@@ -41,16 +41,16 @@ public class PlayerMeleeAttack : MeleeAttack
     }
 
     /// <summary>
-    /// Attacks the first enemy in range, if any.
-    /// Will also knock back enemy.
+    /// Attacks all enemies in range, if any.
+    /// Will also knock back all enemies.
     /// </summary>
     protected override void Attack() {
-        Collider2D enemy =
-                   Physics2D.OverlapCircle(attackLocation.position, attackRange, enemies);
-        if (enemy != null) {
+        Collider2D[] enemyList =
+                   Physics2D.OverlapCircleAll(attackLocation.position, attackRange, enemies);
+        foreach(Collider2D enemy in enemyList) {
+            Debug.Log("Attacking " + enemy.tag);
             enemy.gameObject.GetComponent<Health>().TakeDamage(attackDmg);
             this.GetComponent<Knockback>().DoKnockback(enemy.gameObject);
-            Debug.Log("Attacking " + enemy.tag);
         }
     }
 
