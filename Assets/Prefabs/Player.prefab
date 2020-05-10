@@ -178,7 +178,7 @@ MonoBehaviour:
   attackDmg: 0
   attacksPerSecond: 1
   attackLocation: {fileID: 6490096036863555060}
-  attackRange: 0.7
+  attackRange: 2
   enemies:
     serializedVersion: 2
     m_Bits: 512
@@ -194,6 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b2f179cea9b34549942266356f27d31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  noHealthBehavior: {fileID: 0}
   maxHealth: 8
   currentHealth: 8
 --- !u!114 &4190349993896057612
