@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -12,7 +10,7 @@ public class MainMenu : MonoBehaviour {
     private SaveGame checkSave;
     public int SCN_OPTIONS_MENU = 4;
     public int SCN_MAIN_MENU = 0;
-    public bool INGAME_DEBUG;
+    private readonly bool INGAME_DEBUG = true;
 
     // Constructor
     public MainMenu() {
@@ -23,7 +21,6 @@ public class MainMenu : MonoBehaviour {
     void Start() {
         // Check if save exists, and set load button accordingly
         obj = this._helper.FindObjectControllerInScene();
-        this.INGAME_DEBUG = obj.InGameDebug();
         checkSave = new SaveGame();
         EnableLoadButton(checkSave.SaveExists(SaveType.Json));
     }
@@ -33,11 +30,11 @@ public class MainMenu : MonoBehaviour {
         // Check if a save exist, ask user to continue before delete?
         bool existing = checkSave.SaveExists(SaveType.Json);
         if (existing) {
-            if (INGAME_DEBUG == true) GameLog.Log("MainMenu:Started_new_game");
+            if (INGAME_DEBUG == true) Debug.Log("MainMenu:Started_new_game");
         }
         else {
             
-            if (INGAME_DEBUG == true) GameLog.Log("MainMenu:Save_exsists,_prompting");
+            if (INGAME_DEBUG == true) Debug.Log("MainMenu:Save_exsists,_prompting");
         }
         PromptExistingGame(checkSave.SaveExists(SaveType.Json));
     }
@@ -83,7 +80,7 @@ public class MainMenu : MonoBehaviour {
     /// </summary>
     public void LoadGame() {
         if (checkSave.SaveExists(SaveType.Json)) {
-            if (INGAME_DEBUG == true) GameLog.Log("MainMenu:Loaded_exsisting_game");
+            if (INGAME_DEBUG == true) Debug.Log("MainMenu:Loaded_exsisting_game");
             obj.LoadGame();
         }
     }
@@ -204,7 +201,7 @@ public class MainMenu : MonoBehaviour {
         }
         catch (Exception e) {
             Console.WriteLine(e);
-            if (INGAME_DEBUG == true) GameLog.Log("Exception: " + e);
+            if (INGAME_DEBUG == true) Debug.Log("Exception: " + e);
             throw;
         }
     }
