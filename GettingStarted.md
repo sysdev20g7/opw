@@ -1,4 +1,4 @@
-# Getting started
+﻿# Getting started
 Starting point...
 
 
@@ -20,8 +20,7 @@ Assets/
     │   ├── Helper.cs
     │   ├── ObjectController.cs
     │   ├── Save
-    │   ├── Save.meta
-    │   ├── SceneManagement
+    │   └── SceneManagement
     ├── Enemy
     ├── Health
     ├── Player
