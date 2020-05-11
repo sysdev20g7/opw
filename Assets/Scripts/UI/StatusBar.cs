@@ -62,7 +62,7 @@ public class StatusBar : MonoBehaviour {
     }
 
     // Update is called during destroi 
-    void OnDisable() {
+    public void OnDisable() {
         this.playerHealthComponent.HealEvent -= IncreaseHealth;
         this.playerHealthComponent.DamageEvent-= DecreaseHealth;
 
@@ -164,7 +164,8 @@ public class StatusBar : MonoBehaviour {
     }
 
     /// <summary>
-    /// Fill the health level with the specified count of hearts
+    /// Fill the health level with the specified count of hearts;
+    /// change the sprite from empty gray hearts to full red ones.
     /// </summary>
     /// <param name="count">Count of hearts</param>
     private void FillHearts (int count) {
@@ -230,6 +231,11 @@ public class StatusBar : MonoBehaviour {
     }
 
 
+    /// <summary>
+    /// Set a specified health level; update the hearts-UI
+    /// with correct level, then write the value to memory
+    /// </summary>
+    /// <param name="level"></param>
     public void InitializeHealthLevel(int level) {
         FillHearts(level);
         this.currentHeartsLevel = level;
@@ -237,6 +243,10 @@ public class StatusBar : MonoBehaviour {
     }
 
 
+    /// <summary>
+    /// Subscribes the health bar to the Heal and Damage events, to update the
+    /// UI in sync with the rest of the game
+    /// </summary>
     private IEnumerator Subscribe() {
         yield return new WaitForSeconds(1);
         Helper playerHelper = new Helper();
