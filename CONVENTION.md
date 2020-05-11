@@ -18,6 +18,11 @@ public void Test(BookCategory cat) {
 * Equals `insert spaces` for each tab character
 * Always indent 1 level for a new function level (as stated above)
 
+## Commenting
+```
+/// Use XML .NET commentssyntax, like this in the classes
+```
+
 # Git
 1. **Always** use *git-flow* workflow
 1. **Always** use ensure you are working in correct branch **before** commiting changes
