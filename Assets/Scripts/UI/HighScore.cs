@@ -11,13 +11,11 @@ using UnityEngine.UI;
 public class HighScore : MonoBehaviour {
     // runScore is used by other classes to start/stop the score counter
     public bool runScore; 
-    
     public int scoreIncrement = 10;
     public float incrementInterval = 1f;
     
     [SerializeField]
     private bool newHighScore = false;
-
     private int recordIncrements = 0;
     private ObjectController objCtrl;
     private GameObject scoreDigits; //Line0 S, Line1 H
@@ -38,7 +36,6 @@ public class HighScore : MonoBehaviour {
         InvokeRepeating(nameof(TickInterval),0,incrementInterval);
     }
 
-
     /// <summary>
     /// Formats the on screen visible text during gameplay.
     /// Overwrites the text in the prefab
@@ -48,7 +45,6 @@ public class HighScore : MonoBehaviour {
         return  "SCORE" + "\n"
                 + "HIGH SCORE";
     }
-
 
     /// <summary>
     /// Responsible for presenting data to the display in game
@@ -84,6 +80,7 @@ public class HighScore : MonoBehaviour {
             IncreaseScore();
         }
     }
+    
     /// <summary>
     ///  Calls object controller to calculate new score for each increment;
     /// passes on return values for score, high score, and new record to the
@@ -97,8 +94,6 @@ public class HighScore : MonoBehaviour {
             newHighScore);
         if (newHighScore) {
             this.recordIncrements++;
-
         }
     }
-
 }

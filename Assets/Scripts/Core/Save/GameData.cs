@@ -5,11 +5,13 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-[System.Serializable]
-
-///
+/// <summary>
 /// This class holds game data to be used for serilazation ( such as saving/loading)
-/// 
+/// </summary>
+/// <summary>
+/// This class holds game data to be used for serilazation ( such as saving/loading)
+/// </summary>
+[System.Serializable]
 public class GameData {
      public static float playerPosZ = 0;
      public string timeCreated;
@@ -60,29 +62,5 @@ public class GameData {
     public Vector3 GetPlayerPosition() {
         return new Vector3(playerPosX,playerPosY,playerPosZ);
     }
-    
-    
-    // TO BE REMOVED -------- BELOW 
-    public void WriteToSave(Dictionary<int, Vector3> playerPos) {
-        if (playerPos is null) {
-            Debug.Log("WARN: Save; player pos dict empty, ignoring..");
-        } else {
-            this.savedPlayerPositionList = playerPos;
-        }
-    }
-    
-    /// <summary>
-    /// This writes a List of NPC objects to this instance of SaveGame
-    /// (may be removed)
-    /// </summary>
-    /// <param name="npcList"></param>
-    public void WriteToSave(List<NPC> npcList) {
-        if ((npcList is null) || (npcList.Count == 0)) {
-            Debug.Log("WARN: Save; NPC list empty, ignoring..");
-        } else {
-            this.savedEnemyList = npcList;
-        }
-    }
-    // TO BE REMOVED -------- END 
 }
 

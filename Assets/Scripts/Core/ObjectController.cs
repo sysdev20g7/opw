@@ -3,46 +3,31 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.Collections;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
-using Object = System.Object;
 
 /// <summary>
 ///  The object controller is persistant (runs during the entire game) and
 ///  interact with different objects when needed, as e.g. handeling player 
-///  position between scene switching.
+///  position between scene switching. Main component of controlling the game
 ///
-/// TO TEST:
-/// 1. Add ObjectController prefab to first scene in game
-/// 2. Set ObjectController GameObject with GameController tag in meta
-/// 3. Set Player in scene with Player-tag in meta (do this for each scene)
-///
-/// 4. Set prefix names for sprites to use when spawning npc
-/// 5. Set enemy tag (used to select enemy game objects when storing data)
-/// 6. Check that also the SceneLoader is added to each scene
-/// Writing and recalling player pos works (per 04/03-20 ) 
 /// </summary>
 public class ObjectController : MonoBehaviour {
-
-    public GameObject prefabZombie;
-    public GameObject prefabPolice;
-    public GameObject prefabPlayer;
-    [ReadOnly]public int? lastInGameScene = null;
-    [ReadOnly] public bool runningInGame = false; //used by options meny
-
     private static bool _DEBUG = true;
     private static GameObject _obInstance;
     private static string _POLICE_ENEMY_TAG = "Police";
     private static string _ZOMBIE_ENEMY_TAG = "Zombie";
-    private Dictionary<int, Vector3> _scenePlayerPos;
     private List<NPC> _enemyObjects = new List<NPC>(); //List over  Enemy NPCs in-game
     private List<bool> _playerHasVisited = new List<bool>();
-    public GameData runningGame = new GameData();
+    private Dictionary<int, Vector3> _scenePlayerPos;
+    [ReadOnly]public int? lastInGameScene = null;
     public float musicVolume = 0.1f;
+    public GameObject prefabPlayer;
+    public GameObject prefabPolice;
+
+    public GameObject prefabZombie;
+    public GameData runningGame = new GameData();
+    [ReadOnly] public bool runningInGame = false; //used by options meny
 
 
     public ObjectController() {
@@ -100,21 +85,7 @@ public class ObjectController : MonoBehaviour {
         }
     }
 
-    /// <summary>
-    /// This method resets the list playerHasVisited. The list indicate
-    /// with bool values whether a player has visited a scene. It's can be used
-    /// e.g. during loading of a scene; to decide that we should load player
-    /// position from a predefined setting or from a list currently running
-    /// in-memory (running game). ResetGame() and the scene loading system
-    /// has implemented interactions with the list.
-    /// </summary>
-    private void ResetPlayerHasVisited() {
-        this._playerHasVisited = new List<bool>();
-        for (int i = 0; i <= SceneLoader.MAX_NUM_SCENES; i++) {
-            this._playerHasVisited.Add(false);
-        }
-    }
-    
+
     /// <summary>
     ///  This function updates a entry inside the playerHasVisited list
     ///  with a specified boolean value. It's used for the reasons like the
@@ -134,27 +105,6 @@ public class ObjectController : MonoBehaviour {
     /// <returns>The bool state of the specified scene</returns>
     public bool PlayerHasVisitedScene(int scene) {
         return this._playerHasVisited[scene];
-    }
-    
-    /// <summary>
-    ///  This function returns a Vector3 postion object
-    ///  for a GameObject in scene with specified tag name
-    /// </summary>
-    /// <param name="tag"> the tag name</param>
-    /// <returns></returns>
-    private Vector3 FindPlayerPositionFromTag(string tag) {
-        GameObject g = GameObject.FindWithTag(tag);
-        Vector3 playerPos;
-        if (g is null) {
-            // object was not found and doesn't exist
-            if (_DEBUG) Debug.Log("Unable to save object, Player not found");
-            playerPos = new Vector3(0,0,0);
-        } else {
-          // found object
-          playerPos = g.transform.position;
-        }
-
-        return playerPos;
     }
 
     /// <summary>
@@ -201,6 +151,7 @@ public class ObjectController : MonoBehaviour {
             this.runningGame.highscore = hsData.highscore;
         }
     }
+
     /// <summary>
     ///  This methods saves the game
     /// </summary>
@@ -208,42 +159,38 @@ public class ObjectController : MonoBehaviour {
         if (_DEBUG) Debug.Log("Saving");
         // assign in-game data to save data object; like health, weapons etc
         GameData toBeSaved = this.runningGame;
-       Helper load = new Helper();
-       int currentScene = load.FindSceneLoaderInScene().GetCurrentScene();
+        Helper load = new Helper();
+        int currentScene = load.FindSceneLoaderInScene().GetCurrentScene();
        
-       //Stores Relevant Game Data
-       toBeSaved.playerHealth = load.FindPlayerHealthInScene().GetCurrentHealth();
-       toBeSaved.timeOfDay = load.GetDayControllerInScene().GetDayCycle().ToString();
+        //Stores Relevant Game Data
+        toBeSaved.playerHealth = load.FindPlayerHealthInScene().GetCurrentHealth();
+        toBeSaved.timeOfDay = load.GetDayControllerInScene().GetDayCycle().ToString();
 
-       //toBeSaved.savedEnemyList = _enemyObjects;
-       //toBeSaved.savedPlayerPosition = _scenePlayerPos;
-       //toBeSaved.jsonSavedEnemies = convertNpcListToJson(_enemyObjects);
-       toBeSaved.WriteToSave(this.FindPlayerPositionFromTag("Player"),currentScene);
-       //if (_DEBUG) Debug.Log("Converted NPC-list into JSON:" + toBeSaved.jsonSavedEnemies);
+        toBeSaved.WriteToSave(this.FindPlayerPositionFromTag("Player"),currentScene);
 
-       // save ingame high score
-       if (toBeSaved.keepHighScore) {
-           GameData hsData = new GameData();
-           // checking for largest score is done when creating new game
-           hsData.highscore = toBeSaved.highscore;
-           SaveGame highScoreSave = new SaveGame(hsData);
-           highScoreSave.SaveToFile(SaveType.Highscore);
+        // save ingame high score
+        if (toBeSaved.keepHighScore) {
+            GameData hsData = new GameData();
+            // checking for largest score is done when creating new game
+            hsData.highscore = toBeSaved.highscore;
+            SaveGame highScoreSave = new SaveGame(hsData);
+            highScoreSave.SaveToFile(SaveType.Highscore);
 
-       }
-       else {
-          SaveGame highScoreDeleter = new SaveGame(); 
-          highScoreDeleter.DeleteSave(SaveType.Highscore);
-       }
+        }
+        else {
+            SaveGame highScoreDeleter = new SaveGame(); 
+            highScoreDeleter.DeleteSave(SaveType.Highscore);
+        }
        
-       SaveGame defaultSave = new SaveGame(toBeSaved);
-       if (!(defaultSave.SaveToFile(SaveType.Json))) {
-           if (_DEBUG) Debug.Log("Saved game went wrong");
-       }
-       else {
-           Helper pauseMenu = new Helper();
-           PauseMenu menu = pauseMenu.FindPauseMenuInScene();
-           menu.DisplaySuccessfulSave(true);
-       }
+        SaveGame defaultSave = new SaveGame(toBeSaved);
+        if (!(defaultSave.SaveToFile(SaveType.Json))) {
+            if (_DEBUG) Debug.Log("Saved game went wrong");
+        }
+        else {
+            Helper pauseMenu = new Helper();
+            PauseMenu menu = pauseMenu.FindPauseMenuInScene();
+            menu.DisplaySuccessfulSave(true);
+        }
 
     }
 
@@ -279,36 +226,7 @@ public class ObjectController : MonoBehaviour {
         //LoadPlayerData(loaded.playerScene); 
 
     }
-
-    /// <summary>
-    ///  Handles player health data storage and presentation
-    /// When loading a scene, health value is loaded from memory 
-    /// and set to the player object in the scene.
-    /// When loadFromList, HealthBar UI is filled with current lvl health 
-    /// When exiting a scene, loadFromList must be false,
-    ///  to store the players health value in memory. 
-    /// </summary>
-    /// <param name="loadFromList">true if loading a scene</param>
-    private void SetPlayerHealth(bool loadFromList, bool initHealthBarUI) {
-        Helper objectHelper = new Helper();
-        try {
-            Health playerHealth = objectHelper.FindPlayerHealthInScene();
-            if (loadFromList) {
-                playerHealth.SetHealth(this.runningGame.playerHealth);
-                    if (initHealthBarUI) {
-                        objectHelper.FindHealthBarInScene().setHealthLevel(
-                            playerHealth.GetCurrentHealth());
-                    }
-            }
-            else {
-                this.runningGame.playerHealth = playerHealth.GetCurrentHealth();
-            }
-        }
-        catch (Exception e) {
-            Console.WriteLine(e);
-            throw;
-        }
-    }
+    
     
 
     /// <summary>
@@ -319,10 +237,10 @@ public class ObjectController : MonoBehaviour {
     public void WritePlayerData(int scene) {
         this._scenePlayerPos[scene] = FindPlayerPositionFromTag("Player");
         if (_DEBUG) Debug.Log("Saved player coordinates at "
-                             + this._scenePlayerPos[scene].ToString() + " for scene " + scene);
+                              + this._scenePlayerPos[scene].ToString() + " for scene " + scene);
         SetPlayerHealth(false, false);
     }
-    
+
     /// <summary>
     /// Loads player data (position, health etc) into a scene from memory. PlayerPosition is loaded
     /// from a list for the specified scene. It also loads current health and updates the player
@@ -335,7 +253,7 @@ public class ObjectController : MonoBehaviour {
         } else {
             if (this._scenePlayerPos.TryGetValue(scene, out result)) {
                 if (_DEBUG) Debug.Log("Found coordinates for scene "
-                                    + scene + " at " + result.ToString());
+                                      + scene + " at " + result.ToString());
                 GameObject player = (GameObject)Instantiate(prefabPlayer, result, Quaternion.identity);
                 //Health playerHealthScript = player.GetComponent<Health>();
                 //playerHealthScript.SetHealth(this.runningGame.playerHealth);
@@ -358,53 +276,9 @@ public class ObjectController : MonoBehaviour {
     public void SetPlayerPos(Vector3 pos, int scene) {
         this._scenePlayerPos[scene] = pos;
     }
+    
 
-    
-    /// <summary>
-    /// Save all NPCs for the current runniing scene into a specified slot;
-    /// coordinates and NPC type is saved 
-    /// </summary>
-    /// <param name="scene">The slot number to write to
-    /// (normally the current scene index)</param>
-    public void WriteEnemyPosInScene(int scene) {
-        Array policeInScene = GameObject.FindGameObjectsWithTag(_POLICE_ENEMY_TAG);
-        Array zombieInScene = GameObject.FindGameObjectsWithTag(_ZOMBIE_ENEMY_TAG);
-        //Dictionary<int,Vector3> currentSceneDir = new Dictionary<int, Vector3>();
-        WriteEnemiesToList(policeInScene, scene);
-        WriteEnemiesToList(zombieInScene, scene);
-    }
 
-    /// <summary>
-    /// This helper function assists the above function by writing
-    /// a specified GameObject array from a scene into the enemyObjects list.
-    /// It also verifies that the NPC/Enemy/Police GameObject is valid before
-    /// storing it into the list.
-    /// </summary>
-    /// <param name="enemies">An array of enemies to write into the list</param>
-    /// <param name="scene">The scene index to associate the enemies/NPC to</param>
-    private void WriteEnemiesToList(Array enemies, int scene) {
-        foreach (GameObject enemy in enemies) {
-            Debug.Log("Harvesting object " + enemy.name + " from scene " + scene);
-            NPC npc = new NPC(enemy, scene);
-            // If valid enemy store in dict and remove from scene
-            if (npc.valid) {
-                _enemyObjects.Add(npc);
-                Destroy(enemy);
-                Debug.Log("Stored " + npc.getTypeString
-                            + " to list for scene " + npc.GetScene()
-                            + " " + npc.Position3Axis.ToString());
-            }
-            else {
-                Debug.Log("No valid NPCs to store for scene " + scene);
-            }
-        }
-        if (enemies.Length == 0) {
-            Debug.Log("NPC enemies array is also empty in scene" + scene);
-        }
-        Debug.Log("Total count of stored NPCs: " + _enemyObjects.Count.ToString());
-    }
-    
-    
     /// <summary>
     /// This function loads all saved NPC's for the specified scene
     /// and then spawns them
@@ -412,7 +286,7 @@ public class ObjectController : MonoBehaviour {
     /// <param name="scene">The scene to load NPC information from</param>
     public void LoadEnemyPosInScene(int scene) {
         if (this._enemyObjects.Count.Equals(0))  {
-                    if (_DEBUG) Debug.Log("The ememyObject list is empty");
+            if (_DEBUG) Debug.Log("The ememyObject list is empty");
         } else {
             List<GameObject> spawned = new List<GameObject>();
             for (int i = _enemyObjects.Count - 1; i >= 0; i--) {
@@ -435,7 +309,7 @@ public class ObjectController : MonoBehaviour {
                     }
                     // Remove spawned entities to avoid future duplicates
                     if (_DEBUG) Debug.Log(" Loaded, removing " + npc.getTypeString
-                                          + "from the list.");
+                                                               + "from the list.");
                     _enemyObjects.Remove(npc);
 
                     if (spawned.Count.Equals(0)) {
@@ -461,61 +335,7 @@ public class ObjectController : MonoBehaviour {
         SceneManager.sceneLoaded += respawnPlayerInJail;
         SceneManager.LoadScene("Jail");
     }
-
-    /// <summary>
-    /// Enables a capture message on the Player UI.
-    /// </summary>
-    private void enableCaptureMessage() {
-        GameObject playerUI = GameObject.FindGameObjectWithTag("PlayerUI");
-        TMP_Text capturedMessage = null;
-        if (playerUI != null) {
-            capturedMessage = playerUI.GetComponentInChildren<TMP_Text>();
-        }
-        if (capturedMessage != null) {
-            capturedMessage.enabled = true;
-        }
-    }
-
-    /* Destroys the player object and creates new position lists.
-     * Instantiates a new player object on the coordinates of the spawn.
-     */
-    private void respawnPlayerInJail(Scene scene, LoadSceneMode mode) {
-        this._enemyObjects = new List<NPC>();
-        this._playerHasVisited = new List<bool>();
-        // quickfix until proper fix in another class - when player dies
-        this.runningGame.playerHealth = 8;    
-        GameObject g = GameObject.FindGameObjectWithTag("Player");
-        Destroy(g);
-        ResetPlayerHasVisited();
-        this.runningGame.score = 0; //reset score
-        SceneManager.sceneLoaded -= respawnPlayerInJail;
-    }
     
-
-    /// <summary>
-    /// Checks wether player collides with police.
-    /// Add 'StartCoroutine("playerCollideWithEnemy");' in Update() to run.
-    /// </summary>
-    /// <returns>null</returns> if either player, police, or either objects'
-    /// colliders are not found.
-    private IEnumerator playerCollideWithEnemy() {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        GameObject police = GameObject.FindGameObjectWithTag("Police");
-        if (player == null || police == null) {
-            yield return null;
-        }
-        Collider2D playerCollider = player.GetComponent<Collider2D>();
-        Collider2D policeCollider = player.GetComponent<Collider2D>();
-        if (playerCollider == null || policeCollider == null) {
-            yield return null;
-        }
-        if (playerCollider.IsTouching(police.GetComponent<Collider2D>())) {
-            playerCaughtByCop();
-        }
-    }
-
-
-
     /// <summary>
     /// Increments the score with specified amount, returns bool true
     /// if new highscore has been reached
@@ -565,5 +385,164 @@ public class ObjectController : MonoBehaviour {
         }
 
         return success;
+    }
+    /// <summary>
+    /// This method resets the list playerHasVisited. The list indicate
+    /// with bool values whether a player has visited a scene. It's can be used
+    /// e.g. during loading of a scene; to decide that we should load player
+    /// position from a predefined setting or from a list currently running
+    /// in-memory (running game). ResetGame() and the scene loading system
+    /// has implemented interactions with the list.
+    /// </summary>
+    /// <summary>
+    /// Save all NPCs for the current runniing scene into a specified slot;
+    /// coordinates and NPC type is saved 
+    /// </summary>
+    /// <param name="scene">The slot number to write to
+    /// (normally the current scene index)</param>
+    public void WriteEnemyPosInScene(int scene) {
+        Array policeInScene = GameObject.FindGameObjectsWithTag(_POLICE_ENEMY_TAG);
+        Array zombieInScene = GameObject.FindGameObjectsWithTag(_ZOMBIE_ENEMY_TAG);
+        //Dictionary<int,Vector3> currentSceneDir = new Dictionary<int, Vector3>();
+        WriteEnemiesToList(policeInScene, scene);
+        WriteEnemiesToList(zombieInScene, scene);
+    }
+
+    /// <summary>
+    /// This helper function assists the above function by writing
+    /// a specified GameObject array from a scene into the enemyObjects list.
+    /// It also verifies that the NPC/Enemy/Police GameObject is valid before
+    /// storing it into the list.
+    /// </summary>
+    /// <param name="enemies">An array of enemies to write into the list</param>
+    /// <param name="scene">The scene index to associate the enemies/NPC to</param>
+    private void WriteEnemiesToList(Array enemies, int scene) {
+        foreach (GameObject enemy in enemies) {
+            Debug.Log("Harvesting object " + enemy.name + " from scene " + scene);
+            NPC npc = new NPC(enemy, scene);
+            // If valid enemy store in dict and remove from scene
+            if (npc.valid) {
+                _enemyObjects.Add(npc);
+                Destroy(enemy);
+                Debug.Log("Stored " + npc.getTypeString
+                                    + " to list for scene " + npc.GetScene()
+                                    + " " + npc.Position3Axis.ToString());
+            }
+            else {
+                Debug.Log("No valid NPCs to store for scene " + scene);
+            }
+        }
+        if (enemies.Length == 0) {
+            Debug.Log("NPC enemies array is also empty in scene" + scene);
+        }
+        Debug.Log("Total count of stored NPCs: " + _enemyObjects.Count.ToString());
+    }
+    
+    private void ResetPlayerHasVisited() {
+        this._playerHasVisited = new List<bool>();
+        for (int i = 0; i <= SceneLoader.MAX_NUM_SCENES; i++) {
+            this._playerHasVisited.Add(false);
+        }
+    }
+    /// <summary>
+    /// Enables a capture message on the Player UI.
+    /// </summary>
+    private void enableCaptureMessage() {
+        GameObject playerUI = GameObject.FindGameObjectWithTag("PlayerUI");
+        TMP_Text capturedMessage = null;
+        if (playerUI != null) {
+            capturedMessage = playerUI.GetComponentInChildren<TMP_Text>();
+        }
+        if (capturedMessage != null) {
+            capturedMessage.enabled = true;
+        }
+    }
+
+    /* Destroys the player object and creates new position lists.
+     * Instantiates a new player object on the coordinates of the spawn.
+     */
+    private void respawnPlayerInJail(Scene scene, LoadSceneMode mode) {
+        this._enemyObjects = new List<NPC>();
+        this._playerHasVisited = new List<bool>();
+        // quickfix until proper fix in another class - when player dies
+        this.runningGame.playerHealth = 8;    
+        GameObject g = GameObject.FindGameObjectWithTag("Player");
+        Destroy(g);
+        ResetPlayerHasVisited();
+        this.runningGame.score = 0; //reset score
+        SceneManager.sceneLoaded -= respawnPlayerInJail;
+    }
+
+    /// <summary>
+    /// Checks wether player collides with police.
+    /// Add 'StartCoroutine("playerCollideWithEnemy");' in Update() to run.
+    /// </summary>
+    /// <returns>null</returns> if either player, police, or either objects'
+    /// colliders are not found.
+    private IEnumerator playerCollideWithEnemy() {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        GameObject police = GameObject.FindGameObjectWithTag("Police");
+        if (player == null || police == null) {
+            yield return null;
+        }
+        Collider2D playerCollider = player.GetComponent<Collider2D>();
+        Collider2D policeCollider = player.GetComponent<Collider2D>();
+        if (playerCollider == null || policeCollider == null) {
+            yield return null;
+        }
+        if (playerCollider.IsTouching(police.GetComponent<Collider2D>())) {
+            playerCaughtByCop();
+        }
+    }
+    
+    /// <summary>
+    ///  Handles player health data storage and presentation
+    /// When loading a scene, health value is loaded from memory 
+    /// and set to the player object in the scene.
+    /// When loadFromList, HealthBar UI is filled with current lvl health 
+    /// When exiting a scene, loadFromList must be false,
+    ///  to store the players health value in memory. 
+    /// </summary>
+    /// <param name="loadFromList">true if loading a scene</param>
+    private void SetPlayerHealth(bool loadFromList, bool initHealthBarUI) {
+        Helper objectHelper = new Helper();
+        try {
+            Health playerHealth = objectHelper.FindPlayerHealthInScene();
+            if (loadFromList) {
+                playerHealth.SetHealth(this.runningGame.playerHealth);
+                if (initHealthBarUI) {
+                    objectHelper.FindHealthBarInScene().setHealthLevel(
+                        playerHealth.GetCurrentHealth());
+                }
+            }
+            else {
+                this.runningGame.playerHealth = playerHealth.GetCurrentHealth();
+            }
+        }
+        catch (Exception e) {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+    
+    /// <summary>
+    ///  This function returns a Vector3 postion object
+    ///  for a GameObject in scene with specified tag name
+    /// </summary>
+    /// <param name="tag"> the tag name</param>
+    /// <returns>Return Vector3 position from tagged player</returns>
+    private Vector3 FindPlayerPositionFromTag(string tag) {
+        GameObject g = GameObject.FindWithTag(tag);
+        Vector3 playerPos;
+        if (g is null) {
+            // object was not found and doesn't exist
+            if (_DEBUG) Debug.Log("Unable to save object, Player not found");
+            playerPos = new Vector3(0,0,0);
+        } else {
+            // found object
+            playerPos = g.transform.position;
+        }
+
+        return playerPos;
     }
 }

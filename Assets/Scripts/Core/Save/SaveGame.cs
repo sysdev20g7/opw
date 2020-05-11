@@ -8,16 +8,15 @@ using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 /// <summary>
-///  This class contains methods to perform save/load to files,
-///  either binary or json.
+///  This class contains methods to perform save/load data to disk,
+/// using the GameData object as a definition for storable data
 /// </summary>
 public class SaveGame {
-    public static bool DEBUG = false;
+    private static bool DEBUG = false;
     private GameData _data;
     private static string SAVE_PATH = "/gamedata";
     private string jsonFile = Application.persistentDataPath + SAVE_PATH + ".json";
     private string jsonHScoreFile =  Application.persistentDataPath + "/highscore"+ ".json";
-
 
     /// <summary>
     /// Create a new instance for saving/loading the game
@@ -64,6 +63,49 @@ public class SaveGame {
         return exist;
     }
 
+    /// <summary>
+    /// This function saves a game to file, with specified type
+    /// </summary>
+    /// <param name="type">JSON = 1, BIN = 2</param>
+    /// <returns></returns>
+    public bool SaveToFile(SaveType type) {
+        bool savedOk = false;
+        if (DEBUG) Debug.Log("SaveToFile invoked");
+        if (type == SaveType.Json) {
+            savedOk = SaveToJsonFile(jsonFile);
+        } 
+        else if (type == SaveType.Highscore) {
+            savedOk = SaveToJsonFile(jsonHScoreFile);
+        }else {
+            savedOk = false;
+        }
+
+        return savedOk;
+    }
+
+    /// <summary>
+    /// This function loads a saved game from file
+    /// </summary>
+    /// <param name="type">JSON = 1, BIN = 2</param>
+    /// <returns></returns>
+    public GameData LoadFromFile(SaveType type) {
+        GameData data = new GameData();
+        if (type == SaveType.Highscore) {
+            if (LoadFromJsonFile(jsonHScoreFile)) {
+                data = this._data;
+            }
+        } 
+        else if (type == SaveType.Json) {
+            if (LoadFromJsonFile(jsonFile)) {
+                data = this._data;
+            }
+        }
+
+        return data;
+    }
+    
+    
+    
     /// <summary>
     ///  Write a save to a json file
     /// </summary>
@@ -123,50 +165,6 @@ public class SaveGame {
         }
         return ok;
     }
-
-
-    /// <summary>
-    /// This function saves a game to file, with specified type
-    /// </summary>
-    /// <param name="type">JSON = 1, BIN = 2</param>
-    /// <returns></returns>
-    public bool SaveToFile(SaveType type) {
-        bool savedOk = false;
-        if (DEBUG) Debug.Log("SaveToFile invoked");
-        if (type == SaveType.Json) {
-            savedOk = SaveToJsonFile(jsonFile);
-        } 
-        else if (type == SaveType.Highscore) {
-            savedOk = SaveToJsonFile(jsonHScoreFile);
-        }else {
-            savedOk = false;
-        }
-
-        return savedOk;
-    }
-
-    /// <summary>
-    /// This function loads a saved game from file
-    /// </summary>
-    /// <param name="type">JSON = 1, BIN = 2</param>
-    /// <returns></returns>
-    public GameData LoadFromFile(SaveType type) {
-        GameData data = new GameData();
-        if (type == SaveType.Highscore) {
-            if (LoadFromJsonFile(jsonHScoreFile)) {
-                data = this._data;
-            }
-        } 
-        else if (type == SaveType.Json) {
-            if (LoadFromJsonFile(jsonFile)) {
-                data = this._data;
-            }
-        }
-
-        return data;
-    }
-    
-    
 }
 
 
