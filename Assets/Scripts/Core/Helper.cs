@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 public class Helper {
 
     /// <summary>
@@ -25,28 +22,49 @@ public class Helper {
     }
 
 
+    /// <summary>
+    /// Find the PauseMenu object in the scene, and return it
+    /// </summary>
+    /// <returns>Object of type PauseMenu</returns>
     public PauseMenu FindPauseMenuInScene() {
         GameObject pause = GameObject.Find("PauseMenuCanvas");
         return pause.GetComponent<PauseMenu>();
     }
 
 
+    /// <summary>
+    /// Find the HealthBar object in the scene, and return it
+    /// </summary>
+    /// <returns>Object of type HealthBar</returns>
     public StatusBar FindHealthBarInScene() {
         GameObject healthBar = GameObject.Find("HealthBar");
         return healthBar.GetComponent<StatusBar>();
     }
 
 
+    /// <summary>
+    /// Find the Player object in the scene, and return Health
+    /// script component
+    /// </summary>
+    /// <returns>Object of type component HealthScript</returns>
     public Health FindPlayerHealthInScene() {
         GameObject playerHealth = GameObject.FindWithTag("Player");
         return playerHealth.GetComponent<Health>();
     }
 
+    /// <summary>
+    /// Find the DayController object in the scene, and return it
+    /// </summary>
+    /// <returns>Object of type DayController</returns>
     public DayController GetDayControllerInScene() {
         GameObject dayController = GameObject.FindGameObjectWithTag("DayController");
         return dayController.GetComponent<DayController>();
     }
 
+    /// <summary>
+    /// Find the HighScore object in the scene, and return it
+    /// </summary>
+    /// <returns>Object of type HighScore</returns>
     public HighScore FindHighScoreInScene() {
         GameObject highScoreUI = GameObject.Find("HighScore");
         return highScoreUI.GetComponent<HighScore>();

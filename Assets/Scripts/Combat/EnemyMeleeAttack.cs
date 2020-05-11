@@ -15,25 +15,24 @@ public class EnemyMeleeAttack : MeleeAttack
     }
 
     /// <summary>
-    /// Checks wether the colliding object is the player.
-    /// </summary>
-    /// <param name="collision"></param>
-    private void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.tag == "Player") {
-            playerCollision = collision;
-            Attack();
-        }
-    }
-
-    /// <summary>
     /// Attacks the colliding player object.
     /// </summary>
-    protected override void Attack()
-    {
+    protected override void Attack() {
         Health playerHealth =
             playerCollision.gameObject.GetComponent<Health>();
         if (playerHealth != null) {
             playerHealth.TakeDamage(attackDmg);
+        }
+    }
+
+    /// <summary>
+    /// Checks wether the colliding object is the player.
+    /// </summary>
+    /// <param name="collision"></param>
+    private void OnCollisionEnter2D(Collision2D collision) {
+        if (collision.gameObject.CompareTag("Player")) {
+            playerCollision = collision;
+            Attack();
         }
     }
 }

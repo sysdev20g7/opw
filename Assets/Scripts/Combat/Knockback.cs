@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// Script for knockback effect.
@@ -9,17 +7,6 @@ using UnityEngine;
 public class Knockback : MonoBehaviour
 {
     public float thrust;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     /// <summary>
     /// This function adds a force to an enemy

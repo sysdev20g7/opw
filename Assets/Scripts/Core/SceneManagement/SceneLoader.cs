@@ -3,29 +3,21 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-/*
- *  The SceneLoader loads a new scene after requested to switch scene.
- * Usage: 1. Check that MAX_NUM_SCENES corresponds to # of scenes in the
- *           File -> Build Settings
- *        2. Add the SceneLoader -prefab to each scene that needs switching
- *        3. Check that Player Pos and Camera Pos is set properly on each scene
- *
- *  PS: The SceneLoader together with other Unity-objects will be destroyed
- *      between loading scenes. 
- */
+/// <summary>
+/// The SceneLoader is responsible for loading and unloading scenes.
+/// It is called upon exit and enter of a scene
+/// It also adds a nice fadeout animation during the scene transition.
+/// </summary>
 public class SceneLoader : MonoBehaviour {
     private ObjectController objectcontroller;
-    public Animator sceneAnimation;
-
-    public float animationDuration = 1f;
-    // Update is called once per frame
-
-    public static int MAX_NUM_SCENES = 3; // Equals the number of valid scenes;
-                                          // see File -> Build settings in Unity...
     private static bool DEBUG_SCENEMGMT = true;
-    private bool firstScene = true;
     private int _currentSceneIndex;
     private int _requestedSceneIndex;
+    
+    public Animator sceneAnimation;
+    // Update is called once per frame
+    public float animationDuration = 1f;
+    public static int MAX_NUM_SCENES = 3; // Equals the number of valid scenes;
 
     void Update() {
         if (Input.GetKeyDown(KeyCode.PageUp)) {
@@ -40,6 +32,9 @@ public class SceneLoader : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Called when the instance is loaded
+    /// </summary>
     void Start() {
         this.sceneAnimation = GameObject.Find("BlackFade").GetComponent<Animator>();
         // Updates scene index to current scene before invoking switch
@@ -64,12 +59,6 @@ public class SceneLoader : MonoBehaviour {
         }
     }
 
-    void Awake() {
-    }
-
-    void OnDestroy() {
-        
-    }
 
     /// <summary>
     /// Returns the current scene as an int
@@ -116,26 +105,23 @@ public class SceneLoader : MonoBehaviour {
     public void LoadSpecifedScene(int scene, bool saveCurrentPos) {
         StartCoroutine(LoadScene(scene,saveCurrentPos));
     }
-
-    /*
-     *  This function can be used to print debug messages with a prefix to differentiate the
-     *  messages from other debug messages.
-     *  @param msg - The message to be printed
-     */
+    
+    /// <summary>
+    /// This function can be used to print debug messages with a prefix to differentiate the
+    /// messages from other debug messages.
+    /// </summary>
+    /// <param name="msg">Message to be printed</param>
     private void PrintDebug(string msg) {
         Debug.Log("DEBUG-SCENEMGT:" + msg);
     }
 
-    /* This function  switches the scene. It runs twice to do the switch
-     * First it checks that requested scene is valid, if true then:
-     * 1. Trigger - switch state to animation BlackFade(End) fading to black
-     * 2. Break execution and sleep for one secound 
-     * 3. Call SceneManager.LoadScene to switch scene(destroy current, create new)
-     * 4. Run itself again
-     * 5. Trigger switch state to animation BlackFade(Begin) fade to transparent
-     * 5. The scene is now visible
-     * If scene is not valid, the SceneManager will not load the scene.
-     */
+    /// <summary>
+    /// Switches the scene to a specified scene index. It also saves the
+    /// the positions of the player and enemies in memory if requested
+    /// </summary>
+    /// <param name="sceneIndex">Scene index to switch to</param>
+    /// <param name="savePositions">boolean true/false for saving of pos</param>
+    /// <returns></returns>
     // savePositions is not needed and should be refactored
     IEnumerator LoadScene(int sceneIndex,bool savePositions) {
         if (sceneIndex <= MAX_NUM_SCENES && sceneIndex > -1) {

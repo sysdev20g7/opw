@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour {
 
+    /// <summary>
+    /// Contains UI-functions and logic for PauseMenu
+    /// </summary>
     public bool gameIsPaused = false; //removed static as option meny uses this
     public GameObject pauseMenuUI;
     private string MainMenu = "Main Menu";
@@ -13,8 +16,6 @@ public class PauseMenu : MonoBehaviour {
     private ObjectController pauseController;
     private int _currentScene;
 
-    public PauseMenu() {
-    }
     void Start() {
         Helper pauseHelper = new Helper();
         this.pauseController
@@ -39,6 +40,9 @@ public class PauseMenu : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Closes the pause menu and resumes the game in an unfrozen state
+    /// </summary>
     public void Resume()
     {
         pauseMenuUI.SetActive(false);
@@ -47,6 +51,9 @@ public class PauseMenu : MonoBehaviour {
         pauseController.runningInGame = true;
     }
 
+    /// <summary>
+    /// Initializes the pause menu and freezes the game
+    /// </summary>
     void Pause()
     {
         pauseMenuUI.SetActive(true);
@@ -55,6 +62,9 @@ public class PauseMenu : MonoBehaviour {
         pauseController.runningInGame = false;
     }
 
+    /// <summary>
+    /// Used by UI-button to open the options menu 
+    /// </summary>
     public void LoadOptions() {
         pauseController.lastInGameScene = _currentScene;
         pauseController.WritePlayerData(_currentScene);
@@ -62,6 +72,9 @@ public class PauseMenu : MonoBehaviour {
         Debug.Log("Loading options...");
     }
 
+    /// <summary>
+    /// Used by UI-button to open the main menu
+    /// </summary>
     public void LoadMainMenu()
     {
         Time.timeScale = 1f;
@@ -70,6 +83,9 @@ public class PauseMenu : MonoBehaviour {
         Debug.Log("Loading main menu...");
     }
 
+    /// <summary>
+    /// Used by UI-button to save the game
+    /// </summary>
     public void SaveGameButton() {
             // Does the real work of saving the game
             pauseController.WritePlayerData(SceneManager.GetActiveScene().buildIndex);
@@ -77,6 +93,13 @@ public class PauseMenu : MonoBehaviour {
     }
 
 
+
+        
+    /// <summary>
+    /// Displays a indicator for visually giving the user
+    /// feedback if the save was succsessful
+    /// </summary>
+    /// <param name="yes">Set to true to display the OK indicator</param>
     public void DisplaySuccessfulSave(bool yes) {
         try {
             GameObject Canvas = GameObject.Find("PauseMenu");
@@ -95,6 +118,12 @@ public class PauseMenu : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Co-routine for hiding SavedOK indicator
+    /// </summary>
+    /// <param name="delay">off-delay</param>
+    /// <param name="gb">the GameObject to hide</param>
+    /// <returns></returns>
     IEnumerator HideGameObject(float delay, GameObject gb) {
         Debug.Log("Fired Corotine");
         yield return new WaitForSecondsRealtime(delay);

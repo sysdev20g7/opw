@@ -3,7 +3,7 @@
 /// Represents a DayListener. A DayListener is interested
 /// in knowing in what part of the DayCycle it is in.
 /// </summary>
-public interface DayListener
+public interface IDayListener
 {
-    void onChangeCycle(DayCycle dayCycle);
+    void OnChangeCycle(DayCycle dayCycle);
 }

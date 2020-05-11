@@ -6,22 +6,22 @@ using UnityEngine;
 /// on if it is night or day. If it is night, it will spawn zombies, 
 /// if dusk, despawn.
 /// </summary>
-public class ZombieSpawner : MonoBehaviour, DayListener  
+public class ZombieSpawner : MonoBehaviour, IDayListener  
 {
     [SerializeField] private float spawnTime; //In seconds
     [SerializeField] private float despawnTime; //In seconds
     [SerializeField] private DayCycle dayCycle;
     private DayController dayController;
 
-    public GameObject enemy;
-    public int enemyCount;
-    public int maxEnemies;
-
     private Coroutine spawnCoroutine;
     private Coroutine despawnCoroutine;
 
     private MoveSpots spawnPoints;
     private int randomSpot;
+
+    public GameObject enemy;
+    public int enemyCount;
+    public int maxEnemies;
 
     // Start is called before the first frame update
     // Acts as a initialzing method. 
@@ -30,10 +30,10 @@ public class ZombieSpawner : MonoBehaviour, DayListener
         var temp = GameObject.FindGameObjectWithTag("DayController");
         if (temp != null) {
             dayController = temp.GetComponent<DayController>();
-            dayController.subscribe(this);
+            dayController.Subscribe(this);
             dayCycle = dayController.GetDayCycle();
             //Sets initial state
-            setSpawnState();
+            SetSpawnState();
         }
         spawnPoints = FindObjectOfType<MoveSpots>();
     }
@@ -43,9 +43,9 @@ public class ZombieSpawner : MonoBehaviour, DayListener
     /// and calls to change spawn state.
     /// </summary>
     /// <param name="dayCycle"></param>
-    public void onChangeCycle(DayCycle dayCycle) {
+    public void OnChangeCycle(DayCycle dayCycle) {
         this.dayCycle = dayCycle;
-        setSpawnState();
+        SetSpawnState();
         Debug.Log(this + "listener: Cycle changed to " + dayCycle);
     }
 
@@ -53,7 +53,7 @@ public class ZombieSpawner : MonoBehaviour, DayListener
     /// Decides based on what part of the day it is
     /// wether enemies should spawn or despawn.
     /// </summary>
-    private void setSpawnState() {
+    private void SetSpawnState() {
         switch (dayCycle) {
             case DayCycle.Dawn:
                 Debug.Log(this + " - Despawning " + enemy);
@@ -116,7 +116,7 @@ public class ZombieSpawner : MonoBehaviour, DayListener
     /// </summary>
     private void OnDisable() {
         if (dayController != null) {
-            dayController.unsubscribe(this);
+            dayController.Unsubscribe(this);
         }
         this.StopAllCoroutines();
     }

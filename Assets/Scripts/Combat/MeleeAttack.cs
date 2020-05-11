@@ -21,7 +21,7 @@ public abstract class MeleeAttack : MonoBehaviour {
     /// Added as get method, as C# properties not exposed to Unity.
     /// </summary>
     /// <returns>True, if attacking.</returns>
-    public bool getIsAttacking() {
+    public bool GetIsAttacking() {
         return this.IsAttacking;
     }
 
@@ -30,7 +30,7 @@ public abstract class MeleeAttack : MonoBehaviour {
     /// Added as get method, as C# properties not exposed to Unity.
     /// </summary>
     /// <returns>The attack damage of the Game Object.</returns>
-    public int getAttackDmg() {
+    public int GetAttackDmg() {
         return this.attackDmg;
     }
 
@@ -39,7 +39,7 @@ public abstract class MeleeAttack : MonoBehaviour {
     /// Will not allow negative attack damage.
     /// </summary>
     /// <param name="newAttackDmg"></param>
-    public void setAttackDmg(int newAttackDmg) {
+    public void SetAttackDmg(int newAttackDmg) {
         if (newAttackDmg < 0) return;
         this.attackDmg = newAttackDmg;
     }
