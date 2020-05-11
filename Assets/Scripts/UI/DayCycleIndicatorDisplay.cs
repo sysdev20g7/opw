@@ -11,7 +11,7 @@ using UnityEngine.UI;
 /// When using this script, ensure that it's executed after any publishers,
 /// in the Script Execution Order.
 /// </summary>
-public class DayCycleIndicatorDisplay : MonoBehaviour, DayListener {
+public class DayCycleIndicatorDisplay : MonoBehaviour, IDayListener {
 
     [SerializeField] private DayController dayController;
     [SerializeField] private Image image;
@@ -42,7 +42,7 @@ public class DayCycleIndicatorDisplay : MonoBehaviour, DayListener {
     /// Changes the internal day cycle state.
     /// </summary>
     /// <param name="dayCycle"></param>
-    public void onChangeCycle(DayCycle dayCycle) {
+    public void OnChangeCycle(DayCycle dayCycle) {
         this.dayCycle = dayCycle;
         UpdateIndicator();
         Debug.Log(this + "-Listener: Cycle changed to " + dayCycle);

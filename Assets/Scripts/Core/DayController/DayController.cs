@@ -22,11 +22,11 @@ public class DayController : MonoBehaviour {
     private float CycleLengthInSeconds;
 
     private bool running;
-    private List<DayListener> DayListeners;
+    private List<IDayListener> DayListeners;
 
     private void Start() {
 
-        DayListeners = new List<DayListener>();
+        DayListeners = new List<IDayListener>();
        
         //Finds the number of states of DayCycles
         float NumberOfCycles = Convert.ToSingle(Enum.GetValues(typeof(DayCycle)).Length);
@@ -67,9 +67,9 @@ public class DayController : MonoBehaviour {
     /// </summary>
     private void OnCycleChange() {
         if (DayListeners.Count > 0) {
-            foreach (DayListener dayListener in DayListeners) {
+            foreach (IDayListener dayListener in DayListeners) {
                 if (dayListener != null) {
-                    dayListener.onChangeCycle(this.DayCycle);
+                    dayListener.OnChangeCycle(this.DayCycle);
                 } else {
                     Debug.Log("Listener is Null, may not be unsubscribed.");
                 }
@@ -102,7 +102,7 @@ public class DayController : MonoBehaviour {
     /// </summary>
     /// <param name="dayListener"></param>
     /// <returns>true, if successfully added.</returns>
-    public bool Subscribe(DayListener dayListener) {
+    public bool Subscribe(IDayListener dayListener) {
         if (dayListener == null && DayListeners.Contains(dayListener)) {
             return false;
         }
@@ -117,7 +117,7 @@ public class DayController : MonoBehaviour {
     /// </summary>
     /// <param name="dayListener"></param>
     /// <returns>true if successfully removed.</returns>
-    public bool Unsubscribe(DayListener dayListener) {
+    public bool Unsubscribe(IDayListener dayListener) {
         if (!DayListeners.Contains(dayListener)) {
             return false;
         }

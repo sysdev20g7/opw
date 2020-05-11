@@ -6,7 +6,7 @@ using UnityEngine;
 /// on if it is night or day. If it is night, it will spawn zombies, 
 /// if dusk, despawn.
 /// </summary>
-public class ZombieSpawner : MonoBehaviour, DayListener  
+public class ZombieSpawner : MonoBehaviour, IDayListener  
 {
     [SerializeField] private float spawnTime; //In seconds
     [SerializeField] private float despawnTime; //In seconds
@@ -43,7 +43,7 @@ public class ZombieSpawner : MonoBehaviour, DayListener
     /// and calls to change spawn state.
     /// </summary>
     /// <param name="dayCycle"></param>
-    public void onChangeCycle(DayCycle dayCycle) {
+    public void OnChangeCycle(DayCycle dayCycle) {
         this.dayCycle = dayCycle;
         SetSpawnState();
         Debug.Log(this + "listener: Cycle changed to " + dayCycle);
