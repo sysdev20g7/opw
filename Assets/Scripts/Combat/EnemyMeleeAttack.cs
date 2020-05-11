@@ -15,6 +15,17 @@ public class EnemyMeleeAttack : MeleeAttack
     }
 
     /// <summary>
+    /// Attacks the colliding player object.
+    /// </summary>
+    protected override void Attack() {
+        Health playerHealth =
+            playerCollision.gameObject.GetComponent<Health>();
+        if (playerHealth != null) {
+            playerHealth.TakeDamage(attackDmg);
+        }
+    }
+
+    /// <summary>
     /// Checks wether the colliding object is the player.
     /// </summary>
     /// <param name="collision"></param>
@@ -22,18 +33,6 @@ public class EnemyMeleeAttack : MeleeAttack
         if (collision.gameObject.tag == "Player") {
             playerCollision = collision;
             Attack();
-        }
-    }
-
-    /// <summary>
-    /// Attacks the colliding player object.
-    /// </summary>
-    protected override void Attack()
-    {
-        Health playerHealth =
-            playerCollision.gameObject.GetComponent<Health>();
-        if (playerHealth != null) {
-            playerHealth.TakeDamage(attackDmg);
         }
     }
 }

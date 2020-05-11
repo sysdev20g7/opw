@@ -13,15 +13,15 @@ public class ZombieSpawner : MonoBehaviour, DayListener
     [SerializeField] private DayCycle dayCycle;
     private DayController dayController;
 
-    public GameObject enemy;
-    public int enemyCount;
-    public int maxEnemies;
-
     private Coroutine spawnCoroutine;
     private Coroutine despawnCoroutine;
 
     private MoveSpots spawnPoints;
     private int randomSpot;
+
+    public GameObject enemy;
+    public int enemyCount;
+    public int maxEnemies;
 
     // Start is called before the first frame update
     // Acts as a initialzing method. 
