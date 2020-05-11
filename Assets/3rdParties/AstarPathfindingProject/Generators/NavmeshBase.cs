@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using _3rdParties.AstarPathfindingProject.Core.Serialization;
 #if UNITY_5_5_OR_NEWER
 using UnityEngine.Profiling;
 #endif

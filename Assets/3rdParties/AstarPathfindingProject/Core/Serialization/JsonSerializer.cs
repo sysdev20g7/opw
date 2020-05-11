@@ -1,10 +1,3 @@
-using System;
-using System.IO;
-using System.Collections.Generic;
-using UnityEngine;
-using Pathfinding.Util;
-using Pathfinding.WindowsStore;
-
 #if ASTAR_NO_ZIP
 using Pathfinding.Serialization.Zip;
 #elif NETFX_CORE
@@ -14,8 +7,15 @@ using ZipFile = System.IO.Compression.ZipArchive;
 #else
 using Pathfinding.Ionic.Zip;
 #endif
+using System;
+using System.Collections.Generic;
+using System.IO;
+using Pathfinding;
+using Pathfinding.Serialization;
+using Pathfinding.Util;
+using UnityEngine;
 
-namespace Pathfinding.Serialization {
+namespace _3rdParties.AstarPathfindingProject.Core.Serialization {
 	/// <summary>Holds information passed to custom graph serializers</summary>
 	public class GraphSerializationContext {
 		private readonly GraphNode[] id2NodeMapping;

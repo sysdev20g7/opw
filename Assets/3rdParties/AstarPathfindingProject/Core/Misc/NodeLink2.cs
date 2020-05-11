@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using _3rdParties.AstarPathfindingProject.Core.Serialization;
 
 namespace Pathfinding {
 	using Pathfinding.Util;
@@ -249,7 +250,7 @@ namespace Pathfinding {
 			}
 		}
 
-		internal static void SerializeReferences (Pathfinding.Serialization.GraphSerializationContext ctx) {
+		internal static void SerializeReferences (GraphSerializationContext ctx) {
 			var links = GetModifiersOfType<NodeLink2>();
 
 			ctx.writer.Write(links.Count);
@@ -265,7 +266,7 @@ namespace Pathfinding {
 			}
 		}
 
-		internal static void DeserializeReferences (Pathfinding.Serialization.GraphSerializationContext ctx) {
+		internal static void DeserializeReferences (GraphSerializationContext ctx) {
 			int count = ctx.reader.ReadInt32();
 
 			for (int i = 0; i < count; i++) {

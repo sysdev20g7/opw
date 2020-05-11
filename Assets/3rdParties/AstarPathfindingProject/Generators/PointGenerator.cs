@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using _3rdParties.AstarPathfindingProject.Core.Serialization;
 using Pathfinding.Serialization;
 
 namespace Pathfinding {

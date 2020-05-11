@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
 using System.Reflection;
+using _3rdParties.AstarPathfindingProject.Core.Serialization;
 
 namespace Pathfinding {
 	[CustomEditor(typeof(AstarPath))]
@@ -761,7 +762,7 @@ namespace Pathfinding {
 				GUILayout.BeginHorizontal();
 
 				if (GUILayout.Button("Generate cache")) {
-					var serializationSettings = new Pathfinding.Serialization.SerializeSettings();
+					var serializationSettings = new SerializeSettings();
 					serializationSettings.nodes = true;
 
 					if (EditorUtility.DisplayDialog("Scan before generating cache?", "Do you want to scan the graphs before saving the cache.\n" +
@@ -802,7 +803,7 @@ namespace Pathfinding {
 					string path = EditorUtility.SaveFilePanel("Save Graphs", "", "graph.bytes", "bytes");
 
 					if (path != "") {
-						var serializationSettings = Pathfinding.Serialization.SerializeSettings.Settings;
+						var serializationSettings = SerializeSettings.Settings;
 						if (EditorUtility.DisplayDialog("Include node data?", "Do you want to include node data in the save file. " +
 							"If node data is included the graph can be restored completely without having to scan it first.", "Include node data", "Only settings")) {
 							serializationSettings.nodes = true;
@@ -815,7 +816,7 @@ namespace Pathfinding {
 
 						uint checksum;
 						var bytes = SerializeGraphs(serializationSettings, out checksum);
-						Pathfinding.Serialization.AstarSerializer.SaveToFile(path, bytes);
+						AstarSerializer.SaveToFile(path, bytes);
 
 						EditorUtility.DisplayDialog("Done Saving", "Done saving graph data.", "Ok");
 					}
@@ -826,7 +827,7 @@ namespace Pathfinding {
 
 					if (path != "") {
 						try {
-							byte[] bytes = Pathfinding.Serialization.AstarSerializer.LoadFromFile(path);
+							byte[] bytes = AstarSerializer.LoadFromFile(path);
 							DeserializeGraphs(bytes);
 						} catch (System.Exception e) {
 							Debug.LogError("Could not load from file at '"+path+"'\n"+e);
@@ -1298,13 +1299,13 @@ namespace Pathfinding {
 		}
 
 		public byte[] SerializeGraphs (out uint checksum) {
-			var settings = Pathfinding.Serialization.SerializeSettings.Settings;
+			var settings = SerializeSettings.Settings;
 
 			settings.editorSettings = true;
 			return SerializeGraphs(settings, out checksum);
 		}
 
-		public byte[] SerializeGraphs (Pathfinding.Serialization.SerializeSettings settings, out uint checksum) {
+		public byte[] SerializeGraphs (SerializeSettings settings, out uint checksum) {
 			byte[] bytes = null;
 			uint tmpChecksum = 0;
 

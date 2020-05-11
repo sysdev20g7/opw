@@ -1,3 +1,4 @@
+using _3rdParties.AstarPathfindingProject.Core.Serialization;
 using UnityEngine;
 using Pathfinding.Serialization;
 
