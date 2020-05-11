@@ -22,7 +22,6 @@ Assets/
     │   ├── Save
     │   ├── Save.meta
     │   ├── SceneManagement
-    │   └── SceneManagement.meta
     ├── Enemy
     ├── Health
     ├── Player
