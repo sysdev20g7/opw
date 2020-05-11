@@ -6,7 +6,7 @@
 public class CameraController : MonoBehaviour
 {
 
-    [SerializeField] private float cameradepth = -20f;
+    [SerializeField] private float cameraDepth = -20f;
     private GameObject player;
 
 
@@ -19,6 +19,6 @@ public class CameraController : MonoBehaviour
     /// Sets the main camera position to player location after the player has moved.
     /// </summary>
     void LateUpdate() {
-        transform.position = new Vector3(player.transform.position.x, player.transform.position.y, cameradepth);
+        transform.position = new Vector3(player.transform.position.x, player.transform.position.y, cameraDepth);
     }
 }
