@@ -40,6 +40,9 @@ public class PauseMenu : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Closes the pause menu and resumes the game in an unfrozen state
+    /// </summary>
     public void Resume()
     {
         pauseMenuUI.SetActive(false);
@@ -48,6 +51,9 @@ public class PauseMenu : MonoBehaviour {
         pauseController.runningInGame = true;
     }
 
+    /// <summary>
+    /// Initializes the pause menu and freezes the game
+    /// </summary>
     void Pause()
     {
         pauseMenuUI.SetActive(true);
@@ -66,6 +72,9 @@ public class PauseMenu : MonoBehaviour {
         Debug.Log("Loading options...");
     }
 
+    /// <summary>
+    /// Used by UI-button to open the main menu
+    /// </summary>
     public void LoadMainMenu()
     {
         Time.timeScale = 1f;
