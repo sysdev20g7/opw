@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Script used for transitioning between scenes
+/// when the player is close to a GameObject and
+/// presses the "Action" button.
+/// </summary>
 public class SceneTransitionObject : MonoBehaviour
 {
     private GameObject player;
@@ -27,6 +32,11 @@ public class SceneTransitionObject : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Changes to the next scene in the scene index.
+    /// If the current scene is the last scene in the index,
+    /// then change to the previous scene.
+    /// </summary>
     private void ChangeScene() {
         if (sceneLoader.GetComponent<SceneLoader>().GetCurrentScene() == secretBaseIndex) {
             sceneLoader.GetComponent<SceneLoader>().LoadNextScene(false);
