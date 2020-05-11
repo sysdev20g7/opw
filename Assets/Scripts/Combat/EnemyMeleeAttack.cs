@@ -30,7 +30,7 @@ public class EnemyMeleeAttack : MeleeAttack
     /// </summary>
     /// <param name="collision"></param>
     private void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.tag == "Player") {
+        if (collision.gameObject.CompareTag("Player")) {
             playerCollision = collision;
             Attack();
         }

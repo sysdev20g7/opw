@@ -29,9 +29,9 @@ public class DayCycleIndicatorDisplay : MonoBehaviour, DayListener {
         else Debug.Log("Can't Find DayController");
 
         if (dayController != null) { 
-            dayController.subscribe(this);
+            dayController.Subscribe(this);
             dayCycle = dayController.GetDayCycle();
-            updateIndicator();
+            UpdateIndicator();
         }
         else {
             Debug.Log("DayController not referenced.");
@@ -44,7 +44,7 @@ public class DayCycleIndicatorDisplay : MonoBehaviour, DayListener {
     /// <param name="dayCycle"></param>
     public void onChangeCycle(DayCycle dayCycle) {
         this.dayCycle = dayCycle;
-        updateIndicator();
+        UpdateIndicator();
         Debug.Log(this + "-Listener: Cycle changed to " + dayCycle);
     }
 
@@ -52,7 +52,7 @@ public class DayCycleIndicatorDisplay : MonoBehaviour, DayListener {
     /// Updates a UI Image with sprite corresponding
     /// to the cycle of the day.
     /// </summary>
-    private void updateIndicator() {
+    private void UpdateIndicator() {
         switch (dayCycle) {
             case DayCycle.Dawn:
                 if (image.sprite != spriteDawn) {
@@ -89,6 +89,6 @@ public class DayCycleIndicatorDisplay : MonoBehaviour, DayListener {
     /// </summary>
     private void OnDisable() {
         if (dayController != null)
-        dayController.unsubscribe(this);
+        dayController.Unsubscribe(this);
     }
 }

@@ -16,7 +16,7 @@ public class Health : MonoBehaviour
     private readonly int defaultMaxHealth = 8;
     private readonly int defaultCurrentHealth = 8;
 
-    //Events for subscribers, such as healthbar to subscribe to.
+    //Events for subscribers, such as healthbar to Subscribe to.
     public delegate void HealDelegate(int amount);
     public event HealDelegate HealEvent;
 
