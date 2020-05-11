@@ -1,0 +1,1556 @@
+fileFormatVersion: 2
+guid: b4500a0417a71254cac465caf86d68ec
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3695954556615479879
+    second: lidia_try1_0
+  - first:
+      213: -6051061056538830293
+    second: lidia_try1_1
+  - first:
+      213: 5985274885081188669
+    second: lidia_try1_2
+  - first:
+      213: -3808552867168697205
+    second: lidia_try1_3
+  - first:
+      213: -3593555549531160774
+    second: lidia_try1_4
+  - first:
+      213: 962999758368661564
+    second: lidia_try1_5
+  - first:
+      213: 7817267275469441851
+    second: lidia_try1_6
+  - first:
+      213: 2658189698728591307
+    second: lidia_try1_7
+  - first:
+      213: -6760752725785172218
+    second: lidia_try1_8
+  - first:
+      213: -2873275107364549775
+    second: lidia_try1_9
+  - first:
+      213: 237764545224842234
+    second: lidia_try1_10
+  - first:
+      213: 50971863211256536
+    second: lidia_try1_11
+  - first:
+      213: 7494897638698852672
+    second: lidia_try1_12
+  - first:
+      213: 2037962142880486796
+    second: lidia_try1_13
+  - first:
+      213: -1858771133576930543
+    second: lidia_try1_14
+  - first:
+      213: 7055278962463856894
+    second: lidia_try1_15
+  - first:
+      213: 7457689016488276651
+    second: lidia_try1_16
+  - first:
+      213: -208943074544308422
+    second: lidia_try1_17
+  - first:
+      213: 504020694836532126
+    second: lidia_try1_18
+  - first:
+      213: -3222515819916293277
+    second: lidia_try1_19
+  - first:
+      213: 756370530244506313
+    second: lidia_try1_20
+  - first:
+      213: -2745137315074324245
+    second: lidia_try1_21
+  - first:
+      213: 8352118133961115726
+    second: lidia_try1_22
+  - first:
+      213: 6930953081984530079
+    second: lidia_try1_23
+  - first:
+      213: -5166395375372600286
+    second: lidia_try1_24
+  - first:
+      213: 4353370088135268906
+    second: lidia_try1_25
+  - first:
+      213: 672945995980395116
+    second: lidia_try1_26
+  - first:
+      213: -1010820082571405516
+    second: lidia_try1_27
+  - first:
+      213: 9087412120883425671
+    second: lidia_try1_28
+  - first:
+      213: -7378680472192255743
+    second: lidia_try1_29
+  - first:
+      213: -3951106679115654136
+    second: lidia_try1_30
+  - first:
+      213: 3502873268181077810
+    second: lidia_try1_31
+  - first:
+      213: -2386966295444146261
+    second: lidia_try1_32
+  - first:
+      213: 1152971666835334727
+    second: lidia_try1_33
+  - first:
+      213: 4025183121004830703
+    second: lidia_try1_34
+  - first:
+      213: 4356004688487761500
+    second: lidia_try1_35
+  - first:
+      213: 5748407639159366731
+    second: lidia_try1_36
+  - first:
+      213: 3696437731625911311
+    second: lidia_try1_37
+  - first:
+      213: -7636625754265537336
+    second: lidia_try1_38
+  - first:
+      213: 2086983211598161144
+    second: lidia_try1_39
+  - first:
+      213: -7557142052170205826
+    second: lidia_try1_40
+  - first:
+      213: -3603825397432557323
+    second: lidia_try1_41
+  - first:
+      213: -7434191951178598766
+    second: lidia_try1_42
+  - first:
+      213: 2034459305700178826
+    second: lidia_try1_43
+  - first:
+      213: 1852074893456633823
+    second: lidia_try1_44
+  - first:
+      213: -6937855510044884611
+    second: lidia_try1_45
+  - first:
+      213: -6106792284210389213
+    second: lidia_try1_46
+  - first:
+      213: 773445810923034057
+    second: lidia_try1_47
+  - first:
+      213: -6470238514160944885
+    second: lidia_try1_48
+  - first:
+      213: 8702012216342658165
+    second: lidia_try1_49
+  - first:
+      213: 8883220326658185794
+    second: lidia_try1_50
+  - first:
+      213: -2339084899060805442
+    second: lidia_try1_51
+  - first:
+      213: -1648034927227412989
+    second: lidia_try1_52
+  - first:
+      213: 6519473619899259980
+    second: lidia_try1_53
+  - first:
+      213: -815608610982217590
+    second: lidia_try1_54
+  - first:
+      213: -7761530084454252679
+    second: lidia_try1_55
+  - first:
+      213: 9198076095468123410
+    second: lidia_try1_56
+  - first:
+      213: -4282291059424755682
+    second: lidia_try1_57
+  - first:
+      213: 2418654930862301018
+    second: lidia_try1_58
+  - first:
+      213: -4638183669477871655
+    second: lidia_try1_59
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 1
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: lidia_try1_0
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 450
+        width: 28
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9bda2faa9e455bcc0800000000000000
+      internalID: -3695954556615479879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_1
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 451
+        width: 28
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2a9dca6700560ca0800000000000000
+      internalID: -6051061056538830293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_2
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 450
+        width: 26
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d39c450fbc7ff0350800000000000000
+      internalID: 5985274885081188669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_3
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 450
+        width: 26
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b844d1c885d452bc0800000000000000
+      internalID: -3808552867168697205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_4
+      rect:
+        serializedVersion: 2
+        x: 274
+        y: 450
+        width: 28
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3fbf856440212ec0800000000000000
+      internalID: -3593555549531160774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_5
+      rect:
+        serializedVersion: 2
+        x: 338
+        y: 451
+        width: 28
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c30e9549d234d5d00800000000000000
+      internalID: 962999758368661564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_6
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 450
+        width: 26
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3b44ac5b238c7c60800000000000000
+      internalID: 7817267275469441851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_7
+      rect:
+        serializedVersion: 2
+        x: 467
+        y: 450
+        width: 26
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcff1528279c3e420800000000000000
+      internalID: 2658189698728591307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_8
+      rect:
+        serializedVersion: 2
+        x: 530
+        y: 450
+        width: 28
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6072255473bfc22a0800000000000000
+      internalID: -6760752725785172218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_9
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 389
+        width: 26
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17b409b53831028d0800000000000000
+      internalID: -2873275107364549775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_10
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 389
+        width: 31
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: afb1f4a1895bc4300800000000000000
+      internalID: 237764545224842234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_11
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 389
+        width: 30
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8da2f38b3a615b000800000000000000
+      internalID: 50971863211256536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_12
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 389
+        width: 27
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0412f8651b9330860800000000000000
+      internalID: 7494897638698852672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_13
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 389
+        width: 26
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c85d51875cb484c10800000000000000
+      internalID: 2037962142880486796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_14
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 389
+        width: 26
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11b956090815436e0800000000000000
+      internalID: -1858771133576930543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_15
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 390
+        width: 28
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef8d1fcf5d269e160800000000000000
+      internalID: 7055278962463856894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_16
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 389
+        width: 29
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba2bd11e5a80f7760800000000000000
+      internalID: 7457689016488276651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_17
+      rect:
+        serializedVersion: 2
+        x: 531
+        y: 389
+        width: 26
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3f2287716fa91df0800000000000000
+      internalID: -208943074544308422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_18
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 322
+        width: 28
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e935d2bc624aef600800000000000000
+      internalID: 504020694836532126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_19
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 322
+        width: 28
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36b00d67fe25743d0800000000000000
+      internalID: -3222515819916293277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_20
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 321
+        width: 27
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c23cc56dfa2f7a00800000000000000
+      internalID: 756370530244506313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_21
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 321
+        width: 26
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be84353082057e9d0800000000000000
+      internalID: -2745137315074324245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_22
+      rect:
+        serializedVersion: 2
+        x: 274
+        y: 321
+        width: 28
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e48c9d0013fa8e370800000000000000
+      internalID: 8352118133961115726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_23
+      rect:
+        serializedVersion: 2
+        x: 338
+        y: 322
+        width: 28
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9636963b11bf2060800000000000000
+      internalID: 6930953081984530079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_24
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 321
+        width: 27
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22cf1b167c64d48b0800000000000000
+      internalID: -5166395375372600286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_25
+      rect:
+        serializedVersion: 2
+        x: 467
+        y: 321
+        width: 25
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2a1d1fa7074a6c30800000000000000
+      internalID: 4353370088135268906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_26
+      rect:
+        serializedVersion: 2
+        x: 530
+        y: 321
+        width: 28
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c62de6361d8c65900800000000000000
+      internalID: 672945995980395116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_27
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 258
+        width: 26
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 437108e8d78d8f1f0800000000000000
+      internalID: -1010820082571405516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_28
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 258
+        width: 29
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 781f5d04d29fc1e70800000000000000
+      internalID: 9087412120883425671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_29
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 259
+        width: 28
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1097ed75439a99990800000000000000
+      internalID: -7378680472192255743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_30
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 258
+        width: 26
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80c53a1c869da29c0800000000000000
+      internalID: -3951106679115654136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_31
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 257
+        width: 26
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23f052bada4bc9030800000000000000
+      internalID: 3502873268181077810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_32
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 258
+        width: 27
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba7b83d0dcacfded0800000000000000
+      internalID: -2386966295444146261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_33
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 258
+        width: 30
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7466fcd4f9d200010800000000000000
+      internalID: 1152971666835334727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_34
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 258
+        width: 31
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fef1463e8b25cd730800000000000000
+      internalID: 4025183121004830703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_35
+      rect:
+        serializedVersion: 2
+        x: 529
+        y: 258
+        width: 26
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c56cf316f23a37c30800000000000000
+      internalID: 4356004688487761500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_36
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 198
+        width: 30
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b446c3c9a4276cf40800000000000000
+      internalID: 5748407639159366731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_37
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 198
+        width: 27
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f04c9e748826c4330800000000000000
+      internalID: 3696437731625911311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_38
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 198
+        width: 26
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c4376a4651450690800000000000000
+      internalID: -7636625754265537336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_39
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 198
+        width: 26
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f423837c2476fc10800000000000000
+      internalID: 2086983211598161144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_40
+      rect:
+        serializedVersion: 2
+        x: 274
+        y: 198
+        width: 35
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e757a3fc753af1790800000000000000
+      internalID: -7557142052170205826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_41
+      rect:
+        serializedVersion: 2
+        x: 338
+        y: 198
+        width: 38
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f0608915e3acfdc0800000000000000
+      internalID: -3603825397432557323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_42
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 134
+        width: 26
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2967ee5fec174d890800000000000000
+      internalID: -7434191951178598766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_43
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 134
+        width: 47
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8b3f32a5f9db3c10800000000000000
+      internalID: 2034459305700178826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_44
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 134
+        width: 39
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fdfe6e98d44e3b910800000000000000
+      internalID: 1852074893456633823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_45
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 134
+        width: 38
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d71c9c40c29c7bf90800000000000000
+      internalID: -6937855510044884611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_46
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 134
+        width: 35
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32f1b8ec5c0504ba0800000000000000
+      internalID: -6106792284210389213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_47
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 134
+        width: 34
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c5d41dfdd4dbba00800000000000000
+      internalID: 773445810923034057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_48
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 65
+        width: 30
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b09b2672a581536a0800000000000000
+      internalID: -6470238514160944885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_49
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 65
+        width: 25
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57cb63a6102c3c870800000000000000
+      internalID: 8702012216342658165
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_50
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 69
+        width: 26
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24a9dff52d9874b70800000000000000
+      internalID: 8883220326658185794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_51
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 67
+        width: 25
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb010046da6e98fd0800000000000000
+      internalID: -2339084899060805442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_52
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 67
+        width: 32
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30e5c2127f00129e0800000000000000
+      internalID: -1648034927227412989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_53
+      rect:
+        serializedVersion: 2
+        x: 338
+        y: 70
+        width: 36
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4c10a437b2d97a50800000000000000
+      internalID: 6519473619899259980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_54
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 6
+        width: 26
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a88b7a22a406ea4f0800000000000000
+      internalID: -815608610982217590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_55
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 4
+        width: 39
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97fb892b281894490800000000000000
+      internalID: -7761530084454252679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_56
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 0
+        width: 29
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 215b36fa97126af70800000000000000
+      internalID: 9198076095468123410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_57
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 6
+        width: 45
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e10082258fe3294c0800000000000000
+      internalID: -4282291059424755682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_58
+      rect:
+        serializedVersion: 2
+        x: 274
+        y: 6
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5f5b4458d9c09120800000000000000
+      internalID: 2418654930862301018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lidia_try1_59
+      rect:
+        serializedVersion: 2
+        x: 338
+        y: 6
+        width: 46
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9dfe0c9d68cd1afb0800000000000000
+      internalID: -4638183669477871655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

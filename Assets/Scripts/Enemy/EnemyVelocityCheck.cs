@@ -1,16 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// Script for cheking in which direction the enemy
+/// is moving tha fastest.
+/// </summary>
 public class EnemyVelocityCheck : MonoBehaviour
 {
     private Rigidbody2D rb;
-    bool yNegative;
-    bool xNegative;
-    float velocityX;
-    float velocityY;
-    string direction;
+    private bool yNegative;
+    private bool xNegative;
+    private float velocityX;
+    private float velocityY;
+    private string direction;
 
+    /// <summary>
+    /// Finds out which direction has the highest velocity.
+    /// </summary>
+    /// <returns>The direction with the highest velocity.</returns>
     public string FastestDirection() {
         rb = GetComponent<Rigidbody2D>();
         velocityX = rb.velocity.x;

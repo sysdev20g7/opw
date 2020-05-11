@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class FollowBehaviour : StateMachineBehaviour
-{
+public class FollowBehaviour : StateMachineBehaviour {
     private Transform playerPos;
     public float range;
     
@@ -11,7 +8,10 @@ public class FollowBehaviour : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
         playerPos = GameObject.FindGameObjectWithTag("Player").transform;
-        animator.GetComponent<EnemyPathfinding>().DoSomething(animator.GetBool("isFollowing"));
+        animator.GetComponent<EnemyPathfinding>().SetIsChasing(animator.GetBool("isFollowing"));
+        //START HIGHSCORE
+        Helper getHighScore = new Helper();
+        getHighScore.FindHighScoreInScene().runScore = true;
     }
 
 
@@ -54,47 +54,19 @@ public class FollowBehaviour : StateMachineBehaviour
             default:
                 break;
         }
-
-        //if (animator.GetComponent<Rigidbody2D>().velocity.x >= 0.01f) {
-        //    animator.SetBool("isRight", true);
-        //    animator.SetBool("isLeft", false);
-        //    animator.SetBool("isUp", false);
-        //    animator.SetBool("isDown", false);
-        //    //animator.SetTrigger("Left");
-        //}
-
-        // if (animator.GetComponent<Rigidbody2D>().velocity.x <= -0.01f) {
-        //    animator.SetBool("isRight", false);
-        //    animator.SetBool("isLeft", true);
-        //    animator.SetBool("isUp", false);
-        //    animator.SetBool("isDown", false);
-        //    //animator.SetTrigger("Right");
-
-        //}
-
-        // if (animator.GetComponent<Rigidbody2D>().velocity.y >= 0.01f) {
-        //    animator.SetBool("isRight", false);
-        //    animator.SetBool("isLeft", false);
-        //    animator.SetBool("isUp", true);
-        //    animator.SetBool("isDown", false);
-        //    //animator.SetTrigger("Up");
-        //}
-
-        // if (animator.GetComponent<Rigidbody2D>().velocity.y <= -0.01f) {
-        //    animator.SetBool("isRight", false);
-        //    animator.SetBool("isLeft", false);
-        //    animator.SetBool("isUp", false);
-        //    animator.SetBool("isDown", true);
-        //    //animator.SetTrigger("Down");
-        //}
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
+    // END HIGHSCORE
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
         animator.SetBool("isRight", false);
         animator.SetBool("isLeft", false);
         animator.SetBool("isUp", false);
         animator.SetBool("isDown", false);
+        
+        
+        Helper getHighScore = new Helper();
+        getHighScore.FindHighScoreInScene().runScore = false;
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

@@ -11,6 +11,10 @@ TagManager:
   - MenuCanvasPopup
   - Police
   - Zombie
+  - PlayerUI
+  - DayController
+  - EvilTree
+  - ScoreDigitUI
   layers:
   - Default
   - TransparentFX
@@ -21,7 +25,7 @@ TagManager:
   - 
   - 
   - Obstacles
-  - 
+  - Enemy
   - 
   - 
   - 
