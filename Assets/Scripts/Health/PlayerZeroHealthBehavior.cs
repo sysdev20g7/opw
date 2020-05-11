@@ -13,6 +13,9 @@ public class PlayerZeroHealthBehavior : ZeroHealthBehavior {
         objectController = GameObject.FindObjectOfType<ObjectController>();
     }
 
+    /// <summary>
+    /// Calls on Object Controller to restart game.
+    /// </summary>
     public override void ZeroHealthAction() {
         if (objectController != null) {
             objectController.playerCaughtByCop();

@@ -38,12 +38,14 @@ public class PlayerMovementAlternative : MonoBehaviour
             }
         }
         else {
+            //Freezes movement of Player Object when attacking.
             rb.velocity = Vector2.zero;
         }
     }
 
     //Updates the players position
     void FixedUpdate() {
+        //Does not allow movement when attacking.
         if (!animator.GetBool("IsAttacking"))
             rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
     }

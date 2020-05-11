@@ -1,5 +1,4 @@
-﻿using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// Represents the zero-health behavior of killable enemies.
@@ -13,6 +12,9 @@ public class KillableEnemyZeroHealthBehavior : ZeroHealthBehavior
         anim = GetComponent<Animator>();
     }
 
+    /// <summary>
+    /// Destroys the Unity Game Object the script is a component of.
+    /// </summary>
     public override void ZeroHealthAction() {
 
         Helper helper = new Helper();
