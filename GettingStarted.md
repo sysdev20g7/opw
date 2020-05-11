@@ -1,6 +1,7 @@
 ﻿# Getting started
-Starting point...
 
+When starting to explore the project, looking at the `ObjectController.cs` is a good
+place to start. Other important classes are located in the **Core**-folder, see below. 
 
 ### Directory structure
 ```
